@@ -1,0 +1,113 @@
+.single-product {
+    padding-bottom: 26px;
+    border-color: black;
+    position: relative;
+    overflow: hidden;
+}
+
+.single-product:hover{
+    cursor: pointer;
+    box-shadow: 0 2px 20px rgba(44, 43, 43, 0.5);
+    
+}
+.custom-link {
+    color: inherit;
+    text-decoration: none;
+    /* Các thuộc tính CSS tùy chỉnh khác */
+  }
+.single-product:hover .image_product{
+    transform: scale(1.01);
+
+}
+.single-product .part-1 {
+    position: relative;
+    height: 290px;
+    max-height: 290px;
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+ .single-product .image_product {
+    position: absolute;
+    content: "";
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 290px;
+    z-index: -1;
+    transition: all 0.3s;
+    background-repeat: no-repeat;
+    background-position: center;
+    //background: url("https://img.thuthuatphanmem.vn/uploads/2018/09/24/anh-nobita-doremon-cao-boi_054126468.jpg") no-repeat center;
+    background-size: cover;
+    transition: all 0.3s;
+    // transition: transform 0.5s ease;
+    z-index: 999;
+}
+
+#product-1 .part-1::before {
+    
+}
+
+.single-product .part-1 ul {
+    position: absolute;
+    // background-color: #fe302f;
+    z-index: 999999;
+    bottom: -41px;
+    left: 20px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    opacity: 0;
+    transition: bottom 0.5s, opacity 0.5s;
+}
+.single-product:hover .part-1 ul {
+    bottom: 30px;
+    opacity: 1;
+}
+.single-product .part-1 ul li {
+    display: inline-block;
+    margin-right: 4px;
+}
+
+.single-product .part-1 ul li a {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    background-color: #ffffff;
+    color: #444444;
+    text-align: center;
+    box-shadow: 0 2px 20px rgb(50 50 50 / 10%);
+    transition: color 0.2s;
+}
+.single-product .part-1 ul li a:hover {
+    color: #fe302f;
+}
+
+.single-product .part-2 
+{
+    text-align: center;
+}
+.single-product .part-2 .product-title {
+    font-size: 1rem;
+}
+.single-product .part-2 h4 {
+    display: inline-block;
+    font-size: 1rem;
+}
+.single-product .part-2 .product-old-price {
+    position: relative;
+    padding: 0 7px;
+    margin-right: 2px;
+    opacity: 0.6;
+}
+.single-product .part-2 .product-old-price::after {
+    position: absolute;
+    content: "";
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: #444444;
+    transform: translateY(-50%);
+}

@@ -1,0 +1,23 @@
+:root {
+    --height-wrap: 40px;
+}
+
+li{
+    list-style-type: none ;
+}
+a{ text-decoration: none;}
+.wrapper{
+     width: 100%;
+    height: var(--height-wrap);
+    background-color: #FCDAB0;
+    z-index: 20;
+    position: fixed;
+    top: 50px;
+    z-index: 99999;
+}
+
+.wrapper_tabs{
+    width: 80%;
+    margin: auto;
+}
+

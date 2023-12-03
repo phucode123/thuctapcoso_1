@@ -1,0 +1,172 @@
+
+.wrapper{
+    // margin: 0 20px;
+    font-family: Arial, sans-serif;
+    position: fixed;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 50px;
+    background: url('https://innhatviet.vn/wp-content/uploads/2018/09/ngam-nhin-hinh-nen-thiet-ke-cuc-ki-chuyen-nghiep-mau-cam-vang.jpg');
+    z-index: 99999999;
+}
+.searchHeader{
+    width: 500px;
+    padding: 0 20px;
+}
+.img{
+     height: 40px;
+    display: block;
+    margin:5px 20px;
+    padding: 0 50px 0 0;
+}
+.header_funtion{
+    color: black;
+    display: block;
+    margin:0 20px;
+
+
+}
+li{
+    list-style-type: none;
+    display: inline-block;
+}
+.login_link,
+.register_link{
+    cursor: pointer;
+}
+.login_link:hover,
+.register_link:hover{
+    opacity: 0.8;
+}
+.container_header
+{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+}
+.btn_icon{
+    color: #ff9601;
+    float: left;
+    /* margin-top: 12px; */
+    margin: 10px;
+    width: 50px;
+    display: flex;
+    align-items: center;
+    font-size: 26px;
+    
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.btn_icon_notUser{
+    cursor: pointer;
+    opacity: 0.8;
+}
+
+.btn_icon:hover{
+    cursor: pointer;
+    // opacity: 0.8;
+    
+}
+
+.alo{
+    position: relative;
+}
+
+.btn_control{
+    margin: 10px;
+
+    display: flex;
+    flex-direction: row;
+    color: white;
+}
+
+.btn_control_item{
+    margin: 0 0 0 5px;
+    color: white;
+}
+
+
+
+
+// .dropdown-menu{
+//     // opacity: 1 !important;
+//     cursor: default;
+//     position: absolute;
+//     // pointer-events: none;
+//     color: black;
+//     top :105%;
+//     right: -50px;
+//     width: 200px;
+//     background-color: #fff;
+//     z-index: 9999;
+//     border-radius: 10px;
+
+//     // letter-spacing: 2px;
+// }
+
+// .none{
+//     // display: none;
+//     opacity: 0;
+//     visibility: hidden;
+//     transform: translateY(-20px);
+//     transition: .2s ease;
+// }
+
+// .active{
+//     visibility: visible;
+//     transform: translateY(0);
+//     transition: .2s ease;
+//     // display: block;
+//     opacity: 1;
+// }
+
+.list_selector{
+    // padding: 0 20px;
+    padding: 0;
+}
+
+// .dropdown-menu h3{
+//     margin-top: 20px !important;
+//     font-size: 16px;
+//     font-style: normal;
+    
+//     font-weight: 400;
+// }
+
+// .dropdownItem{
+//     display: flex;
+//     padding: 10px 10px 10px 36px;
+//     // justify-content: ;
+// }
+
+// .dropdownItem:hover{
+//     opacity: 1;
+//     color: #fff;
+//     cursor: pointer;
+//     background-color: #ff9601;
+
+// }
+
+
+
+// .dropdownItem img{
+//     max-width: 20px;
+//     margin-right: 10px;
+//     opacity: .5;
+//     height: auto;
+    
+// }
+
+// .dropdownItem a{
+//     max-width: 100px;
+//     margin-left: 10px;
+//     font-size: 14px;
+    
+// }
+

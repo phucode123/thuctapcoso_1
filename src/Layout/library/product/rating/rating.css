@@ -1,0 +1,29 @@
+.rating-bar {
+  width: 200px;
+  height: 20px;
+  background-color: lightgray;
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+  border: black 1px;
+  margin: auto;
+}
+
+.rating_score {
+  position: absolute;
+  font-size: 15px;
+  font-weight: 500;
+  color: white;
+  top: 40%;
+  left: 50%;
+  text-shadow: 0 1px 1px  rgb(60, 57, 57);
+
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.rating-bar-progress {
+  height: 100%;
+
+  /* background-color: green; */
+}
