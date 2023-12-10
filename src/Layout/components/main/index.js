@@ -4,6 +4,9 @@ import classNames from 'classnames/bind';
 import Home from './home';
 import Product from './product'
 import TrendMain from './trend';
+import AdminPage from '../AdminPage';
+import AdminRoutes from '../AdminPage/AdminRoutes';
+import Table_product from '../AdminPage/control_product';
 import { BrowserRouter as Router, Routes, Route, BrowserRouter } from 'react-router-dom';
 import ScrollToTop from '../../library/scrollOnTop';
 // import RouteSignInUp from '../../library/LoginLogOutSignin';

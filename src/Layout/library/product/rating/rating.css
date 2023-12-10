@@ -17,7 +17,7 @@
   top: 40%;
   left: 50%;
   text-shadow: 0 1px 1px  rgb(60, 57, 57);
-
+z-index: 9;
   transform: translate(-50%, -50%);
   text-align: center;
 }

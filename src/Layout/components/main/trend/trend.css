@@ -1,0 +1,384 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap');
+
+.container_wrapper {
+    margin-top: 20px;
+    background-color: white !important;
+   
+    /* background-color: whitesmoke; */
+}
+
+.module-filter {
+    position: relative;
+    padding: 40px;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+
+
+}
+
+.module-filter::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    border-width: 0;
+    border-top-width: 1px;
+    border-style: solid;
+    border-color: rgba(105, 105, 115, 1);
+    left: 2px;
+    top: 20px;
+
+
+}
+
+
+
+.header_navbar_left {
+    position: relative;
+    font-size: 14px;
+    margin-bottom: 8px;
+    white-space: normal;
+    overflow: visible;
+    text-overflow: initial;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+
+}
+
+.text_header_left {
+    font-family: 'Noto Sans';
+    font-weight: 400;
+    font-size: 16px;
+    color: rgba(51, 51, 51, 1);
+    text-transform: uppercase;
+    white-space: normal;
+    overflow: visible;
+    text-overflow: initial;
+    text-align: left;
+}
+
+.icon_delete {
+    color: white;
+}
+
+.button_reset {
+    font-size: 11px;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+}
+
+.button_reset.btn {
+
+    padding: 0px;
+    display: flex;
+    padding-right: 6px;
+    padding-left: 6px;
+    border-radius: 20px !important;
+    min-width: 20px;
+    min-height: 20px;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 1) !important;
+    background-color: rgba(15, 58, 141, 1);
+    align-items: center;
+
+
+}
+
+.btn:hover {
+    color: rgba(255, 255, 255, 1) !important;
+    background: rgba(15, 69, 172, 1) !important;
+}
+
+.button_reset span {
+    margin-left: 3px;
+    display: inline-block;
+    line-height: 11px;
+}
+
+.button {
+    cursor: pointer;
+    display: block;
+    /* z-index: 999; */
+    /* background-color: aquamarine; */
+    margin: 0;
+}
+
+.title_button {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 10px;
+    padding-bottom: 10px;
+    padding-left: 0px;
+}
+
+.title_button:hover span {
+    color: rgb(8, 8, 128);
+}
+
+.title_button:hover .icon_arrow {
+    color: red;
+}
+
+.container_list {
+    /* z-index: 1; */
+    overflow: hidden;
+
+}
+
+.List::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    border-width: 0;
+    border-top-width: 1px;
+    border-style: solid;
+    border-color: rgb(173 173 187 / 37%);
+    left: 2px;
+    top: 0px;
+
+}
+
+.List {
+    text-align: left;
+    position: relative;
+    padding-top: 15px;
+    padding-left: 0;
+    flex-direction: column;
+    animation: moveChild 0.5s;
+    display: none;
+
+}
+
+/* .none {
+    
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-50px);
+    transition: .2s ease;
+}
+
+.active {
+    visibility: visible;
+    transform: translateY(0);
+    transition: .2s ease;
+    
+    opacity: 1;
+} */
+.true {
+    display: flex;
+}
+
+@keyframes moveChild {
+    from {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+
+    }
+}
+
+@keyframes moveChildhide {
+    from {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    to {
+        opacity: 0;
+        transform: translateY(-50px);
+
+
+    }
+}
+
+.radio-label {
+    font-family: 'Noto Sans';
+    font-weight: 400;
+    font-size: 14px;
+}
+
+.radio {
+    /* Đặt màu mặc định */
+    background-color: lightgray;
+    border-radius: 50%;
+    width: 13px;
+    height: 13px;
+    margin-right: 5px;
+}
+
+/* Tạo kiểu khi radio input được chọn */
+.radio:checked {
+    background-color: limegreen;
+}
+
+.radio-label {
+    cursor: pointer;
+    margin: 0 5px;
+}
+
+
+/*  */
+.filter-local>label {
+    cursor: pointer;
+}
+
+.links-text {
+    font-family: 'Noto Sans';
+    font-weight: 400;
+    font-size: 14px;
+
+    margin: 0 5px;
+    -webkit-transition: all 0.05s ease;
+    transition: all 0.05s ease;
+}
+
+.img-responsive {
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgba(221, 221, 221, 1);
+}
+
+.img-responsive:hover {
+    border-color: black;
+}
+
+.select-group {
+    display: flex;
+}
+
+.input-group-addon {
+    font-family: 'Noto Sans';
+    font-weight: 400;
+    font-size: 12px;
+}
+
+/* cootj san pham */
+.products-filter {
+
+
+
+
+
+    margin-bottom: 25px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-width: 0;
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+    border-style: solid;
+    border-color: rgba(221, 221, 221, 1);
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+
+}
+
+.select-group {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    margin-left: auto;
+}
+
+.input-group {
+    /* display: -webkit-inline-box;
+    display: -ms-inline-flexbox; */
+    display: inline-flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center !important;
+    height: auto;
+    position: relative;
+}
+
+.input-group.sort-by {
+    display: inline-flex;
+}
+
+.input-group-addon {
+    width: auto;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    border-radius: 0;
+    color: #555;
+    text-align: center;
+    background-color: #eee;
+    border: 1px solid #ccc;
+}
+
+.products-filter .input-group-addon {
+    font-family: 'Noto Sans';
+    font-weight: 400;
+    font-size: 12px;
+
+    
+}
+
+.products-filter .form-control {
+    font-family: 'Noto Sans' !important;
+    font-weight: 400 !important;
+    font-size: 13px !important;
+    color: rgba(51, 51, 51, 1) !important;
+    background: rgba(255, 255, 255, 1) !important;
+    box-shadow: none;
+}
+.products-filter .input-group-addon, .products-filter .form-control{
+    
+    height: 26px;
+}
+
+.products-filter .select-group .form-control {
+    width: auto;
+    padding: 0;
+    margin-left: 3px;
+    margin-right: 3px;
+}
+
+.icondown {
+    position: absolute;
+    right: 7px;
+    color: black;
+    font-size: 10px;
+}
+
+option {
+    font-weight: normal;
+    display: block;
+    min-height: 1.2em;
+    padding: 0px 2px 1px;
+    white-space: nowrap;
+}
+.input-group select 
+{
+    padding: 10px;
+}
+
+#input-sort{
+    width: 120px;
+}
+
+.container_product{
+    height: 100px;
+    width: 100%;
+    /* background-color: #555; */
+}

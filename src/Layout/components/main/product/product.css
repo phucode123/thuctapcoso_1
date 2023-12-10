@@ -109,6 +109,10 @@
 .product-view-sa_one_nxb {
     width: 60%;
 }
+.local{
+    text-transform: uppercase
+
+}
 
 .rate_score {
     width: 100%;

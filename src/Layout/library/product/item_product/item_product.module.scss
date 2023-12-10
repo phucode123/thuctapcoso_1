@@ -3,6 +3,10 @@
     border-color: black;
     position: relative;
     overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #ffffff
+    ;
+
 }
 
 .single-product:hover{
@@ -90,6 +94,10 @@
 }
 .single-product .part-2 .product-title {
     font-size: 1rem;
+    padding: 0 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .single-product .part-2 h4 {
     display: inline-block;

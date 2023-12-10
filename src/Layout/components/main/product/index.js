@@ -1,17 +1,9 @@
 import React from "react";
 import { useState, useEffect } from "react";
-// import styles from './product.module.scss'
-
-// import classNames from 'classnames/bind';
-// const cx = classNames.bind(styles);
-import SliderBar from "../../sliderBarFomat";
-// import listByAuthorr from "../../sliderBarFomat/listByAuthor";
-import IfYouCare from "../../sliderBarFomat/listByAuthor";
 import Listdiscount from "./discount";
 import fakeAPI from "../../../../assect/fakeAPI";
 import { useParams } from 'react-router-dom';
 import './product.css'
-import RatingBar from "../../../library/product/rating";
 
 function Product() {
     let { productId } = useParams();
@@ -28,7 +20,7 @@ function Product() {
     useEffect(() => {
 
         setSelectedImage(selectedProduct.image);
-      }, [selectedProduct]); 
+    }, [selectedProduct]);
 
     const images = [
         'https://static.nike.com/a/images/t_PDP_1280_v1/f_auto,b_rgb:f5f5f5/3396ee3c-08cc-4ada-baa9-655af12e3120/scarpa-da-running-su-strada-invincible-3-xk5gLh.png',
@@ -43,26 +35,9 @@ function Product() {
         setSelectedImage(image);
     };
 
-
-
-    const products = fakeAPI.ListBooks
-    const auThor = function ProductsByAuthor(products, nameAuthor) {
-        return products.filter(item => {
-            if (item.author === nameAuthor) {
-
-                return item
-            }
-        })
-    }
-    let filteredProducts = [];
-
-    filteredProducts = auThor(products, selectedProduct.author);
-
     return (
         <>
             <div className='body-container'>
-                {/* d-flex justify-content-center align-items-center mt-5 wrapper_form card p-5*/}
-
                 <div className='container-banner'>
                     <div className='container-product-media dp_flex fl-2'>
                         <div className="product-view-thumbnail">
@@ -70,10 +45,7 @@ function Product() {
                                 <div key={index} onClick={() => handleImageClick(image)}>
                                     <img src={image} ></img>
                                 </div>
-
                             ))}
-
-
                         </div>
                         <div className="product-view-image-product">
                             <img id="image" class="fhs-p-img lazyloaded"
@@ -90,15 +62,12 @@ function Product() {
                             <div className="product-view-sa_one dp_flex">
 
                                 <div className="product-view-sa_one_nxb ">
-                                    <span>Nhà xuất bản: </span><span>{selectedProduct.author}</span>
-                                </div>
-                                <div className="product-view-author"><span>Tác Giả: </span><span>Lương Sơn Bạc</span>
+                                    <span>Nhãn hiệu: </span><span className="local">{selectedProduct.local}</span>
                                 </div>
 
                             </div>
                         </div>
                         <div className="rate_score">
-                            {/* <RatingBar rating={selectedProduct.score}/> */}
                         </div>
                         <div className="product_price">
                             <div className="product-details-price">
@@ -135,15 +104,7 @@ function Product() {
 
                 </div>
 
-
-
                 <Listdiscount Author_name={selectedProduct.author} />
-
-                <IfYouCare Author_name={selectedProduct.author} />
-
-
-
-
             </div>
         </>
     )

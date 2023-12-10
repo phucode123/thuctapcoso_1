@@ -54,7 +54,7 @@ function Header() {
                     </span>
                     <span className={cx("btn_icon", "btn_control_item", "alo")} >
                         {/* valueUrl = {avt_test} */}
-                        <User_item  user_input={''}/>
+                        <User_item  user_input={user_test}/>
 
                     </span>
 

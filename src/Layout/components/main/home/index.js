@@ -2,15 +2,14 @@ import styles from './home.module.scss'
 import React, { useState, createContext } from 'react';
 import classNames from 'classnames/bind';
 import BasicSlider from '../../slider/slider';
-import SliderBar from '../../sliderBarFomat';
-import fakeAPI from '../../../../assect/fakeAPI';
+// import fakeAPI from '../../../../assect/fakeAPI';
+import ListByAuthor from '../../sliderBarFomat/listByAuthor';
+import ListByScore from '../../sliderBarFomat/listByScore';
 const cx = classNames.bind(styles);
 {/* <BasicSlider /> */ }
 
 function Home() {
-   // const [Background, setBackground] = useState(false);
-   const sliderBar = fakeAPI.sliderBar
-   // console.log(sliderBar)
+
 
    return (
       <div className={cx("wrapper")}>
@@ -27,17 +26,13 @@ function Home() {
                </div>
             </div>
          </div>
+         
+            <ListByAuthor />
 
-         <div className={cx("sliderBar")}>
+            <ListByScore />
 
-            {sliderBar.map(value => {
-               if (value.id != 'ALL') {
-                  return <SliderBar key={value.id} sliderItem={value} value_limit={4}/>
-               }
-            }
-            )}
 
-         </div>
+         
       </div>
 
    )

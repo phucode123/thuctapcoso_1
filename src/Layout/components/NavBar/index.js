@@ -60,14 +60,14 @@ function NavBar() {
 
         }, {
             id: 4,
-            href: '/hh',
+            href: '/nn',
             name: 'Ngôn ngữ',
             icon: faLanguage,
             eventKey: "link-3"
 
         }, {
             id: 5,
-            href: '/kk',
+            href: '/lh',
             name: 'Liên hệ',
             icon: faPhoneFlip,
             eventKey: "link-4"

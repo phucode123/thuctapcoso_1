@@ -34,15 +34,11 @@ function DefaultLayout({ children, id }) {
                     <Header />
                     <div className={` ${background ? 'black' : ''}`}>
                         <NavBar id={id} />
-                        {children}
                     </div>
                     <Main />
                 </div>
             </mainContext.Provider>
         </div>
-
-
-
     );
 }
 export { mainContext }
