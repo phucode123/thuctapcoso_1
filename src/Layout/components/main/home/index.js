@@ -2,7 +2,7 @@ import styles from './home.module.scss'
 import React, { useState, createContext } from 'react';
 import classNames from 'classnames/bind';
 import BasicSlider from '../../slider/slider';
-// import fakeAPI from '../../../../assect/fakeAPI';
+
 import ListByAuthor from '../../sliderBarFomat/listByAuthor';
 import ListByScore from '../../sliderBarFomat/listByScore';
 const cx = classNames.bind(styles);

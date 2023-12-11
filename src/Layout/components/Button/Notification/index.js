@@ -8,7 +8,7 @@ const cx = classNames.bind(styles);
 function Notification_item() {
     return (
         <div>
-            <i  className={cx('btn_icon')}   >
+            <i style={{cursor : 'pointer'}} className={cx('btn_icon')}   >
                 {<FontAwesomeIcon icon={faBell} />}
             </i>
 

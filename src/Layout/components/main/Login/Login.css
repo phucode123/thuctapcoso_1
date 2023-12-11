@@ -16,4 +16,13 @@
       width: 65%;
     }
   }
+.btn{
+  width: fit-content;
+  height: fit-content;
+}
+  .d-flex{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
   

@@ -89,8 +89,7 @@ const Testusers = [
             }, {
             }
         ],
-        cart: [
-        ],
+       phone: '0123456789',
         userName: 'phu123',
         pass: '123',
     }, {
@@ -109,19 +108,15 @@ const Testusers = [
                 quantity: 40,
                 local: 'NIKE'
 
-            }, {
-            }
-        ],
-        cart: [
-        ],
-        userName: 'lunglinh123',
-        pass: '123',
-    }, {
-        id: 3,
-        lastName: 'Lung Văn Long',
-        avatar: "https://i.pinimg.com/736x/a4/47/85/a44785a139621e14d0e2367415290e40.jpg",
-        purchased: [
-            {
+            }, {id: 22,
+                image: 'https://myshoes.vn/image/cache/catalog/2022/newbalance/6.5/giay-New-Balance-M-Flash-nam-den-full-01-800x800.jpg',
+                name: 'GIÀY NEW BALANCE M FLASH NAM - ĐEN FULL',
+                price: 2550000,
+                sale: 10,
+                score: 9,
+                quantity: 40,
+                local: 'NIKE'
+            },{
 
                 id: 21,
                 image: 'https://myshoes.vn/image/cache/catalog/2022/newbalance/6.5/giay-New-Balance-M-Flash-nam-den-full-01-800x800.jpg',
@@ -132,10 +127,76 @@ const Testusers = [
                 quantity: 40,
                 local: 'NIKE'
 
+            }, {id: 22,
+                image: 'https://myshoes.vn/image/cache/catalog/2022/newbalance/6.5/giay-New-Balance-M-Flash-nam-den-full-01-800x800.jpg',
+                name: 'GIÀY NEW BALANCE M FLASH NAM - ĐEN FULL',
+                price: 2550000,
+                sale: 10,
+                score: 9,
+                quantity: 40,
+                local: 'NIKE'
+            },{
+
+                id: 21,
+                image: 'https://myshoes.vn/image/cache/catalog/2022/newbalance/6.5/giay-New-Balance-M-Flash-nam-den-full-01-800x800.jpg',
+                name: 'GIÀY NEW BALANCE M FLASH NAM - ĐEN FULL',
+                price: 550000,
+                sale: 10,
+                score: 9,
+                quantity: 40,
+                local: 'NIKE'
+
+            }, {id: 22,
+                image: 'https://myshoes.vn/image/cache/catalog/2022/newbalance/6.5/giay-New-Balance-M-Flash-nam-den-full-01-800x800.jpg',
+                name: 'GIÀY NEW BALANCE M FLASH NAM - ĐEN FULL',
+                price: 2550000,
+                sale: 10,
+                score: 9,
+                quantity: 40,
+                local: 'NIKE'
+            },{
+
+                id: 28,
+                image: 'https://myshoes.vn/image/cache/catalog/2022/newbalance/6.5/giay-New-Balance-M-Flash-nam-den-full-01-800x800.jpg',
+                name: 'GIÀY NEW BALANCE M FLASH NAM - ĐEN FULL',
+                price: 550000,
+                sale: 10,
+                score: 9,
+                quantity: 40,
+                local: 'NIKE'
+
+            }, {id: 25,
+                image: 'https://myshoes.vn/image/cache/catalog/2022/newbalance/6.5/giay-New-Balance-M-Flash-nam-den-full-01-800x800.jpg',
+                name: 'GIÀY NEW BALANCE M FLASH NAM - ĐEN FULL',
+                price: 2550000,
+                sale: 10,
+                score: 9,
+                quantity: 40,
+                local: 'NIKE'
             }
         ],
-        cart: [
+        phone: '09612345',
+        userName: 'lunglinh123',
+        pass: '123',
+    }, {
+        id: 3,
+        lastName: 'Lung Văn Long',
+        avatar: "https://i.pinimg.com/736x/a4/47/85/a44785a139621e14d0e2367415290e40.jpg",
+        purchased: [
+            {
+
+                id: 22,
+                image: 'https://myshoes.vn/image/cache/catalog/2022/newbalance/6.5/giay-New-Balance-M-Flash-nam-den-full-01-800x800.jpg',
+                name: 'GIÀY NEW BALANCE M FLASH NAM - ĐEN FULL',
+                price: 150000,
+                sale: 10,
+                score: 9,
+                quantity: 40,
+                local: 'NIKE'
+
+            }
         ],
+        phone: '09612345',
         userName: 'Longlinh123',
         pass: '123',
     }, {
@@ -165,18 +226,7 @@ const Testusers = [
                 local: 'NIKE'
             }
         ],
-        cart: [
-            {
-                id: 22,
-                image: 'https://myshoes.vn/image/cache/catalog/2022/newbalance/6.5/giay-New-Balance-M-Flash-nam-den-full-01-800x800.jpg',
-                name: 'GIÀY NEW BALANCE M FLASH NAM - ĐEN FULL',
-                price: 550000,
-                sale: 10,
-                score: 9,
-                quantity: 40,
-                local: 'NIKE'
-            }
-        ],
+        phone: '0156789455',
         userName: 'Longlinh123',
         pass: '123',
     }

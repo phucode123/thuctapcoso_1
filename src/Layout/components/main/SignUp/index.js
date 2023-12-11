@@ -35,14 +35,14 @@ function SignUp() {
             <input type='password' placeholder='Enter Password' className='form-control'></input>
           </div>
 
-          <div className='d-grid'>
+          <div className='d-flex'>
             <button className='btn btn-primary'>Sign Up</button>
-          </div>
-
           <p className='text-end mt-2'>
 
             Bạn đã có tài khoản ư? <Link to="/signin" href='' className='ms-2'>Đăng nhập</Link>
           </p>
+          </div>
+
         </form>
 
 

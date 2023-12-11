@@ -17,4 +17,7 @@
       width: 65%;
     }
   }
-  
+  .btn{
+    width: fit-content;
+    height: fit-content;
+  }

@@ -1,0 +1,130 @@
+.container_edit_item {
+    height: 100%;
+    padding: 5px !important;
+}
+
+.form_edit_input {
+    display: flex;
+    height: 100%;
+    /* position: relative; */
+
+}
+
+.form_edit_input_left {
+    flex: 1;
+    display: block;
+
+    background-color: aliceblue;
+    margin-right: 5px;
+}
+
+.form_edit_input_right {
+
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+
+    height: 100%;
+    /* background-color: aqua; */
+}
+
+.header_text_table {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 38px;
+    background-color: #ddd;
+    display: flex;
+    font-size: 16px;
+    z-index: 999;
+    align-items: center;
+}
+.header_text_table span{
+    padding-left: 10px;
+}
+
+.form_container {
+    height: 100%;
+    padding: 30px 20px;
+}
+
+.form_input {
+    display: flex;
+    margin-bottom: 15px;
+
+}
+
+.text_span_input {
+    /* padding: 5px 20px; */
+    width: 33%;
+    /* line-height: 100%; */
+    display: flex;
+    align-items: center;
+}
+
+.text_span_input span {
+    font-size: 16px;
+}
+
+.form-control {
+    margin-left: 20px !important;
+}
+
+.btn {
+    width: 100px;
+}
+
+.button_edit_delete {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+}
+
+.text_form_control {
+    margin: 0;
+    width: 66%;
+
+}
+
+.table {
+    height: 400px;
+}
+
+.form_edit_input_right table {
+    border-collapse: collapse;
+
+
+
+}
+
+.body_text_table {top: 40px;
+    bottom: 0;
+    position: absolute;
+    /* height: 100%; */
+    overflow: overlay;
+    width: 100%;
+
+}
+
+.form_edit_input_right table tbody {
+    /* height: 100%;
+    overflow: scroll;overflow: scroll; */
+}
+
+.form_edit_input_right th,
+.form_edit_input_right td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.form_edit_input_right tbody tr:hover {
+    background-color: coral;
+}
+
+
+.table_text {
+    font-size: 12px;
+    height: 20px;
+}

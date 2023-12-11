@@ -6,6 +6,7 @@ import fakeAPI from "../../../../assect/fakeAPI";
 import { faPen, faClose } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Wrapper_edit_item from "../Wrapper_item_edit";
+import Wrapper_edit_user from "../Wrapper_user_edit";
 
 export default function Table_user() {
     const listProduct = fakeAPI.Testusers;
@@ -42,7 +43,7 @@ export default function Table_user() {
                         <th>ID</th>
                         <th>Name</th>
                         <th>Sản phẩm đã mua</th>
-                        <th>Giỏ hàng</th>
+                        <th>Số điện thọai</th>
                         {/* <th>Quantity</th>
                         <th>Local Brand</th> */}
                         <th></th>
@@ -66,7 +67,7 @@ export default function Table_user() {
                             </td>
                             <td>
                                 <span>                                  
-                                            {`Giỏ hàng ${product.cart.length}`}                                
+                                            {product.phone}                                
                                 </span>
                             </td>
 
@@ -89,7 +90,7 @@ export default function Table_user() {
                     ))}
 
                 </tbody >
-                <Wrapper_edit_item isEditFormVisible={isEditFormVisible} setEditFormVisible={setEditFormVisible} product={Product} />
+                <Wrapper_edit_user isEditFormVisible={isEditFormVisible} setEditFormVisible={setEditFormVisible} user={Product} />
 
             </table >
 

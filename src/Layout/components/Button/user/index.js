@@ -8,28 +8,20 @@ import { mainContext } from '../../../DefaultLayout';
 import { Link } from 'react-router-dom';
 const cx = classNames.bind(styles);
 
-function User_item({ user_input }) {
-    const loginn =
-    {
-        id: 1,
-        href: '/signin'
-    }
-    const signup =
-    {
-        id: 2,
-        href: '/signup'
-    }
+function User_item({ User, setUser }) {
 
     const [open, setOpen] = useState(false)
 
-    const test_user = user_input ? user_input : ''
-
+    
+    function HanderLogout(){
+        setUser('')
+    }
 
     return (
         <div>
             {/* <img height={"100%"} src={test_avt} ></img> */}
-            {!test_user ? <>
-                <i className={cx('btn_icon')} onClick={() => { setOpen(!open) }} >
+            {!User ? <>
+                <i style={{cursor : 'pointer'}} className={cx('btn_icon')} onClick={() => { setOpen(!open) }} >
                     {<FontAwesomeIcon icon={faUser} />}
                 </i>
                 <div className={cx("dropdown-menu", open ? 'active' : 'none', "border border-light shadow-sm")} >
@@ -43,17 +35,17 @@ function User_item({ user_input }) {
             </>
                 :
                 <div>
-                    <i className={cx("frame_avt")} onClick={() => { setOpen(!open) }} >
-                        <img className={cx("test")} src={test_user.avatar}></img>
+                    <i style={{cursor : 'pointer'}} className={cx("frame_avt")} onClick={() => { setOpen(!open) }} >
+                        <img className={cx("test")} src={User.avatar}></img>
                     </i>
 
                     <div className={cx("dropdown-menu", open ? 'active' : 'none')} >
 
-                        <h3 >{test_user.lastName}</h3>
+                        <h3 >{User.lastName}</h3>
                         <ul className={cx("list_selector")}>
                             <DropdownItem img={user.logo} text={"My profile"} />
                             <DropdownItem img={question.logo} text={"Any question?"} />
-                            <DropdownItem img={logout.logo} text={"Log out"} />
+                            <DropdownItem function = {HanderLogout} img={logout.logo} text={"Log out"} />
                         </ul>
                     </div>
                 </div>
@@ -67,7 +59,7 @@ function User_item({ user_input }) {
 function DropdownItem(props) {
 
     return (
-        <li className={cx("dropdownItem")}>
+        <li onClick={props.function} className={cx("dropdownItem")}>
             <img src={props.img}></img>
             <a >{props.text}</a>
         </li>

@@ -42,7 +42,7 @@ function NavBar() {
         {
             id: 1,
             href: '/',
-            name: 'Home',
+            name: 'Trang chủ',
             icon: faHouse,
             eventKey: ""
         }, {
