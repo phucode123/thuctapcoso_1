@@ -86,7 +86,7 @@ function NavBar() {
                     <Nav.Item key={index}>
                         <Nav.Link as={Link} to= {item.href} href={item.href}  style={{ color: 'black' }}
                             onClick={(e) => {
-                                console.log(item.href);
+                                // console.log(item.href);
                                 handleNavClick(e, item.href);
                                 handleNavigate(item.href)
                             }

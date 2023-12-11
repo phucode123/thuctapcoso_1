@@ -22,10 +22,9 @@ function Login() {
                         <label htmlFor='password'>Mật khẩu</label>
                         <input type='password' placeholder='Enter Password' className='form-control'></input>
                     </div>
-                    <div className=' ms-2 mb-2 text-start'>
-
+                    <div className=' ms-2 mb-2 text-start remember_me'>
                         <input type='checkbox' className='custom-checkbox custom-control' id='check'></input>
-                        <label htmlFor='check' className='custom-input-label ms-2'>Ghi nhớ đăng nhập</label>
+                        <label htmlFor='check' className='custom-input-label '>Ghi nhớ đăng nhập</label>
                     </div>
                     <div className='d-flex'>
                         <button className='btn btn-primary'>Đăng nhập</button>

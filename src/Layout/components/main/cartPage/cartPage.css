@@ -89,7 +89,7 @@ select {
     background-color: rgb(247, 247, 247);
 }
 
-input {
+.input_cartPage {
     border: 1px solid rgba(0, 0, 0, 0.137);
     padding: 1vh;
     margin-bottom: 4vh;
@@ -212,7 +212,7 @@ a.plus {
 }
 
 a:hover {
-    background-color: #eee;
+    /* background-color: #eee; */
 }
 
 .main {

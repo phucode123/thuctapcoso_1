@@ -25,7 +25,7 @@ function Cart_item({ cartItems }) {
 
 function DropdownItem({ item, handfunction }) {
 
-    console.log(item)
+    // console.log(item)
     return (
         <div className="dropdownCart">
             <h3 className='header_container'>Giỏ hàng của pạn</h3>

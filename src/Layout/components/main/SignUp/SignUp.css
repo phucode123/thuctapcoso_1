@@ -3,7 +3,7 @@
   .wrapper_form{
     background-color: aquamarine;
     width: 600px;
-    height: 400px;
+    height: fit-content;
   
   }
   
@@ -20,4 +20,9 @@
   .btn{
     width: fit-content;
     height: fit-content;
+  }
+
+  .error_message{
+    color: red;
+    font-size: 13px;
   }

@@ -166,13 +166,13 @@ function Paymend_cart() {
 
                 <div className="location_focus">
                     <p>Điền số nhà/ngõ/...</p>
-                    <input type='text' placeholder="Điền thêm thông tin địa chỉ cụ thể.." />
+                    <input className="input_cartPage" type='text' placeholder="Điền thêm thông tin địa chỉ cụ thể.." />
                 </div>
 
                 <div className={`phone_number_input ${!isValid && isTouched ? 'error' : ''}`}>
                     <p>Điền số điện thoại nhận hàng</p>
                     <input
-                        id="phone"
+                        id="phone"className="input_cartPage"
                         placeholder="Enter phone number.."
                         value={phoneNumber}
                         onChange={handleInputChange}
