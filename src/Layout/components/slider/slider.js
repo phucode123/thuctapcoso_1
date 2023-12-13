@@ -6,16 +6,16 @@ import Wrapper from "./component_slider/Wrapper/Wrapper";
 import Title from "./component_slider/Title/Title";
 import Subtitle from "./component_slider/Subtitle/Subtitle";
 
-const bogliasco = "https://www.vuabongda.club/wp-content/uploads/2023/06/1200x800-GIF-W.gif";
-const countyClare = "http://3.bp.blogspot.com/-WjP5I2Z3UJU/U1kjHAGgleI/AAAAAAAArjY/x712zJ6I_NE/s1600/0-change24h+(4).jpg";
-const craterRock = "https://galaxyme.vn/data/upload/images/tin%20noi%20bo/sau%20c%C6%A1n%20m%C6%B0a%20tr%E1%BB%9Di%20l%E1%BA%A1i%20s%C3%A1ng/sau-con-mua-troi-lai-sang-co-dien-galaxy.jpg";
-const giauPass = "https://img4.thuthuatphanmem.vn/uploads/2019/12/28/anh-mua-roi-tren-chiec-o-cau-vong_113308183.jpg";
+const bogliasco = "https://i.ytimg.com/vi/o6IS1PVXu7g/maxresdefault.jpg";
+const countyClare = "https://i.pinimg.com/originals/b9/9a/ba/b99abae7720101372dfa87a90566ccf6.jpg";
+const craterRock = "https://i.pinimg.com/originals/27/e3/50/27e350ea787e41947f4ca118e7f45c54.jpg";
+const giauPass = "https://image.adsoftheworld.com/rnnetcpp5jgb0c7x674txikn8xa3";
 //------------
 
 export default function BasicSlider() {
     return (
-        <HeroSlider height={"350px"}
-        
+        <HeroSlider height={"550px"}
+
             autoplay
             controller={{
                 initialSlide: 1,
@@ -33,17 +33,19 @@ export default function BasicSlider() {
                     console.debug("onAfterSliding(nextSlide): ", nextSlide)
             }}>
             <Overlay>
-                <Wrapper>
-                    <Title>Basic Setup</Title>
-                    <Subtitle>
-                        Check out the documentation for more advanced examples.
-                    </Subtitle>
+                <Wrapper >
+                    <div className="container_title_sub">
+                        <Title >Hãy tin tưởng chúng tôi</Title>
+                        <Subtitle >
+                            Thương hiệu đặc biệt, nâng niu bàn chân Việt.
+                        </Subtitle>
+                    </div>
                 </Wrapper>
             </Overlay>
 
             <Slide
                 shouldRenderMask
-                label="Giau Pass - Italy"
+                label="Giày Vans"
                 background={{
                     backgroundImageSrc: giauPass
                 }}

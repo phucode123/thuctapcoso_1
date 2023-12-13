@@ -1,14 +1,33 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import fakeAPI from '../../../../assect/fakeAPI';
 import SliderBar from '..';
+import axios from 'axios';
 function ListByScore() {
-    let products = fakeAPI.ListBooks
-    const sortedbyScore = function sortProductsByScoreDescending(products) {
-        const sortedProducts = [...products].sort((a, b) => b.score - a.score);
+
+    const [shoesData, setShoesData] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        axios.get('https://ttcs-duongxuannhan2002s-projects.vercel.app/api/v1/get-shoes')
+            .then((response) => {
+                const data = response.data;
+                setShoesData(data.data);
+                setIsLoading(false);
+                // console.log(data);
+            })
+            .catch((error) => {
+                console.error(error);
+                setIsLoading(false);
+            });
+    }, []);
+
+    // let shoesData = fakeAPI.ListBooks
+    const sortedbyScore = function sortProductsByScoreDescending(shoesData) {
+        const sortedProducts = [...shoesData].sort((a, b) => b.score - a.score);
         return sortedProducts
     }
-    const sortedbySale = function sortProductsBySaleDescending(products) {
-        const sortedProducts = [...products].sort((a, b) => b.sale - a.sale);
+    const sortedbySale = function sortProductsBySaleDescending(shoesData) {
+        const sortedProducts = [...shoesData].sort((a, b) => b.discount - a.discount);
         return sortedProducts
     }
 
@@ -16,18 +35,18 @@ function ListByScore() {
         {
             id: 0,
             title: 'Đang được ưa chuộng',
-            slider: sortedbyScore(products)
+            slider: sortedbyScore(shoesData)
         },
         {
             id: 1,
             title: 'Giảm giá sốc!!',
-            slider: sortedbySale(products)
+            slider: sortedbySale(shoesData)
         }
 
     ]
     return (
         <>
-            <SliderBar  tabs={Sorted}  nameHeader = {'Xu hướng mua sắm'}/>
+            <SliderBar tabs={Sorted} nameHeader={'Xu hướng mua sắm'} />
         </>
     )
 

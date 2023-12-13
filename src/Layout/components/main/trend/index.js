@@ -1,13 +1,39 @@
-import React, { useState, createContext } from 'react';
+import React, { useState, createContext, useEffect } from 'react';
 import fakeAPI from '../../../../assect/fakeAPI';
 import { faDeleteLeft, faUpDown, faArrowDown, faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon, } from '@fortawesome/react-fontawesome';
 import ListByAuthor from '../../sliderBarFomat/listByAuthor';
 import ListProduct from './ListProduct';
 import './trend.css'
+import axios from 'axios';
+import Loading from '../../../library/Loading';
 
 
 export default function TrendMain() {
+
+    // xử lý data api
+    const [shoesData, setShoesData] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        axios.get('https://ttcs-duongxuannhan2002s-projects.vercel.app/api/v1/get-shoes')
+            .then((response) => {
+                const data = response.data;
+                setShoesData(data.data);
+                setIsLoading(false);
+                console.log(data);
+            })
+            .catch((error) => {
+                console.error(error);
+                setIsLoading(false);
+            });
+    }, []);
+
+    // Sử dụng dữ liệu shoesData ở bên ngoài axios
+    // console.log(shoesData);
+    // Hoặc thực hiện các xử lý khác với dữ liệu
+
+
 
     let quality = 16
     //xử lý checkbox 
@@ -30,28 +56,30 @@ export default function TrendMain() {
     let keyProduct = selectedValues.concat(selectedOption)
     // console.log(keyProduct)
 
-    let ListProductSelected =  makeList(keyProduct, fakeAPI.ListBooks)
+
+    let ListProductSelected = makeList(keyProduct, shoesData)
+
     const localList = [
         {
             id: 0,
             nameLocal: 'Adidas',
             image: 'https://myshoes.vn/image/cache/data/logo/adidas-42x42w.png'
         }, {
-            id: 1,            
+            id: 1,
             nameLocal: 'Vans',
             image: 'https://vanhoaduongpho.com/storage/news/y-nghia-logo-cua-nhan-giay-truot-van-vans-va-lich-su-hinh-thanh-thiet-ke-1608014869.jpg'
         }, {
             id: 2,
-            nameLocal: 'Nike',           
+            nameLocal: 'Nike',
             image: 'https://myshoes.vn/image/cache/data/logo/nike-42x42w.png'
         }, {
             id: 3,
-            nameLocal: 'Thượng Đình',         
+            nameLocal: 'Thượng Đình',
             image: 'https://icolor.vn/wp-content/uploads/2021/04/Bi%E1%BB%83u-t%C6%B0%E1%BB%A3ng-%E2%80%93-Logo-C%C3%B4ng-ty-Gi%E1%BA%A7y-Th%C6%B0%E1%BB%A3ng-%C4%90%C3%ACnh-6-768x742.jpg'
         }
     ]
-    const imageSelected = [
-    ]
+    // const imageSelected = [
+    // ]
     return (
         <div class="container_wrapper">
             <div class="row">
@@ -112,7 +140,12 @@ export default function TrendMain() {
                         </div>
                     </div>
                     <div className='container_product'>
-                        <ListProduct ListProduct={ListProductSelected} quality = {quality}/>
+                        {isLoading ? <Loading/>: (
+                            <ListProduct ListProduct={ListProductSelected} quality={quality} />
+                        )}
+                        
+
+
                     </div>
                 </div>
             </div>
@@ -128,29 +161,29 @@ function makeList(keyProduct, listOld) {
         {
             id: 0,
             nameLocal: 'Adidas',
-            useName:'Adidas',
+            useName: 'Adidas',
             image: 'https://myshoes.vn/image/cache/data/logo/adidas-42x42w.png'
         }, {
             id: 1,
-            useName:'Vans',
+            useName: 'Vans',
             nameLocal: 'Vans',
             image: 'https://vanhoaduongpho.com/storage/news/y-nghia-logo-cua-nhan-giay-truot-van-vans-va-lich-su-hinh-thanh-thiet-ke-1608014869.jpg'
         }, {
             id: 2,
             nameLocal: 'Nike',
-            useName:'Nike',
+            useName: 'Nike',
             image: 'https://myshoes.vn/image/cache/data/logo/nike-42x42w.png'
         }, {
             id: 3,
             nameLocal: 'Thượng Đình',
-            useName:'Thuongdinh',
+            useName: 'Thuongdinh',
             image: 'https://icolor.vn/wp-content/uploads/2021/04/Bi%E1%BB%83u-t%C6%B0%E1%BB%A3ng-%E2%80%93-Logo-C%C3%B4ng-ty-Gi%E1%BA%A7y-Th%C6%B0%E1%BB%A3ng-%C4%90%C3%ACnh-6-768x742.jpg'
         }
     ]
 
     const auThor = function ProductsByAuthor(products, nameAuthor) {
         return products.filter(item => {
-            if (item.local.toLowerCase() === nameAuthor.toLowerCase()) {
+            if (item.name_brand.toLowerCase() === nameAuthor.toLowerCase()) {
                 return item
             }
         })
@@ -166,7 +199,7 @@ function makeList(keyProduct, listOld) {
             }
         })
     })
-    testList = testList.length===0? listOld : testList
+    testList = testList.length === 0 ? listOld : testList
     const sortedbyId = function sortProducts(testList) {
         const sortedProducts = [...testList].sort((a, b) => a.id - b.id);
         return sortedProducts

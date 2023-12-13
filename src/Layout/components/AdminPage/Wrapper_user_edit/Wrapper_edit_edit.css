@@ -75,6 +75,19 @@
     width: 100px;
 }
 
+.delete_user_btn{
+    background-color: red !important;
+    opacity: .8;
+
+    border: none !important;
+}
+.delete_user_btn:hover{
+    background-color: red !important;
+
+    /* background-color: ; */
+    opacity: 1;
+}
+
 .button_edit_delete {
     display: flex;
     width: 100%;

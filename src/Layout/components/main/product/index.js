@@ -3,24 +3,34 @@ import { useState, useEffect } from "react";
 import Listdiscount from "./discount";
 import fakeAPI from "../../../../assect/fakeAPI";
 import { useParams } from 'react-router-dom';
+import axios from "axios";
 import './product.css'
 
 function Product() {
-    let { productId } = useParams();
-    // console.log(fakeAPI.ListBooks[0].id)
-    const selectedProduct = fakeAPI.ListBooks.find(item => {
-        if (item.id == productId) {
-            // console.log(item)
-            // setSelectedImage(item.image)
-            return item
+    const [product, setProduct] = useState({});
+    const { productId } = useParams();
+
+    const fetchProduct = async () => {
+        try {
+            const response = await axios.get(`https://ttcs-duongxuannhan2002s-projects.vercel.app/api/v1/get-1-product?id=${productId}`);
+            // console.log(response.data.data[0]);
+            // Xử lý dữ liệu response ở đây
+            setProduct(response.data.data[0])
+        } catch (error) {
+            console.error(error);
         }
-    });
-    const [selectedImage, setSelectedImage] = useState(selectedProduct.image);
+    };
+
+    // Gọi hàm fetchProduct khi cần
+    fetchProduct();
+    console.log(product);
+
+    const [selectedImage, setSelectedImage] = useState(product.image);
 
     useEffect(() => {
 
-        setSelectedImage(selectedProduct.image);
-    }, [selectedProduct]);
+        setSelectedImage(product.image);
+    }, [product]);
 
     const images = [
         'https://static.nike.com/a/images/t_PDP_1280_v1/f_auto,b_rgb:f5f5f5/3396ee3c-08cc-4ada-baa9-655af12e3120/scarpa-da-running-su-strada-invincible-3-xk5gLh.png',
@@ -57,12 +67,12 @@ function Product() {
 
                     <div className='container-product-detail text-start fl-3'>
 
-                        <h1>{selectedProduct.name}</h1>
+                        <h1>{product.name}</h1>
                         <div className="product-view-sa">
                             <div className="product-view-sa_one dp_flex">
 
                                 <div className="product-view-sa_one_nxb ">
-                                    <span>Nhãn hiệu: </span><span className="local">{selectedProduct.local}</span>
+                                    <span>Nhãn hiệu: </span><span className="local">{product.name_brand}</span>
                                 </div>
 
                             </div>
@@ -72,11 +82,11 @@ function Product() {
                         <div className="product_price">
                             <div className="product-details-price">
                                 <div className="special_price">
-                                    <span className="price">{selectedProduct.price * (1 - (selectedProduct.sale / 100))} đ</span>
+                                    <span className="price">{product.price * (1 - (product.discount / 100))} đ</span>
                                 </div>
                                 <div className="old_price">
-                                    <span className="price-label">{selectedProduct.price}</span>
-                                    <span className="discount-percent">-{(selectedProduct.sale)}%</span>
+                                    <span className="price-label">{product.price}</span>
+                                    <span className="discount-percent">-{(product.discount)}%</span>
                                 </div>
                             </div>
                             <div className="price-block-share"></div>
@@ -104,7 +114,7 @@ function Product() {
 
                 </div>
 
-                <Listdiscount Author_name={selectedProduct.author} />
+                <Listdiscount Author_name={product.author} />
             </div>
         </>
     )

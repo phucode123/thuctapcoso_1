@@ -4,6 +4,7 @@
   justify-content: center;
   align-items: center;
 }
+
 .pagination li {
   display: inline-block;
   margin: 0 5px;
@@ -32,7 +33,7 @@
   border: 1px solid #ddd;
   border-radius: 5px;
   cursor: pointer;
-  margin: 0 ;
+  margin: 0;
 }
 
 .pagination .previous,
@@ -46,36 +47,36 @@
   background-color: #ddd;
 }
 
-.pagination .active a{
+.pagination .active a {
   background-color: rgb(119, 196, 240);
   color: white;
 }
 
 
-.table
-{
+.table {
   /* height: 340px; */
-  
+
 }
 
- .table tr td{
+.table tr td {
   /* text-align: left; */
   /* display: inline-block; */
   height: 55px;
- } 
+}
 
-.button_edit_element{
+.button_edit_element {
   position: relative;
   width: 130px !important;
 }
 
-.form_selects{
+.form_selects {
   margin: 0;
   padding: 0;
   display: flex;
   flex-direction: column;
 }
-.wrapper_edit_itemForm{
+
+.wrapper_edit_itemForm {
   position: fixed;
   right: 0;
   left: 0;
@@ -87,7 +88,8 @@
   align-items: center;
   z-index: 999;
 }
-.edit_item{
+
+.edit_item {
   /* padding: 10px; */
   height: 400px;
   width: 800px;
@@ -95,32 +97,38 @@
   margin: auto;
   z-index: 999;
 }
-.header_edit_item{
+
+.header_edit_item {
   width: 100%;
   background-color: white;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+  /* border-width: 90%; */
 }
-.icon_close{
+
+.icon_close {
   margin-left: auto;
   display: flex;
-    /* border-radius: 50%; */
-    align-items: center;
-    justify-content: center;
-    height: 20px;
-    width: 20px;
-    padding: 5px;
-    cursor: pointer;
-    color: #ccc;
-    font-size: 20px;
+  /* border-radius: 50%; */
+  align-items: center;
+  justify-content: center;
+  height: 20px;
+  width: 20px;
+  padding: 5px;
+  cursor: pointer;
+  color: #ccc;
+  font-size: 20px;
 }
-.icon_close:hover{
-    color: red;
+
+.icon_close:hover {
+  color: red;
 
 }
 
-.container_edit_item{
-  background-color: bisque !important;
-  
+.container_edit_item {
+  background-color: white !important;
+
 }
+
 .table-wrapper {
   /* min-height: 200px; Đặt kích thước cố định cho bảng */
 }

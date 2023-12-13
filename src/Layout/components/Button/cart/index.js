@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 function Cart_item({ cartItems }) {
     const [CartItems, setCartItem] = useState(cartItems)
     const [open, setOpen] = useState(false)
-    console.log(open);
+    // console.log(open);
     return (
         <div>
             <i style={{ cursor: 'pointer' }} className='btn_icon' onClick={() => { setOpen(!open) }} >

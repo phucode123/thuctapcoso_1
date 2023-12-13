@@ -90,12 +90,12 @@ export default function Wrapper_edit_item({ isEditFormVisible, setEditFormVisibl
                                             {isEditing ? (
                                                 <input
                                                     type="text"
-                                                    value={editedProduct.sale}
+                                                    value={editedProduct.discount}
                                                     onChange={(event) => handleInputChange(event, 'sale')}
                                                     className='form-control'
                                                 />
                                             ) : (
-                                                <p className="text_form_control">{editedProduct.sale}</p>
+                                                <p className="text_form_control">{editedProduct.discount}</p>
                                             )}
                                         </div>
                                         <div className='form_input'>
@@ -116,12 +116,12 @@ export default function Wrapper_edit_item({ isEditFormVisible, setEditFormVisibl
                                             {isEditing ? (
                                                 <input
                                                     type="text"
-                                                    value={editedProduct.local}
+                                                    value={editedProduct.name_brand}
                                                     onChange={(event) => handleInputChange(event, 'local')}
                                                     className='form-control'
                                                 />
                                             ) : (
-                                                <p className="text_form_control">{editedProduct.local}</p>
+                                                <p className="text_form_control">{editedProduct.name_brand}</p>
                                             )}
                                         </div>
                                         <div className="button_edit_delete">
@@ -143,8 +143,8 @@ export default function Wrapper_edit_item({ isEditFormVisible, setEditFormVisibl
                                     </div>
                                 </div>
                                 <div className="form_edit_input_right">
-                                    <div className="form_edit_right_image">
-
+                                    <div className="form_edit_right_image" style={{ position: 'relative', width: '100%', height: '100%' }}>
+                                        <img src={product.image} alt="Background Image" style={{ position: 'absolute', top: '0', left: '0', width: '100%', height: '100%', objectFit: 'cover' }} />
                                     </div>
                                     <div className="form_edit_save_cancel">
 

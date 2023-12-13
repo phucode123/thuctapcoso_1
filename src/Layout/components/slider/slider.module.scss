@@ -1,0 +1,13 @@
+.container_title_sub
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column;
+    width: 100%;
+    height: 100px;
+    margin: 0;
+    padding: 0;
+    pointer-events: none;
+    background-color: aquamarine;
+}

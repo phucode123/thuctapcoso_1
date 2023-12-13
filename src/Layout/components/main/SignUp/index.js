@@ -1,36 +1,30 @@
 import React, { useState } from 'react';
-import axios from 'axios'
-import './SignUp.css'
+import axios from 'axios';
+import './SignUp.css';
 import { Link } from 'react-router-dom';
-// import { BrowserRouter, Router, Route, Link } from 'react-router-dom';
-
 
 function SignUp() {
-  // const getApiUser = 'https://ttcs-delta.vercel.app/api/v1/get-user'
+  const [user, setUser] = useState({
+    email: '',
+    phoneNumber: '',
+    name: '',
+    pass: '',
+  });
 
-  // axios.get(getApiUser)
-
-
-  //   .then(response => {
-  //     // Xử lý dữ liệu trả về từ API
-  //     const user = response.data;
-  //     console.log(user);
-  //   })
-  //   .catch(error => {
-  //     // Xử lý lỗi nếu có
-  //     console.error(error);
-  //   });
-
-  const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [password, setPassword] = useState('');
   const [emailError, setEmailError] = useState('');
   const [phoneError, setPhoneError] = useState('');
 
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setUser((prevUser) => ({
+      ...prevUser,
+      [name]: value,
+    }));
+  };
+
   const validateEmail = () => {
     const regex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
-    if (!regex.test(email)) {
+    if (!regex.test(user.email)) {
       setEmailError('Định dạng email không hợp lệ');
     } else {
       setEmailError('');
@@ -39,21 +33,11 @@ function SignUp() {
 
   const validatePhoneNumber = () => {
     const regex = /^(0|\+84|84|09|03|07|08|05)\d{8,9}$/;
-    if (!regex.test(phone)) {
+    if (!regex.test(user.phoneNumber)) {
       setPhoneError('Định dạng số điện thoại không hợp lệ');
     } else {
       setPhoneError('');
     }
-  };
-
-  const handleEmailChange = (event) => {
-    setEmail(event.target.value);
-    validateEmail();
-  };
-
-  const handlePhoneChange = (event) => {
-    setPhone(event.target.value);
-    validatePhoneNumber();
   };
 
   const handleBlur = () => {
@@ -61,35 +45,26 @@ function SignUp() {
     validatePhoneNumber();
   };
 
-  // ...các state và hàm xử lý khác...
-
-  const handleLastNameChange = (event) => {
-    setLastName(event.target.value);
-  };
-
-  const handlePasswordChange = (event) => {
-    setPassword(event.target.value);
-  };
-
   const handleSignUp = (event) => {
     event.preventDefault();
-    const user = {
-      email: email,
-      phone: phone,
-      lastName: lastName,
-      password: password,
-    };
-    console.log(user);
+    const postAPI = 'https://ttcs-delta.vercel.app/api/v1/post-user';
+    axios
+      .post(postAPI, user)
+      .then((response) => {
+        console.log(response.data);
+        // Xử lý thành công
+      })
+      .catch((error) => {
+        console.error('Đăng ký thất bại!', error);
+        // Xử lý lỗi
+      });
   };
 
   return (
-    <div className=' d-flex justify-content-center align-items-center'>
+    <div className='d-flex justify-content-center align-items-center'>
       <div className='mt-5 wrapper_form card p-5'>
-
         <form onSubmit={handleSignUp}>
-          <h3>
-            Sign Up
-          </h3>
+          <h3>Sign Up</h3>
           <div className='row mb-2 text-start'>
             <div className='col '>
               <label htmlFor='lname' className='text-start'>
@@ -97,10 +72,11 @@ function SignUp() {
               </label>
               <input
                 type='text'
+                name='name'
                 placeholder='Enter Last Name'
                 className='form-control'
-                value={lastName}
-                onChange={handleLastNameChange}
+                value={user.name}
+                onChange={handleChange}
               />
             </div>
           </div>
@@ -110,10 +86,11 @@ function SignUp() {
             </label>
             <input
               type='email'
+              name='email'
               placeholder='Enter Email'
               className='form-control'
-              value={email}
-              onChange={handleEmailChange}
+              value={user.email}
+              onChange={handleChange}
               onBlur={handleBlur}
             />
             {emailError && <p className='error_message'>{emailError}</p>}
@@ -124,40 +101,42 @@ function SignUp() {
             </label>
             <input
               type='text'
+              name='phoneNumber'
               placeholder='Nhập số điện thoại'
               className='form-control'
-              value={phone}
-              onChange={handlePhoneChange}
+              value={user.phoneNumber}
+              onChange={handleChange}
               onBlur={handleBlur}
             />
             {phoneError && <p className='error_message'>{phoneError}</p>}
           </div>
           <div className='  mb-2 text-start'>
             <label htmlFor='password'>Password</label>
-            <input 
-            type='password' 
-            placeholder='Enter Password' 
-            className='form-control'
-            value={password}
-            onChange={handlePasswordChange}
-            ></input>
+            <input
+              type='password'
+              name='pass'
+              placeholder='Enter Password'
+              className='form-control'
+              value={user.pass}
+              onChange={handleChange}
+            />
           </div>
 
           <div className='d-flex'>
-            <button type='submit' className='btn btn-primary'>Sign Up</button>
+            <button type='submit' className='btn btn-primary'>
+              Sign Up
+            </button>
             <p className='text-end mt-2'>
-
-              <span>Bạn đã có tài khoản ư?</span> <Link to="/signin" href='' className='ms-2'>Đăng nhập</Link>
+              <span>Bạn đã có tài khoản ư?</span>{' '}
+              <Link to='/signin' href='' className='ms-2'>
+                Đăng nhập
+              </Link>
             </p>
           </div>
-
         </form>
-
-
       </div>
-
     </div>
-  )
+  );
 }
 
 export default SignUp;

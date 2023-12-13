@@ -29,7 +29,7 @@ function Item_product({ product , limit}) {
                     <div className={cx("part-2")}>
                         <h3 className={cx("product-title")}>{product.name}</h3>
                         <h4 className={cx("product-old-price")}>${product.price}</h4>
-                        <h4 className={cx("product-price")}>${product.price * (1 - product.sale / 100)}</h4>
+                        <h4 className={cx("product-price")}>${Math.round(product.price * (1 - product.discount / 100))}</h4>
 
 
                         <RatingBar rating={product.score} />

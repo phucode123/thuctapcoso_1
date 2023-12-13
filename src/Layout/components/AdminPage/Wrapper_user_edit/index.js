@@ -4,12 +4,15 @@ import { useState } from "react";
 import './Wrapper_edit_edit.css'
 import { faPen, faClose } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Loading from "../../../library/Loading";
+
+
 export default function Wrapper_edit_user({ isEditFormVisible, setEditFormVisible, user }) {
 
     const [isEditing, setIsEditing] = useState(false);
     const [editedUser, setEditedUser] = useState(user);
 
-    console.log(editedUser)
+    // console.log(editedUser)
     function removeForm() {
         setEditFormVisible(false);
     }
@@ -65,12 +68,12 @@ export default function Wrapper_edit_user({ isEditFormVisible, setEditFormVisibl
                                             {isEditing ? (
                                                 <input
                                                     type="text"
-                                                    value={editedUser.lastName}
+                                                    value={editedUser.name}
                                                     onChange={(event) => handleInputChange(event, 'name')}
                                                     className='form-control'
                                                 />
                                             ) : (
-                                                <p className="text_form_control">{editedUser.lastName}</p>
+                                                <p className="text_form_control">{editedUser.name}</p>
                                             )}
                                         </div>
                                         <div className='form_input'>
@@ -78,12 +81,24 @@ export default function Wrapper_edit_user({ isEditFormVisible, setEditFormVisibl
                                             {isEditing ? (
                                                 <input
                                                     type="text"
-                                                    value={editedUser.phone}
+                                                    value={editedUser.phone_number}
                                                     onChange={(event) => handleInputChange(event, 'price')}
                                                     className='form-control'
                                                 />
                                             ) : (
-                                                <p className="text_form_control">{editedUser.phone}</p>
+                                                <p className="text_form_control">{editedUser.phone_number}</p>
+                                            )}
+                                        </div><div className='form_input'>
+                                            <label className='text_span_input'><span>Email</span></label>
+                                            {isEditing ? (
+                                                <input
+                                                    type="text"
+                                                    value={editedUser.email}
+                                                    onChange={(event) => handleInputChange(event, 'email')}
+                                                    className='form-control'
+                                                />
+                                            ) : (
+                                                <p className="text_form_control">{editedUser.email}</p>
                                             )}
                                         </div>
 
@@ -104,31 +119,38 @@ export default function Wrapper_edit_user({ isEditFormVisible, setEditFormVisibl
                                             <div className='d-grid'>
                                                 <button onClick={handleCancelEdit} className='btn btn-primary'>Huỷ</button>
                                             </div>
+                                            <div className='d-grid'>
+                                                <button className='btn btn-primary delete_user_btn'>Xóa người dùng</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div className="form_edit_input_right">
                                     <h3 className='header_text_table'><span>Sản phẩm đã mua</span></h3>
-                                    <div className='body_text_table'>
-                                    <table>
-                                        <thead>
-                                            <tr>
-                                                <th>ID</th>
-                                                <th>Name</th>
-                                                <th>Price</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {user.purchased.map((product) => (
-                                                <tr key={product.id}>
-                                                    <td className='table_text'>{product.id}</td>
-                                                    <td className='table_text' >{product.name}</td>
-                                                    <td className='table_text' >{product.price}</td>
+                                    <div style={{height: '100%', width: '100%', backgroundImage : `url('https://www.jnland.com.my/wp-content/uploads/2020/05/coming-soon-projects.png')`}}></div>
+                                    {/* <div className='body_text_table'>
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <th>ID</th>
+                                                    <th>Name</th>
+                                                    <th>Price</th>
                                                 </tr>
-                                            ))}
-                                        </tbody>
-                                    </table>
-                                    </div>
+                                            </thead>
+                                            <tbody style={{position : 'relative'}}>
+                                               
+                                                
+                                                
+                                                {user.purchased.map((product) => (
+                                                    <tr key={product.id}>
+                                                        <td className='table_text'>{product.id}</td>
+                                                        <td className='table_text' >{product.name}</td>
+                                                        <td className='table_text' >{product.price}</td>
+                                                    </tr>
+                                                ))}
+                                            </tbody>
+                                        </table>
+                                    </div> */}
                                 </div>
 
 

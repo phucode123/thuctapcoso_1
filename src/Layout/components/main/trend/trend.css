@@ -3,7 +3,7 @@
 .container_wrapper {
     margin-top: 20px;
     background-color: white !important;
-   
+
     /* background-color: whitesmoke; */
 }
 
@@ -331,7 +331,7 @@
     font-weight: 400;
     font-size: 12px;
 
-    
+
 }
 
 .products-filter .form-control {
@@ -342,8 +342,10 @@
     background: rgba(255, 255, 255, 1) !important;
     box-shadow: none;
 }
-.products-filter .input-group-addon, .products-filter .form-control{
-    
+
+.products-filter .input-group-addon,
+.products-filter .form-control {
+
     height: 26px;
 }
 
@@ -368,17 +370,24 @@ option {
     padding: 0px 2px 1px;
     white-space: nowrap;
 }
-.input-group select 
-{
+
+.input-group select {
     padding: 10px;
 }
 
-#input-sort{
+#input-sort {
     width: 120px;
 }
 
-.container_product{
+.container_product {
+    position: relative;
     height: 100px;
     width: 100%;
     /* background-color: #555; */
 }
+
+
+/* Loading */
+
+/* // This is just to center the spinner */
+/* Absolute Center Spinner */

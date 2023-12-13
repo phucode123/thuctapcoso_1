@@ -1,17 +1,35 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import fakeAPI from '../../../../assect/fakeAPI';
 import styles from './listByAuthor.module.scss';
 import classNames from 'classnames/bind';
 import SliderBar from '..';
+import axios from 'axios';
 const cx = classNames.bind(styles);
 
- function ListByAuthor({Author_name}) {
+function ListByAuthor({ Author_name }) {
+    const [shoesData, setShoesData] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
 
-    let products = fakeAPI.ListBooks
-    console.log()
-    const auThor = function ProductsByAuthor(products, nameAuthor) {
-        return products.filter(item => {
-            if (item.local.toLowerCase() === nameAuthor.toLowerCase()) {
+    useEffect(() => {
+        axios.get('https://ttcs-duongxuannhan2002s-projects.vercel.app/api/v1/get-shoes')
+            .then((response) => {
+                const data = response.data;
+                setShoesData(data.data);
+                setIsLoading(false);
+                // console.log(data);
+            })
+            .catch((error) => {
+                console.error(error);
+                setIsLoading(false);
+            });
+    }, []);
+
+
+    // let shoesData = fakeAPI.ListBooks
+    // console.log()
+    const auThor = function ProductsByAuthor(shoesData, nameAuthor) {
+        return shoesData.filter(item => {
+            if (item.name_brand.toLowerCase() === nameAuthor.toLowerCase()) {
                 return item
             }
         })
@@ -25,16 +43,20 @@ const cx = classNames.bind(styles);
         {
             id: 1,
             title: 'nike'
+        },{
+            id: 2,
+            title: 'Vans'
         }
 
     ]
 
-    Author.map((Item)=>{
-        Item.slider = auThor(products, Item.title)
+    Author.map((Item) => {
+        Item.slider = auThor(shoesData, Item.title)
     })
-    return(
+    // console.log(Author);
+    return (
         <>
-        <SliderBar tabs={Author} nameHeader = {'Nhãn hàng được ưa thích'}/>
+            <SliderBar tabs={Author} nameHeader={'Nhãn hàng được ưa thích'} />
         </>
     )
 
