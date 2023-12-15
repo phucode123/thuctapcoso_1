@@ -116,12 +116,12 @@ export default function Wrapper_edit_item({ isEditFormVisible, setEditFormVisibl
                                             {isEditing ? (
                                                 <input
                                                     type="text"
-                                                    value={editedProduct.name_brand}
+                                                    value={editedProduct.brand}
                                                     onChange={(event) => handleInputChange(event, 'local')}
                                                     className='form-control'
                                                 />
                                             ) : (
-                                                <p className="text_form_control">{editedProduct.name_brand}</p>
+                                                <p className="text_form_control">{editedProduct.brand}</p>
                                             )}
                                         </div>
                                         <div className="button_edit_delete">

@@ -1,28 +1,83 @@
+.wrapper_form {
+  background-color: aquamarine;
+  width: 600px;
+  height: fit-content;
 
-  
-  .wrapper_form{
-    background-color: aquamarine;
-    width: 600px;
-    height: fit-content;
-  
+}
+
+@media screen and (max-width: 1000px) {
+  .wrapper_form {
+    width: 45%;
   }
-  
-  @media  screen and (max-width: 1000px) {
-    .wrapper_form{
-      width: 45%;
-    }
+}
+
+@media screen and (max-width: 700px) {
+  .wrapper_form {
+    width: 65%;
   }
-  @media  screen and (max-width: 700px) {
-    .wrapper_form{
-      width: 65%;
-    }
-  }
-  .btn{
-    width: fit-content;
-    height: fit-content;
+}
+
+.btn {
+  width: fit-content;
+  height: fit-content;
+}
+
+.error_message {
+  color: red;
+  font-size: 13px;
+}
+
+
+/* thành công hay không */
+
+.success_icon {
+  margin-right: 8px;
+  color: #155724;
+  font-size: 16px;
+}
+
+@keyframes spinAndScale {
+  0% {
+    transform: rotate(0deg) scale(0.7);
   }
 
-  .error_message{
-    color: red;
-    font-size: 13px;
+  /* 50% {
+    transform: rotate(180deg) scale(1.2);
+  } */
+
+  100% {
+    transform: rotate(360deg) scale(1);
   }
+}
+.status_message {
+
+  display: flex;
+  align-items: center;
+  color: #155724;
+  background-color: #d4edda;
+  border-color: #c3e6cb;
+  border-radius: 4px;
+  padding: 8px 12px;
+}
+.status_message.error {
+  display: flex;
+  align-items: center;
+  color: #572315;
+  background-color: #edd7d4;
+  border-color: #c3e6cb;
+  border-radius: 4px;
+  padding: 8px 12px;
+}
+
+.success_icon {
+  margin-right: 8px;
+  color: #155724;
+  font-size: 16px;
+  animation: spinAndScale 1s linear;
+}
+.error_icon {
+  margin-right: 8px;
+  color: red;
+  font-size: 16px;
+  animation: spinAndScale 1s linear;
+}

@@ -6,12 +6,15 @@ import Iconlight from '../Background/changeDarkLight';
 import Cart_item from '../Button/cart';
 import Notification_item from '../Button/Notification';
 import User_item from '../Button/user';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 
 const cx = classNames.bind(styles);
 // const check_light = false;
 function Header() {
+
+    
+
 
     const user_test = {
         id : 1,

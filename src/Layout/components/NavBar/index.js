@@ -17,6 +17,7 @@ import {
     faBook,
     faLanguage,
     faPhoneFlip,
+    faCartShopping,
 } from '@fortawesome/free-solid-svg-icons';
 // import { useState } from 'react';
 
@@ -53,20 +54,13 @@ function NavBar() {
             eventKey: "link-1"
         }, {
             id: 3,
-            href: '/tl',
-            name: 'Thể Loại',
-            icon: faBook,
+            href: '/CartPage',
+            name: 'Giỏ hàng của bạn',
+            icon: faCartShopping,
             eventKey: 'link-2'
 
-        }, {
+        },  {
             id: 4,
-            href: '/nn',
-            name: 'Ngôn ngữ',
-            icon: faLanguage,
-            eventKey: "link-3"
-
-        }, {
-            id: 5,
             href: '/lh',
             name: 'Liên hệ',
             icon: faPhoneFlip,
@@ -90,6 +84,7 @@ function NavBar() {
                                 handleNavClick(e, item.href);
                                 handleNavigate(item.href)
                             }
+                            
                             }><FontAwesomeIcon icon={item.icon} style={{ marginRight: '5px' }} />{item.name}</Nav.Link>
                     </Nav.Item>
                 ))}

@@ -1,8 +1,8 @@
 import React, { useState, createContext, useEffect } from 'react';
-import fakeAPI from '../../../../assect/fakeAPI';
+
 import { faDeleteLeft, faUpDown, faArrowDown, faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon, } from '@fortawesome/react-fontawesome';
-import ListByAuthor from '../../sliderBarFomat/listByAuthor';
+
 import ListProduct from './ListProduct';
 import './trend.css'
 import axios from 'axios';
@@ -183,7 +183,8 @@ function makeList(keyProduct, listOld) {
 
     const auThor = function ProductsByAuthor(products, nameAuthor) {
         return products.filter(item => {
-            if (item.name_brand.toLowerCase() === nameAuthor.toLowerCase()) {
+           
+            if (item.brand.toLowerCase() === nameAuthor.toLowerCase()) {
                 return item
             }
         })

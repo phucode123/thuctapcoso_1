@@ -7,54 +7,47 @@
 .card {
     margin-top: 20px;
     border-radius: 0;
-   
-}
-.father{
+    padding: 10px 0 !important;
+    border-left: none !important;
+    border-right: none !important;
+    border-radius: 0 !important;
+    border-color: rgb(236, 99, 74) !important;
+    /* width: 500px; */
 
-
 }
+
+.father {
+    position: relative;
+    min-height: 700px;
+    /* width: ; */
+}
+
 .cart {
     background-color: #fff;
     padding: 4vh 5vh;
- 
+
 
 }
 
 .summary {
-    position: fixed;
-    bottom: 0;right: 0;top: 90px;
-    background-color: #ddd;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    top:    0px;
+    /* background-color: #ddd; */
+    background-color: rgb(236, 99, 74);
+    border: 10px solid #fcdab0b3;
+    margin-top: 50px;
     /* padding: 4vh; */
-    color: rgb(65, 65, 65);
-    /* width: 500px; */
+    /* color: rgb(65, 65, 65); */
+    max-height: 700px;
+    width: 500px !important;
+    color: #000;
 }
 
 
 .row {
     margin: 0;
-}
-
-
-.price_close {
-    display: flex;
-}
-
-.close {
-    margin-left: auto;
-}
-
-.close:hover {
-    color: red;
-    cursor: pointer;
-}
-
-.price {
-    font-size: 18px;
-    color: black;
-}
-
-.img_product {
-    width: 3.5rem;
 }
 
 .back-to-shop {
@@ -64,20 +57,27 @@
     color: black !important;
     text-decoration: none;
 }
-.back-to-shop :hover{
+
+.back-to-shop :hover {
     background-color: none;
-color: blue;
+    color: blue;
 }
-.text-muted{
+
+.text-muted {
     color: #000 !important;
 }
 
 h5 {
-    margin-top: 4vh;
+    margin-top: 3vh !important;
+}
+
+.location {
+    padding-top: 2vh;
 }
 
 form {
     padding: 2vh 0;
+
 }
 
 select {
@@ -92,44 +92,26 @@ select {
 .input_cartPage {
     border: 1px solid rgba(0, 0, 0, 0.137);
     padding: 1vh;
-    margin-bottom: 4vh;
+    /* margin-bottom: 4vh; */
     outline: none;
-    width: 100%;
+    width: 90%;
     background-color: rgb(247, 247, 247);
+}
+
+.location_phone {
+    width: 100%;
+    display: inline-flex;
+    justify-content: space-around;
+    margin-bottom: 10px;
+}
+
+.location_phone>select {
+    /* width: 90%; */
+    justify-content: space-around;
 }
 
 input:focus::-webkit-input-placeholder {
     color: transparent;
-}
-
-.btn {
-    background-color: #000;
-    border-color: #000;
-    color: white;
-    width: 100%;
-    font-size: 0.7rem;
-    /* margin-top: 4vh; */
-    padding: 1vh;
-    border-radius: 0;
-}
-
-.btn:focus {
-    box-shadow: none;
-    outline: none;
-    box-shadow: none;
-    color: white;
-    -webkit-box-shadow: none;
-    -webkit-user-select: none;
-    transition: none;
-}
-
-.button_pay{
-    background-color: rgb(68, 68, 146);
-
-}
-
-.btn:hover {
-    color: white;
 }
 
 a {
@@ -141,81 +123,35 @@ a:hover {
     text-decoration: none;
 }
 
+/* phần giá trị gốc  */
+.price_show {
+    background-color: #fff;
+    height: 110px;
+    color: #000;
+    padding: 10px;
 
-.header_cart_title {
     display: flex;
-    flex-direction: row;
-    margin-top: auto;
-    margin-bottom: auto;
-    padding-bottom: 20px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    border: 5px solid #FCDAB0;
+
+    /* justify-content: space-between; */
 }
 
-.Heading_title_cart {
-    text-align: start;
-    margin: 0;
-    flex: 1;
-}
-.container_product_item{
-    margin: auto;
+.price_show div {
     width: 100%;
-    margin-bottom: 10px;
-    /* margin-right: 10px; */
-    height: 100px;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-    background-color: rgba(221, 221, 221, 0.445);
-}
-
-/* test tăng giảm số lượng */
-
-.minus_plus {
-    display: flex;
+    flex: 1;
+    /* justify-content: center; */
     align-items: center;
 }
 
-a.minus {
-    text-decoration: none;
-    color: black;
-    /* padding: 0.25rem 0.5rem; */
-    height: 30px;
-    width: 30px;
-    justify-content: center;
-    display: flex;
-    align-items: center;
-    /* font-size: 13px; */
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    margin-right: 0.5rem;
+.boder_top {
+    border-top: 1px solid rgba(0, 0, 0, 0.2);
 }
 
-a.border {
-    border: 1px solid black;
-    border-radius: 0.25rem;
-    padding: 0.25rem 0.5rem;
-    text-decoration: none;
-}
-
-.plus:hover ,.minus:hover {
-    border: 1px solid rgba(0, 0, 0, 0.2);
-
-}
-
-a.plus {
-    text-decoration: none;
-    color: black;
-    height: 30px;
-    width: 30px;
-    justify-content: center;
-    display: flex;
-    align-items: center;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    margin-left: 0.5rem;
-}
-
-a:hover {
-    /* background-color: #eee; */
-}
-
-.main {
-    padding: 5px 0;
+.boder_bot {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 }
 

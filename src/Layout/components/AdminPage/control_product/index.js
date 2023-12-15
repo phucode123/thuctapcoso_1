@@ -2,7 +2,7 @@ import React from "react";
 import './control_product.css'
 import { useState, useEffect } from "react";
 import ReactPaginate from 'react-paginate';
-import fakeAPI from "../../../../assect/fakeAPI";
+
 import { faPen, faClose } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Wrapper_edit_item from "../Wrapper_item_edit";
@@ -99,7 +99,7 @@ export default function Table_product() {
                                     <td>{product.quantity}</td>
                                     <td>
                                         <div className="">
-                                            {product.name_brand}
+                                            {product.brand}
                                         </div>
                                     </td>
                                     <td>

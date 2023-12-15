@@ -4,6 +4,7 @@ import styles from './DefaultLayout.module.scss';
 import Header from '../components/Header';
 import Main from '../components/main';
 import NavBar from '../components/NavBar';
+import Footer from '../components/Footer';
 import React, { useEffect, useState, createContext } from 'react';
 import { BrowserRouter, Router, Route, Routes } from 'react-router-dom';
 //chus ys
@@ -36,6 +37,7 @@ function DefaultLayout({ children, id }) {
                         <NavBar id={id} />
                     </div>
                     <Main />
+                    <Footer/>
                 </div>
             </mainContext.Provider>
         </div>

@@ -2,7 +2,7 @@ import React from "react";
 import './control_product.css'
 import { useState, useEffect } from "react";
 import ReactPaginate from 'react-paginate';
-import fakeAPI from "../../../../assect/fakeAPI";
+
 import { faPen, faClose } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Wrapper_edit_item from "../Wrapper_item_edit";

@@ -3,7 +3,7 @@ import classNames from 'classnames/bind';
 import styles from './Search.module.scss'
 import { faMagnifyingGlass, faCartShopping } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import fakeAPI from '../../../../assect/fakeAPI';
+
 
 
 const cx = classNames.bind(styles);
@@ -14,13 +14,13 @@ function Search({ className }) {
 
     const handleSearch = () => {
         // Xử lý tìm kiếm sản phẩm dựa trên giá trị searchTerm
-        console.log('Tìm kiếm:', searchTerm);
+        // console.log('Tìm kiếm:', searchTerm);
 
-        return fakeAPI.ListBooks.find((item) => {
-            if(item.name.toLowerCase().includes(searchTerm.toLowerCase())){
-                return item // trả về sách được tìm kiếm.
-            }
-        })
+        // return fakeAPI.ListBooks.find((item) => {
+        //     if(item.name.toLowerCase().includes(searchTerm.toLowerCase())){
+        //         return item // trả về sách được tìm kiếm.
+        //     }
+        // })
 
     };
     const handleChange = (event) => {

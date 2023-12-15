@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import Listdiscount from "./discount";
-import fakeAPI from "../../../../assect/fakeAPI";
+
 import { useParams } from 'react-router-dom';
 import axios from "axios";
 import './product.css'
@@ -72,7 +72,7 @@ function Product() {
                             <div className="product-view-sa_one dp_flex">
 
                                 <div className="product-view-sa_one_nxb ">
-                                    <span>Nhãn hiệu: </span><span className="local">{product.name_brand}</span>
+                                    <span>Nhãn hiệu: </span><span className="local">{product.brand}</span>
                                 </div>
 
                             </div>

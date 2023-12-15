@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import fakeAPI from '../../../../assect/fakeAPI';
+// import fakeAPI from '../../../../assect/workToken';
 import styles from './listByAuthor.module.scss';
 import classNames from 'classnames/bind';
 import SliderBar from '..';
@@ -25,11 +25,11 @@ function ListByAuthor({ Author_name }) {
     }, []);
 
 
-    // let shoesData = fakeAPI.ListBooks
-    // console.log()
+   
     const auThor = function ProductsByAuthor(shoesData, nameAuthor) {
         return shoesData.filter(item => {
-            if (item.name_brand.toLowerCase() === nameAuthor.toLowerCase()) {
+            
+            if (item.brand.toLowerCase() === nameAuthor.toLowerCase()) {
                 return item
             }
         })

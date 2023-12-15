@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import fakeAPI from '../../../../assect/fakeAPI';
+// import fakeAPI from '../../../../assect/workToken';
 import SliderBar from '..';
 import axios from 'axios';
 function ListByScore() {

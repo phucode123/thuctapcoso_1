@@ -2,8 +2,16 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import './SignUp.css';
 import { Link } from 'react-router-dom';
+import { Checksuccess, CheckError } from '../../../library/checkSuccess';
+
 
 function SignUp() {
+
+  const [successMessage, setSuccessMessage] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(false);
+  const [emailError, setEmailError] = useState('');
+  const [phoneError, setPhoneError] = useState('');
+
   const [user, setUser] = useState({
     email: '',
     phoneNumber: '',
@@ -11,8 +19,6 @@ function SignUp() {
     pass: '',
   });
 
-  const [emailError, setEmailError] = useState('');
-  const [phoneError, setPhoneError] = useState('');
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -47,15 +53,23 @@ function SignUp() {
 
   const handleSignUp = (event) => {
     event.preventDefault();
+    console.log(user);
     const postAPI = 'https://ttcs-delta.vercel.app/api/v1/post-user';
     axios
       .post(postAPI, user)
       .then((response) => {
         console.log(response.data);
+        console.log("thành công rồi");
+        setSuccessMessage(true);
+        setTimeout(() => {
+          setSuccessMessage(false);
+        }, 2000);
         // Xử lý thành công
       })
       .catch((error) => {
+        setErrorMessage(true)
         console.error('Đăng ký thất bại!', error);
+        // alert('thất bại rồi', error)
         // Xử lý lỗi
       });
   };
@@ -100,7 +114,7 @@ function SignUp() {
               Số điện thoại
             </label>
             <input
-              type='text'
+              type='number'
               name='phoneNumber'
               placeholder='Nhập số điện thoại'
               className='form-control'
@@ -134,6 +148,10 @@ function SignUp() {
             </p>
           </div>
         </form>
+        {successMessage ? <Checksuccess /> : ''}
+        {errorMessage ? <CheckError /> : ''}
+        {/* <CheckError/> */}
+
       </div>
     </div>
   );
