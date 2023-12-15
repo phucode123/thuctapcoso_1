@@ -1,8 +1,9 @@
-
-:root{
---white-color: white;
+:root {
+    --white-color: white;
 }
+
 .wrapper {
+    position: relative;
     display: flex;
     align-items: center;
     max-width: 800px;
@@ -15,6 +16,89 @@
     overflow: hidden;
 }
 
+// test
+// //Vars 
+// :root {
+//     --rad: .7rem;
+//     --dur: .3s;
+//     --color-dark: #2f2f2f;
+//     --color-light: #fff;
+//     --color-brand: #57bd84;
+//     --font-fam: 'Lato', sans-serif;
+//     --height: 5rem;
+//     --btn-width: 6rem;
+//     --bez: cubic-bezier(0, 0, 0.43, 1.49);
+// }
+
+// // Setup
+
+// *,
+// *::before,
+// *::after {
+//     box-sizing: inherit;
+// }
+
+// // Main styles
+// form {
+//     position: relative;
+//     width: 100%;
+//     background: var(--color-brand);
+//     border-radius: var(--rad);
+// }
+
+// input,
+// button {
+//     height: var(--height);
+//     font-family: var(--font-fam);
+//     border: 0;
+//     color: var(--color-dark);
+//     font-size: 14px;
+// }
+
+// input[type="search"] {
+//     outline: 0; // <-- shold probably remove this for better accessibility, adding for demo aesthetics for now.
+//     width: 100%;
+//     background: var(--color-light);
+//     padding: 0 1.6rem;
+//     border-radius: var(--rad);
+//     appearance: none; //for iOS input[type="search"] roundedness issue. border-radius alone doesn't work
+//     transition: all var(--dur) var(--bez);
+//     transition-property: width, border-radius;
+//     z-index: 1;
+//     position: relative;
+// }
+
+// button {
+//     // display: none; // prevent being able to tab to it
+//     position: absolute;
+//     top: 0;
+//     right: 0;
+//     width: var(--btn-width);
+//     font-weight: bold;
+//     background: var(--color-brand);
+//     border-radius: 0 var(--rad) var(--rad) 0;
+// }
+
+// input:not(:placeholder-shown) {
+//     border-radius: var(--rad) 0 0 var(--rad);
+//     width: calc(100% - var(--btn-width));
+
+//     +button {
+//         display: block;
+//     }
+// }
+
+// label {
+//     position: absolute;
+//     clip: rect(1px, 1px, 1px, 1px);
+//     padding: 0;
+//     border: 0;
+//     height: 1px;
+//     width: 1px;
+//     overflow: hidden;
+// }
+
+// // 
 
 
 .input {
@@ -25,16 +109,17 @@
     opacity: 0.9;
     border: none;
     padding: 9px 12px;
+    // border-start-start-radius: 20px;
+
     // border-radius: 10px;
 
 }
 
-.input:focus{
-    outline: none;
-    background-color: rgba(22,24,35,0.05);
-}
+// .input:focus {
+//     outline: 1px solid blue !important;
+// }
 
-.btn-search {   
+.btn-search {
     // line-height: 1.5;
     // height: 38px; 
     // font-size: 1.6rem;
@@ -42,10 +127,12 @@
     padding: 10px 18px;
     background-color: var(--white-color);
     cursor: pointer;
+
     &:hover {
-        background-color: rgba(35, 22, 22, 0.08);
-    }    
+        background-color: #FCDAB0;
+    }
+
     // border: 1px black solid;
 
-    border: none;
+    border: none !important;
 }

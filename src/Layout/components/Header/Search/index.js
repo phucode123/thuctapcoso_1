@@ -1,60 +1,88 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import classNames from 'classnames/bind';
 import styles from './Search.module.scss'
-import { faMagnifyingGlass, faCartShopping } from '@fortawesome/free-solid-svg-icons'
+import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
-
+import axios from 'axios';
+import SuggestedProduct from './suggestedProducts';
 
 const cx = classNames.bind(styles);
 
 function Search({ className }) {
     const [searchTerm, setSearchTerm] = useState('');
-    // const [isSearching, setIsSearching] = useState(false);
+    const [items, setItems] = useState([]);
+    const [isShow, setIsShow] = useState(false);
 
-    const handleSearch = () => {
-        // Xử lý tìm kiếm sản phẩm dựa trên giá trị searchTerm
-        // console.log('Tìm kiếm:', searchTerm);
+    // call API
+    const [shoesData, setShoesData] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
 
-        // return fakeAPI.ListBooks.find((item) => {
-        //     if(item.name.toLowerCase().includes(searchTerm.toLowerCase())){
-        //         return item // trả về sách được tìm kiếm.
-        //     }
-        // })
+    useEffect(() => {
+        axios.get('https://ttcs-duongxuannhan2002s-projects.vercel.app/api/v1/get-shoes')
+            .then((response) => {
+                const data = response.data;
+                setShoesData(data.data);
+                setIsLoading(false);
+            })
+            .catch((error) => {
+                console.error(error);
+                setIsLoading(false);
+            });
+    }, []);
 
-    };
+    useEffect(() => {
+        if (searchTerm) {
+            const filteredItems = shoesData.filter((item) => {
+                return item.name.toLowerCase().includes(searchTerm.toLowerCase());
+            });
+            setItems(filteredItems);
+            setIsShow(filteredItems.length > 0);
+        } else {
+            setItems([]);
+            setIsShow(false);
+        }
+    }, [searchTerm, shoesData]);
+
     const handleChange = (event) => {
         setSearchTerm(event.target.value);
-    };
+    }
+
     const handleIconClick = () => {
-        // setIsSearching(true);
-        const value =  handleSearch();
-
-        console.log(value)
-        // setIsSearching(false);
+        // Handle search icon click event if needed
     };
+
     return (
-        <div className={cx('wrapper', className)}>
+        <div>
+            <div className={cx('wrapper', className)}>
+                <input
+                    type="text"
+                    value={searchTerm}
+                    onChange={handleChange}
+                    className={cx('input')}
+                    placeholder="Tìm kiếm..."
+                    autoFocus
+                    required
+                />
 
-
-            <input type="text"
-                value={searchTerm}
-                onChange={handleChange}
-                className={cx('input')}
-                placeholder="Tìm kiếm...">
-            </input>
-
-            <button onClick={handleIconClick} className={cx('btn-search')}>
-                <i>
-                    <FontAwesomeIcon icon={faMagnifyingGlass} />
-                </i>
-            </button>
+                <button onClick={handleIconClick} className={cx('btn-search')}>
+                    <i>
+                        <FontAwesomeIcon icon={faMagnifyingGlass} />
+                    </i>
+                </button>
+            </div>
+            {isShow && (
+                <SuggestedProduct items={items}>
+                    <div className="hide_form">
+                        <button onClick={()=>{
+                            setIsShow(false)
+                        }} className="hide_form_button">
+                            Ẩn
+                        </button>
+                    </div>
+                </SuggestedProduct>
+            )}
         </div>
-
-    )
+    );
 }
-
-
-
 
 export default Search;
