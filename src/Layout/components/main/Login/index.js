@@ -14,10 +14,10 @@ function Login() {
     const [errorMessage, setErrorMessage] = useState(false);
     // làm vieecjvowis token
     const navigate = useNavigate();
-    const getTokenFromLocalStorage = () => {
-        const token = window.localStorage.getItem('token');
-        console.log(token);
-    };
+    // const getTokenFromLocalStorage = () => {
+    //     const token = window.localStorage.getItem('token');
+    //     console.log(token);
+    // };
 
     const [user, setUser] = useState({
         phoneNumber: '',
@@ -45,22 +45,27 @@ function Login() {
 
     const handleSignIn = (event) => {
         // event.preventDefault();
-        console.log(user)
+        // console.log(user)
         event.preventDefault();
         const postAPI = 'https://ttcs-delta.vercel.app/api/v1/post-to-login';
         axios
             .post(postAPI, user)
             .then((response) => {
-                console.log(response.data);
-                setToken(response.data.token)
+                // console.log(response.data);
+                window.localStorage.setItem('user', JSON.stringify(response.data.data));
+                setToken(response.data.token) //lưu token key = token
+
                 setErrorMessage(false)
                 setSuccessMessage(true)
-                navigate(-1)
-            
+                // alert('Đăng nhập thành công')
+                window.location.href = '/';
+               // window.location.reload() //đăng nhập xong tự tải lại trang để token chạy quan các component//
+                // navigate(-1)
+
                 // Xử lý thành công
             })
             .catch((error) => {
-                    setSuccessMessage(false)
+                setSuccessMessage(false)
                 setErrorMessage(true)
                 console.error('Đăng nhập thất bại!', error);
                 // Xử lý lỗi

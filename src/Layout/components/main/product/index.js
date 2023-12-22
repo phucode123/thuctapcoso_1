@@ -2,87 +2,64 @@ import React from "react";
 import { useState, useEffect } from "react";
 import Listdiscount from "./discount";
 
-import { useParams } from 'react-router-dom';
+import { useActionData, useParams } from 'react-router-dom';
 import axios from "axios";
+import { getToken } from "../../../../assect/workToken/WorkToken";
 import './product.css'
+import BuyProduct from "./buy";
 
 function Product() {
+    // const [size, setSize] = useState(null)
+    const [optionChange, setOptionChange] = useState(null);
+    const [quantitySize, setQuantitySize] = useState(0)
     const [product, setProduct] = useState({});
-    const { productId } = useParams();
 
+    const [isShowBuy, setIsShowBuy] = useState(false)
+    const { productId } = useParams();
     const fetchProduct = async () => {
         try {
             const response = await axios.get(`https://ttcs-duongxuannhan2002s-projects.vercel.app/api/v1/get-1-product?id=${productId}`);
-            // console.log(response.data.data[0]);
-            // Xử lý dữ liệu response ở đây
             setProduct(response.data.data[0])
         } catch (error) {
             console.error(error);
         }
     };
-
-    // Gọi hàm fetchProduct khi cần
-    fetchProduct();
-    console.log(product);
-
-    const [selectedImage, setSelectedImage] = useState(product.image);
-
     useEffect(() => {
+        fetchProduct()
+    }, [productId])
 
-        setSelectedImage(product.image);
-    }, [product]);
 
-    const images = [
-        'https://static.nike.com/a/images/t_PDP_1280_v1/f_auto,b_rgb:f5f5f5/3396ee3c-08cc-4ada-baa9-655af12e3120/scarpa-da-running-su-strada-invincible-3-xk5gLh.png',
-        'https://static.nike.com/a/images/f_auto,b_rgb:f5f5f5,w_440/e44d151a-e27a-4f7b-8650-68bc2e8cd37e/scarpa-da-running-su-strada-invincible-3-xk5gLh.png',
-        'https://static.nike.com/a/images/f_auto,b_rgb:f5f5f5,w_440/d3eb254d-0901-4158-956a-4610180545e5/scarpa-da-running-su-strada-invincible-3-xk5gLh.png',
-        'https://th.bing.com/th/id/OIP.HU42KXcmKotDvfb_WgNmWAHaEo?rs=1&pid=ImgDetMain',
-        'https://i0.wp.com/wallpup.com/wp-content/uploads/2013/03/Doraemon.jpg?w=1024'
-        // Thêm các ảnh khác vào đây
-    ];
+    const handlerSubmittoCart = () => {
+        const tokenCurren = getToken()
+        console.log(tokenCurren, 'id giay:', product.id, 'size:', optionChange);
 
-    const handleImageClick = (image) => {
-        setSelectedImage(image);
-    };
+
+    }
 
     return (
         <>
             <div className='body-container'>
                 <div className='container-banner'>
-                    <div className='container-product-media dp_flex fl-2'>
-                        <div className="product-view-thumbnail">
-                            {images.map((image, index) => (
-                                <div key={index} onClick={() => handleImageClick(image)}>
-                                    <img src={image} ></img>
-                                </div>
-                            ))}
-                        </div>
+                    <div className='container-product-media dp_flex'>
                         <div className="product-view-image-product">
                             <img id="image" class="fhs-p-img lazyloaded"
-                                src={selectedImage}
-
+                                src={product.image}
                                 alt="selectedImage" title="" />
                         </div>
                     </div>
-
-                    <div className='container-product-detail text-start fl-3'>
-
+                    <div className='container-product-detail text-start'>
                         <h1>{product.name}</h1>
                         <div className="product-view-sa">
                             <div className="product-view-sa_one dp_flex">
-
                                 <div className="product-view-sa_one_nxb ">
                                     <span>Nhãn hiệu: </span><span className="local">{product.brand}</span>
                                 </div>
-
                             </div>
-                        </div>
-                        <div className="rate_score">
                         </div>
                         <div className="product_price">
                             <div className="product-details-price">
                                 <div className="special_price">
-                                    <span className="price">{product.price * (1 - (product.discount / 100))} đ</span>
+                                    <span className="price">{Math.round(product.price * (1 - (product.discount / 100)))} đ</span>
                                 </div>
                                 <div className="old_price">
                                     <span className="price-label">{product.price}</span>
@@ -90,6 +67,13 @@ function Product() {
                                 </div>
                             </div>
                             <div className="price-block-share"></div>
+                        </div>
+                        <div>
+                            <div><p2 className='select_size'>Chọn size giày</p2></div>
+                            <div className="rate_score">
+                                <Options options_test={product.size} productSelect={product} setQuantitySize={setQuantitySize} setOptionChange={setOptionChange} optionChange={optionChange} />
+                            </div>
+                            {quantitySize ? <div><p3 className='quantity_size'>Còn lại: <span>{quantitySize}</span></p3></div> : ''}
                         </div>
                         <div className="expected_delivery">
                             <div className="expected_delivery_address">
@@ -101,23 +85,86 @@ function Product() {
                         </div>
                         <div class=" girdslider-button d-flex flex-row ">
                             <div class="d-flex flex-row r4 align-items-center">
+                                {/* <QuantitySelect/> */}
+                                <div class="girdslider-menu-item ml-4 " onClick={handlerSubmittoCart}><a href="#">ADD TO CART</a></div>
+                                <div class="girdslider-menu-item" onClick={() => {
+                                    setIsShowBuy(true)
+                                }}><a href="#">BUY NOW</a></div>
 
-                                <div class="girdslider-menu-item ml-4 "><a href="#">ADD TO CART</a></div>
-                                <div class="girdslider-menu-item"><a href="#">BUY NOW</a></div>
                             </div>
                         </div>
+                         <BuyProduct isShow = {isShowBuy} setIsShowBuy= {setIsShowBuy}>
+
+                         </BuyProduct>
                     </div>
-
-
-
-
-
-                </div>
-
+                </div >
                 <Listdiscount Author_name={product.author} />
-            </div>
+            </div >
         </>
     )
 }
 
+
+const Options = ({ options_test, productSelect, setQuantitySize, setOptionChange, optionChange }) => {
+    const options_tes = options_test ? options_test.split(',') : []
+    const options = [
+        { id: 1, size: '38' },
+        { id: 2, size: '39' },
+        { id: 3, size: '40' },
+        { id: 4, size: '41' },
+        { id: 5, size: '42' },
+        { id: 6, size: '43' },
+    ];
+    const [selectedOption, setSelectedOption] = useState(null);
+    const handleOptionClick = (option) => {
+        if (!options_tes.includes(option.size)) {
+            return; // Không làm gì nếu lựa chọn đã bị vô hiệu hóa
+        }
+
+        if (selectedOption === option.id) {
+            // Nếu lựa chọn đã được chọn và được nhấp lại, hủy chọn
+            console.log('Selected Product ID:', productSelect.id);
+            console.log('Selected Size:', option.size);
+
+            setSelectedOption(null);
+        } else {
+            // Nếu lựa chọn chưa được chọn hoặc được chọn khác, chọn lại
+            console.log('Selected Product ID:', productSelect.id);
+            console.log('Selected Size:', parseInt(option.size));
+            setOptionChange(parseInt(option.size))
+            setSelectedOption(option.id);
+        }
+    };
+    let quantity = GetQuatity(productSelect, optionChange)
+    setQuantitySize(quantity)
+    return (
+        <>
+            {options.map((option, index) => (
+                <div
+                    key={option.id}
+                    className={`option-item ${option.id === selectedOption ? 'selected' : ''} ${options_tes.includes(option.size) ? '' : 'disabled'}`}
+                    onClick={() => handleOptionClick(option)}
+                >
+                    {option.size}
+                </div>
+            ))}
+        </>
+    );
+};
+
+function GetQuatity(productSelect, optionChange) {
+    const [value, setValue] = useState(null)
+    const getQuatity = async () => {
+        try {
+            const response = await axios.get(`https://ttcs-duongxuannhan2002s-projects.vercel.app/api/v1/get-quantity?id=${productSelect.id}&size=${parseInt(optionChange)}`);
+            setValue(response.data.data[0].quantity)
+        } catch (error) {
+            console.error(error);
+        }
+    };
+    useEffect(() => {
+        getQuatity()
+    }, [optionChange])
+    return value
+}
 export default Product

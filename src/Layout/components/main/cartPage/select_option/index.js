@@ -2,20 +2,11 @@ import { useState } from "react";
 import { faArrowLeft, faArrowLeftLong } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom'
-const cityDistricts = {
-    hanoi: {
-        'Huyện Phú Xuyên': ['Thị trấn Phú Minh', 'Xã Nam Tiến', 'Thị trấn Phú Xuyên'],
-        'Quận Hà Đông': ['Phường Văn Quán', 'Xã Tấn Triều', 'Xã 6'],
-        'Quận Hoàng Mike': ['Xã 7', 'Xã 8', 'Xã 9']
-    },
-    hcm: {
-        'Quận X': ['Xã 10', 'Xã 11', 'Xã 12'],
-        'Quận Y': ['Xã 13', 'Xã 14', 'Xã 15'],
-        'Quận Z': ['Xã 16', 'Xã 17', 'Xã 18']
-    }
-    // Thêm các thành phố, huyện và danh sách xã tương ứng ở đây
-};
+import { cityDistricts } from "../../../../../assect/workToken/WorkToken";
+
 export default function Paymend_cart() {
+
+    
     const [selectedLocation, setSelectedLocation] = useState('');
     const [selectedDistrict, setSelectedDistrict] = useState('');
     const [districts, setDistricts] = useState([]);
@@ -147,7 +138,7 @@ export default function Paymend_cart() {
 }
 
 
-function Price_show({ id}) {
+function Price_show({id}) {
     return (
         <div className="price_show text-start">
             <div class="row boder_bot" >
