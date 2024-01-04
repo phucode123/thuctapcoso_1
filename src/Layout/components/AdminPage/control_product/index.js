@@ -20,7 +20,7 @@ export default function Table_product() {
                 const data = response.data;
                 setShoesData(data.data);
                 setIsLoading(false);
-                console.log(data);
+                // console.log(data);
             })
             .catch((error) => {
                 console.error(error);
@@ -28,12 +28,7 @@ export default function Table_product() {
             });
     }, []);
 
-    // Sử dụng dữ liệu shoesData ở bên ngoài axios
-    // console.log(shoesData);
-    // Hoặc thực hiện các xử lý khác với dữ liệu
-
-
-    // const shoesData = fakeAPI.ListBooks;
+ 
     const rowsPerPage = 5;
     const [currentPage, setCurrentPage] = useState(0);
     const displayData = shoesData.slice(

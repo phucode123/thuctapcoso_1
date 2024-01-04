@@ -4,9 +4,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom'
 import { cityDistricts } from "../../../../../assect/workToken/WorkToken";
 import axios from "axios";
-import { getToken, postData } from "../../../../../assect/workToken/WorkToken";
-export default function Paymend_cart({user, listProduct }) {
-    console.log(user);
+import { getToken, postData, removeDataInCart } from "../../../../../assect/workToken/WorkToken";
+export default function Paymend_cart({ user, listProduct }) {
+    // console.log(user);
     const [selectedLocation, setSelectedLocation] = useState('');
     const [selectedDistrict, setSelectedDistrict] = useState('');
     const [selectedCommunes, setSelectedCommunes] = useState('')
@@ -18,6 +18,7 @@ export default function Paymend_cart({user, listProduct }) {
     const [isValid, setIsValid] = useState(true);
     const [isTouched, setIsTouched] = useState(false);
     const [currentTime, setCurrentTime] = useState(new Date());
+    const [totalPrice, setTotalPrice] = useState(0)
     function getTime() {
         setCurrentTime(new Date());
         const formattedDate = `${currentTime.getDate()}/${currentTime.getMonth() + 1}/${currentTime.getFullYear()}`;
@@ -54,7 +55,7 @@ export default function Paymend_cart({user, listProduct }) {
         setSelectedCommunes(selectedCommunes);
     };
 
-    // const [phoneNumber, setPhoneNumber] = useState('');
+
 
     const validatePhoneNumber = () => {
         const regex = /^(0|\+84|84|09)\d{8,9}$/;
@@ -73,42 +74,59 @@ export default function Paymend_cart({user, listProduct }) {
 
 
     // thanh toan
-    // const [selectedPayment, setSelectedPayment] = useState('');
 
     const handlePaymentChange = (event) => {
         setSelectedPayment(event.target.value);
     };
-    // const postData = async (data) => {
-    //     try {
-    //         const response =
-    //             await axios.post('https://ttcs-duongxuannhan2002s-projects.vercel.app/api/v1/post-order', data);
-    //         console.log(response); // In ra dữ liệu phản hồi từ server nếu thành công
-    //         console.log('ok r');
-    //         // setProduct(response.data.data[0])
-    //     } catch (error) {
-    //         console.log('k ổn r');
-    //         console.error(error);
-    //     }
-    // }
+
+    const removeData = (listProduct) => {
+        listProduct.map((item) => {
+            handleRemove(item)
+        })
+    }
+
+    async function handleRemove(item) {
+        try {
+            console.log(item);
+            let itemRemove = {
+                id_user: user.id,
+                id_product: item.id_product,
+                size: item.size,
+            };
+            console.log(itemRemove);
+            await removeDataInCart(itemRemove);
+            // await fetchData();
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
     const handleSubmit = (event) => {
-        event.preventDefault();
-        // console.log(`Hình thức thanh toán: ${selectedPayment}`);
-        // console.log('token', getToken());
-        let address = `${addRess}/${selectedCommunes}/${selectedDistrict}/${selectedLocation}`
-        // console.log('Số lượng:', quantity);
-        // console.log('Hình thức thanh toán:', selectedPayment);
 
-        // console.log(listProduct);
-        const newList =
-            listProduct ? listProduct.map((item) => {
-                return { "id_product": item.id_product, "id_size": item.size, "quantity": item.quantity }
+        if (listProduct.length === 0) {
+            alert('Không có gì trong giỏ')
+        }
+        else {
 
-            }) : []
-        // console.log(newList);
-        const totalPrice = listProduct.reduce((sum, item) => sum + item.price, 0);
-        let Data = ItemProduct({ newList,totalPrice, getTime, address, phoneNumber, selectedPayment });
-        console.log(Data);
-        postData(Data)
+            event.preventDefault();
+            let address = `${addRess}/${selectedCommunes}/${selectedDistrict}/${selectedLocation}`
+            const newList =
+                listProduct ? listProduct.map((item) => {
+                    // console.log('halo');
+                    return { "id_product": item.id_product, "id_size": item.size, "quantity": item.quantity }
+
+                }) : null
+
+
+            // const totalPrice = listProduct.reduce((sum, item) => sum + item.price, 0);
+            let Data = ItemProduct({ newList, totalPrice, getTime, address, phoneNumber, selectedPayment });
+            console.log(Data);
+            postData(Data)
+            removeData(listProduct)
+            window.location.reload();
+
+        }
+
     };
 
     return (
@@ -146,7 +164,7 @@ export default function Paymend_cart({user, listProduct }) {
                     </select>
                     {/* <button type="submit">Submit</button> */}
                 </form>
-                <Price_show />
+                <Price_show listProduct={listProduct} setTotalPrice={setTotalPrice} />
                 <button type='submit' class="button_submit">Đặt hàng</button>
             </form >
             <Link to={'/'} class="back-to-shop" href="#"> <div ><FontAwesomeIcon icon={faArrowLeftLong} /><span class="">Back to shop</span></div></Link>
@@ -156,9 +174,7 @@ export default function Paymend_cart({user, listProduct }) {
 
 }
 
-function ItemProduct({ newList,totalPrice, getTime, address, phoneNumber, selectedPayment }) {
-
-    // console.log(newList);
+function ItemProduct({ newList, totalPrice, getTime, address, phoneNumber, selectedPayment }) {
     return {
         "id_user": getToken(),
         "order_date": getTime(),
@@ -243,20 +259,35 @@ function SelectAddress({
 }
 
 
-function Price_show({ id }) {
+function Price_show({ listProduct, setTotalPrice }) {
+    console.log(listProduct);
+    let totalAmount = 0;
+    let totalDiscount = 0;
+
+    if (listProduct) {
+        listProduct.forEach((product) => {
+            const discountedPrice = product.price * (1 - product.discount / 100);
+            totalAmount += product.price;
+            totalDiscount += product.price - discountedPrice;
+        });
+        setTotalPrice(totalAmount - totalDiscount)
+    }
+    totalAmount = Math.round(totalAmount);
+    totalDiscount = Math.round(totalDiscount);
+
     return (
         <div className="price_show text-start">
             <div class="row boder_bot" >
                 <div class="col">Giá trị gốc</div>
-                <div class="col text-end"><span>100000đ</span></div>
+                <div class="col text-end"><span>{listProduct ? totalAmount : 0} vnđ</span></div>
             </div>
             <div class="row boder_bot" >
                 <div class="col">Tổng giảm giá</div>
-                <div class="col text-end"><span>20000đ</span></div>
+                <div class="col text-end"><span>{listProduct ? totalDiscount : 0} vnđ</span></div>
             </div>
             <div class="row " >
                 <div class="col">Cái giá phải trả</div>
-                <div class="col text-end"><span>80000đ</span></div>
+                <div class="col text-end"><span>{listProduct ? (totalAmount - totalDiscount) : 0} vnđ</span></div>
             </div>
         </div>
     )

@@ -8,7 +8,7 @@ import { FaGratipay } from 'react-icons/fa';
 import axios from 'axios';
 
 export default function BuyProduct({ product, size, isShow, setIsShowBuy }) {
-    console.log(size);
+    // console.log(size);
     const [quantity, setQuantity] = useState(1);
     const [selectedLocation, setSelectedLocation] = useState('');
     const [selectedDistrict, setSelectedDistrict] = useState('');

@@ -32,7 +32,7 @@ export default function Wrapper_edit_user({ isEditFormVisible, setEditFormVisibl
     };
 
     const handleSaveButtonClick = () => {
-        console.log('Sản phẩm được chỉnh sửa:', editedUser);
+        // console.log('Sản phẩm được chỉnh sửa:', editedUser);
         setIsEditing(false);
     };
 

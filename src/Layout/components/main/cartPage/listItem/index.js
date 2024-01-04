@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "./ListproductCart.css";
 import axios from "axios";
-import { getToken } from "../../../../../assect/workToken/WorkToken";
+import { getToken, removeDataInCart } from "../../../../../assect/workToken/WorkToken";
 
-export default function ListProduct({ setListProduct }) {
+export default function ListProduct({ user, setListProduct }) {
   const [cartItems, setCartItems] = useState([]);
   const [selectedItems, setSelectedItems] = useState([]);
   const [quantities, setQuantities] = useState([]);
@@ -13,28 +13,24 @@ export default function ListProduct({ setListProduct }) {
     const selectedSize = event.target.value;
     setSelectedNumber(selectedSize);
   };
-
   const token = getToken();
-
+  const fetchData = async () => {
+    try {
+      const response = await axios.get(
+        `https://ttcs-duongxuannhan2002s-projects.vercel.app/api/v1/get-cart?token=${token}`
+      );
+      setCartItems(function format() {
+        return response.data.data.map((item, index) => ({
+          ...item,
+          id: index + 1,
+        }));
+      });
+      setQuantities(Array.from({ length: response.data.data.length }, () => 1));
+    } catch (error) {
+      console.error(error);
+    }
+  };
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          `https://ttcs-duongxuannhan2002s-projects.vercel.app/api/v1/get-cart?token=${token}`
-        );
-        setCartItems(function format() {
-          return response.data.data.map((item, index) => ({
-            ...item,
-            id: index + 1,
-          }));
-        });
-
-        setQuantities(Array.from({ length: response.data.data.length }, () => 1));
-        // setSizes(Array.from({ length: response.data.data.length }, () => ""));
-      } catch (error) {
-        console.error(error);
-      }
-    };
     fetchData();
   }, [token]);
 
@@ -86,6 +82,7 @@ export default function ListProduct({ setListProduct }) {
           price: item.price,
           quantity: quantities[item.id - 1] || 0,
           size: item.size // Thêm thông tin về kích thước,
+          ,discount : item.discount
           // ,discount: item.discount
         };
       });
@@ -94,15 +91,32 @@ export default function ListProduct({ setListProduct }) {
 
     // console.log(selectedItemsInfo);
   };
-
-  function handleRemove(item) {
-    console.log(item);
-    let itemRemove = {
-      'id_user': '',
-      'id_product': item.id_product,
-      'size': '',
+  async function handleRemove(item) {
+    try {
+      console.log(item);
+      let itemRemove = {
+        id_user: user.id,
+        id_product: item.id_product,
+        size: item.size,
+      };
+      console.log(itemRemove);
+      await removeDataInCart(itemRemove);
+      await fetchData();
+    } catch (error) {
+      console.error(error);
     }
   }
+  // function handleRemove(item) {
+  //   console.log(item);
+  //   let itemRemove = {
+  //     'id_user': user.id,
+  //     'id_product': item.id_product,
+  //     'size': item.size,
+  //   }
+  //   console.log(itemRemove);
+  //   removeDataInCart(itemRemove)
+  //   fetchData()
+  // }
 
   return (
     <div className="cart">

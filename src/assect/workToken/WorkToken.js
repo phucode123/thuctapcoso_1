@@ -42,7 +42,7 @@ const postData = async (data) => {
         const response =
             await axios.post('https://ttcs-duongxuannhan2002s-projects.vercel.app/api/v1/post-order', data);
         console.log(response); // In ra dữ liệu phản hồi từ server nếu thành công
-        alert('ok r');
+        alert('mua ok r');
         // setProduct(response.data.data[0])
     } catch (error) {
         alert('k ổn r');
@@ -54,20 +54,20 @@ const postData = async (data) => {
 const removeDataInCart = async (data) => {
     try {
         const response =
-            await axios.post('https://ttcs-duongxuannhan2002s-projects.vercel.app/api/v1/delete-product-in-cart', data);
-        console.log(response); // In ra dữ liệu phản hồi từ server nếu thành công
-        alert('xoá ok r');
+            await axios.delete('https://ttcs-duongxuannhan2002s-projects.vercel.app/api/v1/delete-product-in-cart', { data: data });
+        console.log(response.data); // In ra dữ liệu phản hồi từ server nếu thành công
+        // alert('xoá ok r');
         // setProduct(response.data.data[0])
     } catch (error) {
         alert('k xoá đc r');
         console.error(error);
     }
 }
-
 export {
     cityDistricts,
     setToken,
     getToken,
     postData,//thêm hoá đơn 
     removeDataInCart, //xoá sản phẩm trong giỏ
+
 }

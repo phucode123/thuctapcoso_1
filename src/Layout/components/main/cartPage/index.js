@@ -9,16 +9,16 @@ import ListProduct from "./listItem";
 
 export default function CartPage() {
     const [listProduct, setListProduct] = useState(null);
-    const user = window.localStorage.getItem('user');
-
-    // console.log(user);
+    const user = JSON.parse(window.localStorage.getItem('user'));
+    console.log();
+    // const dataObject = JSON.parse(dataString);
 
     return (
 
         <div class=" card">
             <div class="row father">
-                <ListProduct setListProduct= {setListProduct}/>
-                <Paymend_cart user = {user} listProduct={listProduct}/>
+                <ListProduct  user = {user} setListProduct= {setListProduct}/>
+                <Paymend_cart user={user} listProduct={listProduct}/>
             </div>
         </div>
 

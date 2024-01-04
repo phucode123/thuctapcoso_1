@@ -5,17 +5,19 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './cart.css'
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { getToken } from '../../../../assect/workToken/WorkToken';
 // import classNames from 'classnames/bind';
 
 
-function Cart_item({ token }) {
+function Cart_item({  }) {
     const [CartItems, setCartItem] = useState([])
     const [open, setOpen] = useState(false)
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                console.log('token: ', token);
+                let token = getToken()
+                // console.log('token: ', token);
                 const response = await axios.get(`https://ttcs-duongxuannhan2002s-projects.vercel.app/api/v1/get-cart?token=${token}`);
                 // console.log(response.data.data);
                 setCartItem(response.data.data)

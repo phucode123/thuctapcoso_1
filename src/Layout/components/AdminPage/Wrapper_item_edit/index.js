@@ -4,7 +4,7 @@ import './Wrapper_edit_item.css'
 import { faPen, faClose } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 export default function Wrapper_edit_item({ isEditFormVisible, setEditFormVisible, product }) {
-    console.log(product)
+    // console.log(product)
     const [isEditing, setIsEditing] = useState(false);
     const [editedProduct, setEditedProduct] = useState(product);
     function removeForm() {
@@ -22,7 +22,7 @@ export default function Wrapper_edit_item({ isEditFormVisible, setEditFormVisibl
         setIsEditing(true);
     };
     const handleSaveButtonClick = () => {
-        console.log('Sản phẩm được chỉnh sửa:', editedProduct);
+        // console.log('Sản phẩm được chỉnh sửa:', editedProduct);
         setIsEditing(false);
     };
 

@@ -7,13 +7,15 @@ import ListProduct from './ListProduct';
 import './trend.css'
 import axios from 'axios';
 import Loading from '../../../library/Loading';
-
+import MinMaxList from './PriceMinMax';
 
 export default function TrendMain() {
-
     // xử lý data api
     const [shoesData, setShoesData] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
+
+    const [minPrice, setMinPrice] = useState("");
+    const [maxPrice, setMaxPrice] = useState("");
 
     useEffect(() => {
         axios.get('https://ttcs-duongxuannhan2002s-projects.vercel.app/api/v1/get-shoes')
@@ -26,6 +28,7 @@ export default function TrendMain() {
             .catch((error) => {
                 console.error(error);
                 setIsLoading(false);
+                alert('loi tum lum')
             });
     }, []);
 
@@ -50,10 +53,8 @@ export default function TrendMain() {
     };
     let keyProduct = selectedValues.concat(selectedOption)
     // console.log(keyProduct)
-
-
-    let ListProductSelected = makeList(keyProduct, shoesData)
-
+    // const [ListProductSelected, setListProductSelected] = useState([])
+    let ListProductSelected = makeList(keyProduct, shoesData, minPrice, maxPrice)
     const localList = [
         {
             id: 0,
@@ -75,6 +76,16 @@ export default function TrendMain() {
     ]
     // const imageSelected = [
     // ]
+
+    // const handleFilter = () => {
+    //     filterMinMax(ListProductSelecteds)
+    //     // const filtered = products.filter(
+    //     //     (product) =>
+    //     //         product.price >= parseFloat(minPrice) &&
+    //     //         product.price <= parseFloat(maxPrice)
+    //     // );
+    //     // setFilteredProducts(filtered);
+    // };
     return (
         <div class="container_wrapper">
             <div class="row">
@@ -116,6 +127,10 @@ export default function TrendMain() {
                             </label>
                         </div>
                     </Module>
+                    <Module nameNav={'Khoảng giá bạn muốn'}>
+                        <MinMaxList minPrice={minPrice} maxPrice={maxPrice} setMaxPrice={setMaxPrice} setMinPrice={setMinPrice} />
+                        {/* <button onClick={handleFilter}>Lọc</button> */}
+                    </Module>
                 </div>
                 <div class="col-md-10">
                     <div class="products-filter">
@@ -135,10 +150,10 @@ export default function TrendMain() {
                         </div>
                     </div>
                     <div className='container_product'>
-                        {isLoading ? <Loading/>: (
+                        {isLoading ? <Loading /> : (
                             <ListProduct ListProduct={ListProductSelected} quality={quality} />
                         )}
-                        
+
 
 
                     </div>
@@ -148,7 +163,20 @@ export default function TrendMain() {
     )
 }
 
-function makeList(keyProduct, listOld) {
+// function filterMinMax(minPrice, maxPrice) {
+//     let testList = []
+
+//     if (minPrice && maxPrice) {
+//         testList = testList.filter(
+//             (product) =>
+//                 product.price >= parseFloat(minPrice) &&
+//                 product.price <= parseFloat(maxPrice)
+//         );
+//     }
+//     return testList
+// }
+
+function makeList(keyProduct, listOld, minPrice, maxPrice) {
 
     let testList = []
     let listNew = listOld
@@ -178,7 +206,7 @@ function makeList(keyProduct, listOld) {
 
     const auThor = function ProductsByAuthor(products, nameAuthor) {
         return products.filter(item => {
-           
+
             if (item.brand.toLowerCase() === nameAuthor.toLowerCase()) {
                 return item
             }
@@ -196,6 +224,15 @@ function makeList(keyProduct, listOld) {
         })
     })
     testList = testList.length === 0 ? listOld : testList
+
+    if (minPrice && maxPrice) {
+        testList = testList.filter(
+            (product) =>
+                product.price >= parseFloat(minPrice) &&
+                product.price <= parseFloat(maxPrice)
+        );
+    }
+
     const sortedbyId = function sortProducts(testList) {
         const sortedProducts = [...testList].sort((a, b) => a.id - b.id);
         return sortedProducts

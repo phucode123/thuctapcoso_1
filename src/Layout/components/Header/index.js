@@ -22,7 +22,7 @@ function Header() {
   const checkToken = () => {
     const testToken = window.localStorage.getItem('token');
     const testUser = window.localStorage.getItem('user');
-    console.log(JSON.parse(testUser), testToken);
+    // console.log(JSON.parse(testUser), testToken);
     setUser(JSON.parse(testUser));
     setToken(testToken)
   };

@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom'
 
 export default function SuggestedProduct({ items, children }) {
     // console.log(setIsshow)
-    console.log(items);
+    // console.log(items);
     return (
         <div className='Suggested_container'>
 

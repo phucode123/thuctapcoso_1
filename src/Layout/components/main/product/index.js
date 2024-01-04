@@ -27,11 +27,11 @@ function Product() {
         fetchProduct()
     }, [productId])
 
+    console.log(product);
 
     const handlerSubmittoCart = async () => {
         const tokenCurren = getToken();
         // console.log(tokenCurren, 'id giay:', product.id, 'size:', optionChange);
-
         let data = {
             token: tokenCurren,
             id_product: product.id,
@@ -41,13 +41,12 @@ function Product() {
         try {
             const response =
                 await axios.post('https://ttcs-duongxuannhan2002s-projects.vercel.app/api/v1/post-product-to-cart', data);
-            console.log(response); // In ra dữ liệu phản hồi từ server nếu thành công
-            // setProduct(response.data.data[0])
+            console.log(response); // In ra dữ liệu phản hồi từ server nếu thành công          
         } catch (error) {
             console.error(error);
         }
     };
-    console.log(optionChange);
+    // console.log(optionChange);
 
     // handlerSubmittoCart();
 
@@ -108,7 +107,7 @@ function Product() {
 
                             </div>
                         </div>
-                        <BuyProduct product = {product} size = {optionChange} isShow={isShowBuy} setIsShowBuy={setIsShowBuy}>
+                        <BuyProduct product={product} size={optionChange} isShow={isShowBuy} setIsShowBuy={setIsShowBuy}>
 
                         </BuyProduct>
                     </div>
