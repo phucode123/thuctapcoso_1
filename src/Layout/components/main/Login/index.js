@@ -54,6 +54,7 @@ function Login() {
                 // console.log(response.data);
                 window.localStorage.setItem('user', JSON.stringify(response.data.data));
                 setToken(response.data.token) //lưu token key = token
+                console.log(response.data.token);
 
                 setErrorMessage(false)
                 setSuccessMessage(true)

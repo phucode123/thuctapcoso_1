@@ -1,5 +1,5 @@
 // import React, { useEffect, useState } from 'react';
-// import axios from "axios";
+import axios from "axios";
 
 
 const setToken = function setAPIToken(tokenLogin) {
@@ -35,8 +35,39 @@ const cityDistricts = {
     // Thêm các thành phố, huyện và danh sách xã tương ứng ở đây
 };
 
+
+// khi mua hàng thì post
+const postData = async (data) => {
+    try {
+        const response =
+            await axios.post('https://ttcs-duongxuannhan2002s-projects.vercel.app/api/v1/post-order', data);
+        console.log(response); // In ra dữ liệu phản hồi từ server nếu thành công
+        alert('ok r');
+        // setProduct(response.data.data[0])
+    } catch (error) {
+        alert('k ổn r');
+        console.error(error);
+    }
+}
+
+//mua hàng xong thì xoá sản phẩm đã mua(chỉ áp dụng với giỏ hàng)
+const removeDataInCart = async (data) => {
+    try {
+        const response =
+            await axios.post('https://ttcs-duongxuannhan2002s-projects.vercel.app/api/v1/delete-product-in-cart', data);
+        console.log(response); // In ra dữ liệu phản hồi từ server nếu thành công
+        alert('xoá ok r');
+        // setProduct(response.data.data[0])
+    } catch (error) {
+        alert('k xoá đc r');
+        console.error(error);
+    }
+}
+
 export {
     cityDistricts,
     setToken,
-    getToken
+    getToken,
+    postData,//thêm hoá đơn 
+    removeDataInCart, //xoá sản phẩm trong giỏ
 }

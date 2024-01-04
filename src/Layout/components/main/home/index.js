@@ -21,14 +21,7 @@ function Home() {
             <div className={cx("col-6", "product_slider")}>
                <BasicSlider />
             </div>
-            {/* <div className={cx("col-4", "discouts_item")} >
-               <div className={cx("row-2", "discouts_1", "discouts")}>
-                 
-               </div>
-               <div className={cx("row-2", "discouts_2", "discouts")}>
-
-               </div>
-            </div> */}
+         
          </div>
 
          <ListByAuthor />

@@ -49,7 +49,7 @@ function NavBar() {
         }, {
             id: 2,
             href: '/xh',
-            name: 'Xu hướng',
+            name: 'Sản Phẩm',
             icon: faFire,
             eventKey: "link-1"
         }, {

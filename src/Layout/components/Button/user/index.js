@@ -13,9 +13,7 @@ function User_item({ User, onLogout }) {
     const [open, setOpen] = useState(false)
 
 
-    // function HanderLogout() {
-    //     setUser('')
-    // }
+    
     function HanderLogout(){
         onLogout()
     }
@@ -48,7 +46,7 @@ function User_item({ User, onLogout }) {
 
                         <h3 >{User.name}</h3>
                         <ul className={cx("list_selector")}>
-                            <DropdownItem img={user.logo} text={"My profile"} />
+                            <Link to={'/profile/*'}><DropdownItem img={user.logo} text={"My profile"} /></Link>
                             <DropdownItem img={question.logo} text={"Any question?"} />
                             <DropdownItem function={HanderLogout} img={logout.logo} text={"Log out"} />
                         </ul>

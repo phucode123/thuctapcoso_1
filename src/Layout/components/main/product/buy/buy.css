@@ -23,3 +23,8 @@
 .custom_default{
     padding: 3px !important;
 }
+
+.decreaseAndincrease{
+    display: flex;
+    flex-direction: row;
+}

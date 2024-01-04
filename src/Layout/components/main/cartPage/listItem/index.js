@@ -1,66 +1,47 @@
-import React, { useState } from "react";
-import './ListproductCart.css';
-const test = [
-  {
-    id: 1,
-    name: "Sản phẩm 1 nè",
-    price: "1 củ",
-  },
-  {
-    id: 2,
-    name: "Sản phẩm 2 nè",
-    price: "2 củ",
-  },
-  {
-    id: 3,
-    name: "Sản phẩm 3 nè",
-    price: "4 củ",
-  },
-  {
-    id: 4,
-    name: "Sản phẩm 1 nè",
-    price: "1 củ",
-  },
-  {
-    id: 5,
-    name: "Sản phẩm 2 nè",
-    price: "2 củ",
-  }, {
-    id: 6,
-    name: "Sản phẩm 2 nè",
-    price: "2 củ",
-  }, {
-    id: 7,
-    name: "Sản phẩm 2 nè",
-    price: "2 củ",
-  }, {
-    id: 8,
-    name: "Sản phẩm 2 nè",
-    price: "2 củ",
-  },
-];
-export default function ListProduct() {
+import React, { useState, useEffect } from "react";
+import "./ListproductCart.css";
+import axios from "axios";
+import { getToken } from "../../../../../assect/workToken/WorkToken";
+
+export default function ListProduct({ setListProduct }) {
+  const [cartItems, setCartItems] = useState([]);
   const [selectedItems, setSelectedItems] = useState([]);
-  const [quantities, setQuantities] = useState(Array.from({ length: test.length }, () => 1));
+  const [quantities, setQuantities] = useState([]);
+  const [selectedNumber, setSelectedNumber] = useState("");
 
-  const decreaseQuantity = (index) => {
-    console.log(quantities[index]);
-    if (quantities[index] > 0) {
-      console.log('giamrmm');
-      const updatedQuantities = [...quantities];
-      updatedQuantities[index] = updatedQuantities[index] - 1;
-      setQuantities(updatedQuantities);
-    }
+  const handleNumberChange = (itemId, event) => {
+    const selectedSize = event.target.value;
+    setSelectedNumber(selectedSize);
   };
 
-  const increaseQuantity = (index) => {
-    const updatedQuantities = [...quantities];
-    updatedQuantities[index] = updatedQuantities[index] + 1;
-    setQuantities(updatedQuantities);
-  };
+  const token = getToken();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          `https://ttcs-duongxuannhan2002s-projects.vercel.app/api/v1/get-cart?token=${token}`
+        );
+        setCartItems(function format() {
+          return response.data.data.map((item, index) => ({
+            ...item,
+            id: index + 1,
+          }));
+        });
+
+        setQuantities(Array.from({ length: response.data.data.length }, () => 1));
+        // setSizes(Array.from({ length: response.data.data.length }, () => ""));
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchData();
+  }, [token]);
 
   const handleItemClick = (itemId) => {
-    const selectedItem = test.find((item) => item.id === itemId);
+    // console.log(itemId);
+
+    const selectedItem = cartItems.find((item) => item.id === itemId);
     if (selectedItem) {
       const isSelected = selectedItems.some(
         (selectedItem) => selectedItem.id === itemId
@@ -75,27 +56,52 @@ export default function ListProduct() {
     }
   };
 
+  const decreaseQuantity = (index) => {
+    if (quantities[index] > 0) {
+      const updatedQuantities = [...quantities];
+      updatedQuantities[index] = updatedQuantities[index] - 1;
+      setQuantities(updatedQuantities);
+    }
+  };
+
+  const increaseQuantity = (index) => {
+    const updatedQuantities = [...quantities];
+    updatedQuantities[index] = updatedQuantities[index] + 1;
+    setQuantities(updatedQuantities);
+  };
+
   const handleCheckout = () => {
-    const selectedItemsInfo = test
+    // console.log();
+    // console.log(cartItems);
+
+    const selectedItemsInfo = cartItems
       .filter((item) => {
+        // console.log(item.size);
         return selectedItems.some((selectedItem) => selectedItem.id === item.id);
       })
-      .map((item) => {
+      .map((item, index) => {
         return {
+          id_product: item.id_product,
           name: item.name,
           price: item.price,
           quantity: quantities[item.id - 1] || 0,
+          size: item.size // Thêm thông tin về kích thước,
+          // ,discount: item.discount
         };
       });
 
-    console.log(selectedItemsInfo);
-    // Thực hiện các xử lý khác với các mục đã chọn
+    setListProduct(selectedItemsInfo)
+
+    // console.log(selectedItemsInfo);
   };
 
-  
-
-  function handleOnclickSubmit(id) {
-    console.log(id);
+  function handleRemove(item) {
+    console.log(item);
+    let itemRemove = {
+      'id_user': '',
+      'id_product': item.id_product,
+      'size': '',
+    }
   }
 
   return (
@@ -107,7 +113,7 @@ export default function ListProduct() {
       </div>
 
       <div className="container_product_item row border-top border-bottom ">
-        {test.map((item, index) => {
+        {cartItems.map((item, index) => {
           const isSelected = selectedItems.some(
             (selectedItem) => selectedItem.id === item.id
           );
@@ -117,21 +123,17 @@ export default function ListProduct() {
               key={item.id}
               className={`main_item_product align-items-center ${isSelected ? "selected" : ""
                 }`}
-              style={{ cursor: 'pointer' }}
+              style={{ cursor: "pointer" }}
               onClick={() => handleItemClick(item.id)}
             >
-              <div className="col-1">
+              <div className="">
                 <input className="checkbox_none" type="checkbox" />
               </div>
               <div className="col-2">
-                <img
-                  className="img_product"
-                  src="https://i.imgur.com/pHQ3xT3.jpg"
-                  alt="Product"
-                />
+                <img className="img_product" src={item.image} alt="Product" />
               </div>
               <div className="col">
-                <div className="row">{item.name}</div>
+                <div className="row name_item_cart">{item.name}</div>
               </div>
               <div
                 className="col minus_plus"
@@ -157,14 +159,41 @@ export default function ListProduct() {
                   +
                 </a>
               </div>
+              <div
+                className="col"
+                style={{
+                  display: "flex",
+                  height: "20px",
+                  width: "40px",
+                  flexDirection: 'row'
+                  , justifyContent: 'center',
+                  alignItems: 'center',
+                  border: '1px',
+                  color: 'grey'
+                }}
+              >
+                <p style={{
+                  margin: '0'
+                }}>Size</p>
+                <div
+                  style={{
+                    padding: "0",
+                    width: "50px",
+                  }}
+                  value={item.size}
+                  onChange={(event) => handleNumberChange(item.id, event)}
+                >
+                  <div value="">{item.size}</div>
+                </div>
+              </div>
               <div className="col price_close">
-                <span className="price">{item.price}</span>
+                <span className="price">{item.price * quantities[index]} <span>VNĐ</span></span>
                 <span
                   className="close"
                   key={item.id}
                   onClick={(e) => {
                     e.stopPropagation();
-                    handleOnclickSubmit(item.id);
+                    handleRemove(item);
                   }}
                 >
                   &#10005;
@@ -175,7 +204,9 @@ export default function ListProduct() {
         })}
       </div>
 
-      <button style={{ marginLeft: 'auto' }} onClick={handleCheckout}>Checkout</button>
+      <button style={{ marginLeft: "auto" }} onClick={handleCheckout}>
+        Checkout
+      </button>
     </div>
   );
 }

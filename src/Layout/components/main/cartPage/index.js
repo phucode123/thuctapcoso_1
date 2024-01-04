@@ -8,21 +8,18 @@ import ListProduct from "./listItem";
 
 
 export default function CartPage() {
+    const [listProduct, setListProduct] = useState(null);
+    const user = window.localStorage.getItem('user');
 
-
-    // test vị trí
-
-
+    // console.log(user);
 
     return (
 
         <div class=" card">
             <div class="row father">
-                <ListProduct />
-                <Paymend_cart />
+                <ListProduct setListProduct= {setListProduct}/>
+                <Paymend_cart user = {user} listProduct={listProduct}/>
             </div>
-
-
         </div>
 
     )

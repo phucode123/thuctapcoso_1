@@ -10,6 +10,7 @@ import Table_product from '../AdminPage/control_product';
 import { BrowserRouter as Router, Routes, Route, BrowserRouter } from 'react-router-dom';
 import ScrollToTop from '../../library/scrollOnTop';
 import CartPage from './cartPage';
+import ProfileUser from './profileUser';
 import { mainContext } from '../../DefaultLayout';
 import SignUp from './SignUp';
 import Login from './Login';
@@ -33,6 +34,7 @@ function Main() {
             <Route path='/signin' element={<Login />}> </Route>
             <Route path='/signup' element={<SignUp />}> </Route>
             <Route path='/CartPage' element={<CartPage />}> </Route>
+            <Route path='/profile/*' element={<ProfileUser />}> </Route>
 
 
          </Routes>

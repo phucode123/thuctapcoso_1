@@ -13,7 +13,6 @@ function Product() {
     const [optionChange, setOptionChange] = useState(null);
     const [quantitySize, setQuantitySize] = useState(0)
     const [product, setProduct] = useState({});
-
     const [isShowBuy, setIsShowBuy] = useState(false)
     const { productId } = useParams();
     const fetchProduct = async () => {
@@ -29,12 +28,28 @@ function Product() {
     }, [productId])
 
 
-    const handlerSubmittoCart = () => {
-        const tokenCurren = getToken()
-        console.log(tokenCurren, 'id giay:', product.id, 'size:', optionChange);
+    const handlerSubmittoCart = async () => {
+        const tokenCurren = getToken();
+        // console.log(tokenCurren, 'id giay:', product.id, 'size:', optionChange);
 
+        let data = {
+            token: tokenCurren,
+            id_product: product.id,
+            size: optionChange
+        }
+        console.log(data);
+        try {
+            const response =
+                await axios.post('https://ttcs-duongxuannhan2002s-projects.vercel.app/api/v1/post-product-to-cart', data);
+            console.log(response); // In ra dữ liệu phản hồi từ server nếu thành công
+            // setProduct(response.data.data[0])
+        } catch (error) {
+            console.error(error);
+        }
+    };
+    console.log(optionChange);
 
-    }
+    // handlerSubmittoCart();
 
     return (
         <>
@@ -86,16 +101,16 @@ function Product() {
                         <div class=" girdslider-button d-flex flex-row ">
                             <div class="d-flex flex-row r4 align-items-center">
                                 {/* <QuantitySelect/> */}
-                                <div class="girdslider-menu-item ml-4 " onClick={handlerSubmittoCart}><a href="#">ADD TO CART</a></div>
+                                <div class="girdslider-menu-item ml-4 " onClick={handlerSubmittoCart}><a href="#">Thêm vào giỏ</a></div>
                                 <div class="girdslider-menu-item" onClick={() => {
                                     setIsShowBuy(true)
-                                }}><a href="#">BUY NOW</a></div>
+                                }}><a href="#">Đặt mua ngay</a></div>
 
                             </div>
                         </div>
-                         <BuyProduct isShow = {isShowBuy} setIsShowBuy= {setIsShowBuy}>
+                        <BuyProduct product = {product} size = {optionChange} isShow={isShowBuy} setIsShowBuy={setIsShowBuy}>
 
-                         </BuyProduct>
+                        </BuyProduct>
                     </div>
                 </div >
                 <Listdiscount Author_name={product.author} />
@@ -157,6 +172,7 @@ function GetQuatity(productSelect, optionChange) {
     const getQuatity = async () => {
         try {
             const response = await axios.get(`https://ttcs-duongxuannhan2002s-projects.vercel.app/api/v1/get-quantity?id=${productSelect.id}&size=${parseInt(optionChange)}`);
+            console.log(response.data.data[0].quantity);
             setValue(response.data.data[0].quantity)
         } catch (error) {
             console.error(error);

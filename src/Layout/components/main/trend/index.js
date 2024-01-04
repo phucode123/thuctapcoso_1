@@ -29,11 +29,6 @@ export default function TrendMain() {
             });
     }, []);
 
-    // Sử dụng dữ liệu shoesData ở bên ngoài axios
-    // console.log(shoesData);
-    // Hoặc thực hiện các xử lý khác với dữ liệu
-
-
 
     let quality = 16
     //xử lý checkbox 

@@ -12,6 +12,8 @@ const cx = classNames.bind(styles);
 
 function Header() {
   const [User, setUser] = useState('');
+  const [Token, setToken] = useState(null);
+
 
   useEffect(() => {
     checkToken();
@@ -22,11 +24,17 @@ function Header() {
     const testUser = window.localStorage.getItem('user');
     console.log(JSON.parse(testUser), testToken);
     setUser(JSON.parse(testUser));
+    setToken(testToken)
   };
 
   const handleLogoutClick = () => {
     // Xóa token từ localStorage khi người dùng bấm logout
     localStorage.removeItem('user');
+    setToken(null)
+    const testToken = window.localStorage.removeItem('token');
+    window.location.href = '/';
+
+
     checkToken()
   };
 
@@ -46,7 +54,7 @@ function Header() {
         </span>
         <div className={cx('btn_control')}>
           <span className={cx('btn_icon', 'btn_control_item', 'btn_icon_notUser')}>
-            <Cart_item />
+            <Cart_item token = {Token}/>
           </span>
           <span className={cx('btn_icon', 'btn_control_item', 'btn_icon_notUser')}>
             <Notification_item />
