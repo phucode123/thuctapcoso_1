@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import "./ListproductCart.css";
 import axios from "axios";
 import { getToken, removeDataInCart } from "../../../../../assect/workToken/WorkToken";
-
 export default function ListProduct({ user, setListProduct }) {
   const [cartItems, setCartItems] = useState([]);
   const [selectedItems, setSelectedItems] = useState([]);

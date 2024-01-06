@@ -7,6 +7,9 @@ import axios from "axios";
 import { getToken } from "../../../../assect/workToken/WorkToken";
 import './product.css'
 import BuyProduct from "./buy";
+import { CheckError, Checksuccess } from "../../../library/checkSuccess";
+import MyComponent from "../../../library/checkSuccess";
+import { faSpaghettiMonsterFlying } from "@fortawesome/free-solid-svg-icons";
 
 function Product() {
     // const [size, setSize] = useState(null)
@@ -16,6 +19,11 @@ function Product() {
     const [product, setProduct] = useState({});
     const [isShowBuy, setIsShowBuy] = useState(false)
     const { productId } = useParams();
+
+    const [status, setStatus] = useState()
+    const [isShow, setIsshow] = useState(false)
+    const [title, setTitle] = useState('')
+    const [messenger, setMessenger] = useState('')
 
     const [quantity, setQuantity] = useState(1);
 
@@ -54,8 +62,19 @@ function Product() {
             try {
                 const response =
                     await axios.post('https://ttcs-duongxuannhan2002s-projects.vercel.app/api/v1/post-product-to-cart', data);
-                console.log(response); // In ra dữ liệu phản hồi từ server nếu thành công          
+                console.log(response); // In ra dữ liệu phản hồi từ server nếu thành công 
+
+                setStatus(true)
+                setIsshow(true)
+                // setIsshow(true)
+                setTitle('Thành công')
+                setMessenger(response.data.data.messenger)
             } catch (error) {
+                setStatus(false)
+                // setIsshow(true)
+                setIsshow(true)
+                setTitle('Không thành công')
+                setMessenger('Có lỗi gì đó dòng 77 bro')
                 console.error(error);
             }
         }
@@ -118,7 +137,11 @@ function Product() {
 
                                     <QuantitySelector quantity={quantity} setQuantity={setQuantity} />
 
-                                    <div class="girdslider-menu-item ml-4 " onClick={handlerSubmittoCart}><a href="#">Thêm vào giỏ</a></div>
+                                    <div class="girdslider-menu-item ml-4 " onClick={handlerSubmittoCart}>
+                                        <a href="#">Thêm vào giỏ</a>
+                                    </div>
+
+
                                 </div>
                                 <div class="girdslider-menu-item" onClick={() => {
                                     if (optionChange) {
@@ -126,8 +149,12 @@ function Product() {
                                     }
                                 }}><a>Đặt mua ngay</a></div>
 
+
                             </div>
                         </div>
+
+                        {/* </div> */}
+                        <MyComponent title={title} messenger={messenger} status={status} setIsshow={setIsshow} isShow={isShow}/>
                         <BuyProduct product={product} size={optionChange} optionsize={optionsize} isShow={isShowBuy} setIsShowBuy={setIsShowBuy} />
                     </div>
                 </div >
