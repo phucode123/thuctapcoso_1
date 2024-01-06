@@ -4,25 +4,27 @@
     position: relative;
     overflow: hidden;
     border: 1px solid #ccc;
-    background-color: #ffffff
-    ;
+    background-color: #ffffff;
 
 }
 
-.single-product:hover{
+.single-product:hover {
     cursor: pointer;
     box-shadow: 0 2px 20px rgba(44, 43, 43, 0.5);
-    
+
 }
+
 .custom-link {
     color: inherit;
     text-decoration: none;
     /* Các thuộc tính CSS tùy chỉnh khác */
-  }
-.single-product:hover .image_product{
+}
+
+.single-product:hover .image_product {
     transform: scale(1.01);
 
 }
+
 .single-product .part-1 {
     position: relative;
     height: 290px;
@@ -30,7 +32,8 @@
     margin-bottom: 20px;
     overflow: hidden;
 }
- .single-product .image_product {
+
+.single-product .image_product {
     position: absolute;
     content: "";
     top: 0;
@@ -48,9 +51,7 @@
     z-index: 999;
 }
 
-#product-1 .part-1::before {
-    
-}
+#product-1 .part-1::before {}
 
 .single-product .part-1 ul {
     position: absolute;
@@ -64,10 +65,12 @@
     opacity: 0;
     transition: bottom 0.5s, opacity 0.5s;
 }
+
 .single-product:hover .part-1 ul {
     bottom: 30px;
     opacity: 1;
 }
+
 .single-product .part-1 ul li {
     display: inline-block;
     margin-right: 4px;
@@ -84,31 +87,39 @@
     box-shadow: 0 2px 20px rgb(50 50 50 / 10%);
     transition: color 0.2s;
 }
+
 .single-product .part-1 ul li a:hover {
     color: #fe302f;
 }
 
-.single-product .part-2 
-{
+.single-product .part-2 {
     text-align: center;
+    margin: 5px;
+    border: 1px solid rgba(0, 0, 0, .2);
 }
+
 .single-product .part-2 .product-title {
-    font-size: 1rem;
+    font-size: 20px;
     padding: 0 5px;
-    white-space: nowrap;
+    height: 50px;
+    white-space: pre-wrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    font-weight: 450;
 }
+
 .single-product .part-2 h4 {
     display: inline-block;
     font-size: 1rem;
 }
+
 .single-product .part-2 .product-old-price {
     position: relative;
     padding: 0 7px;
-    margin-right: 2px;
+    margin-left: 5px;
     opacity: 0.6;
 }
+
 .single-product .part-2 .product-old-price::after {
     position: absolute;
     content: "";
@@ -118,4 +129,12 @@
     height: 1px;
     background-color: #444444;
     transform: translateY(-50%);
+}
+
+.product-price {
+    color: #fe302f;
+}
+
+.image-flip {
+    transform: scaleX(-1);
 }

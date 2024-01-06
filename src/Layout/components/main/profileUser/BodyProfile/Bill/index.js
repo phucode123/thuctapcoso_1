@@ -12,24 +12,26 @@ export default function Bill() {
 
     // console.log(getToken())
 
+    const fetchData = async () => {
+
+        try {
+            const testUser = JSON.parse(window.localStorage.getItem('user'));
+            console.log(testUser.id);
+            const response = await axios.get(`https://ttcs-delta.vercel.app/api/v1/get-all-order?id_user=${testUser.id}`);
+            setOrders(response.data.data);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
+
     useEffect(() => {
-        const fetchData = async () => {
-
-            try {
-                const testUser = JSON.parse(window.localStorage.getItem('user'));
-                const response = await axios.get(`https://ttcs-delta.vercel.app/api/v1/get-all-order?id_user=${testUser.id}`);
-                setOrders(response.data.data);
-            } catch (error) {
-                console.error('Error fetching data:', error);
-            }
-        };
-
         fetchData();
     }, []);
 
     const handleViewDetails = async (order) => {
+        // console.log(orders);
         try {
-            console.log(order.id);
+            console.log('order id:',order.id);
             const response = await axios.get(`https://ttcs-delta.vercel.app/api/v1/get-detail-order?id_order=${order.id}`);
             setOrderDetails(response.data.data);
             console.log(response.data);

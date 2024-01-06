@@ -18,17 +18,18 @@ export default function TrendMain() {
     const [maxPrice, setMaxPrice] = useState("");
 
     useEffect(() => {
+        console.log('alo');
         axios.get('https://ttcs-duongxuannhan2002s-projects.vercel.app/api/v1/get-shoes')
             .then((response) => {
                 const data = response.data;
                 setShoesData(data.data);
                 setIsLoading(false);
-                console.log(data);
+                // console.log(data);
             })
             .catch((error) => {
                 console.error(error);
                 setIsLoading(false);
-                alert('loi tum lum')
+                // alert('loi tum lum')
             });
     }, []);
 

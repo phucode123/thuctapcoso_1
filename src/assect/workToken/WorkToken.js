@@ -17,7 +17,7 @@ const setToken = function setAPIToken(tokenLogin) {
 
 const getToken = function getAPIToken() {
     const token = window.localStorage.getItem('token');
-    console.log(token);
+    // console.log(token);
     return token
 }
 
@@ -39,6 +39,7 @@ const cityDistricts = {
 // khi mua hàng thì post
 const postData = async (data) => {
     try {
+        console.log(data);
         const response =
             await axios.post('https://ttcs-duongxuannhan2002s-projects.vercel.app/api/v1/post-order', data);
         console.log(response); // In ra dữ liệu phản hồi từ server nếu thành công
@@ -51,12 +52,13 @@ const postData = async (data) => {
 }
 
 //mua hàng xong thì xoá sản phẩm đã mua(chỉ áp dụng với giỏ hàng)
-const removeDataInCart = async (data) => {
+const removeDataInCart = async (Data) => {
     try {
         const response =
-            await axios.delete('https://ttcs-duongxuannhan2002s-projects.vercel.app/api/v1/delete-product-in-cart', { data: data });
-        console.log(response.data); // In ra dữ liệu phản hồi từ server nếu thành công
+            await axios.delete('https://ttcs-duongxuannhan2002s-projects.vercel.app/api/v1/delete-product-in-cart', { data: Data });
+         console.log(response.data); // In ra dữ liệu phản hồi từ server nếu thành công
         // alert('xoá ok r');
+        window.location.reload();
         // setProduct(response.data.data[0])
     } catch (error) {
         alert('k xoá đc r');

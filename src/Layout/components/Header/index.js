@@ -30,8 +30,8 @@ function Header() {
   const handleLogoutClick = () => {
     // Xóa token từ localStorage khi người dùng bấm logout
     localStorage.removeItem('user');
-    setToken(null)
-    const testToken = window.localStorage.removeItem('token');
+    localStorage.removeItem('token');
+    // setToken(null)
     window.location.href = '/';
 
 

@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import Listdiscount from "./discount";
-
+import QuantitySelector from "./Library";
 import { useActionData, useParams } from 'react-router-dom';
 import axios from "axios";
 import { getToken } from "../../../../assect/workToken/WorkToken";
@@ -11,10 +11,14 @@ import BuyProduct from "./buy";
 function Product() {
     // const [size, setSize] = useState(null)
     const [optionChange, setOptionChange] = useState(null);
-    const [quantitySize, setQuantitySize] = useState(0)
+    // const [quantitySize, setQuantitySize] = useState(0)
+    const [optionsize, setOptionSize] = useState(null)
     const [product, setProduct] = useState({});
     const [isShowBuy, setIsShowBuy] = useState(false)
     const { productId } = useParams();
+
+    const [quantity, setQuantity] = useState(1);
+
     const fetchProduct = async () => {
         try {
             const response = await axios.get(`https://ttcs-duongxuannhan2002s-projects.vercel.app/api/v1/get-1-product?id=${productId}`);
@@ -27,26 +31,36 @@ function Product() {
         fetchProduct()
     }, [productId])
 
-    console.log(product);
+    // console.log(product);
 
     const handlerSubmittoCart = async () => {
-        const tokenCurren = getToken();
-        // console.log(tokenCurren, 'id giay:', product.id, 'size:', optionChange);
-        let data = {
-            token: tokenCurren,
-            id_product: product.id,
-            size: optionChange
+        if (optionsize == null || quantity < 1) {
+            if (optionsize == null)
+                alert('vui lòng chọn size bạn muốn')
+            else
+                alert('không thể thêm hàng vào giỏ khi số lượng = 0')
         }
-        console.log(data);
-        try {
-            const response =
-                await axios.post('https://ttcs-duongxuannhan2002s-projects.vercel.app/api/v1/post-product-to-cart', data);
-            console.log(response); // In ra dữ liệu phản hồi từ server nếu thành công          
-        } catch (error) {
-            console.error(error);
+        else {
+            const tokenCurren = getToken();
+            // console.log(tokenCurren, 'id giay:', product.id, 'size:', optionChange);
+            let data = {
+                token: tokenCurren,
+                id_product: product.id,
+                size: optionsize.size,
+                id_size: optionsize.id_size,
+                quantity: quantity
+            }
+            console.log(data);
+            try {
+                const response =
+                    await axios.post('https://ttcs-duongxuannhan2002s-projects.vercel.app/api/v1/post-product-to-cart', data);
+                console.log(response); // In ra dữ liệu phản hồi từ server nếu thành công          
+            } catch (error) {
+                console.error(error);
+            }
         }
     };
-    // console.log(optionChange);
+    console.log(optionChange);
 
     // handlerSubmittoCart();
 
@@ -85,9 +99,9 @@ function Product() {
                         <div>
                             <div><p2 className='select_size'>Chọn size giày</p2></div>
                             <div className="rate_score">
-                                <Options options_test={product.size} productSelect={product} setQuantitySize={setQuantitySize} setOptionChange={setOptionChange} optionChange={optionChange} />
+                                <Options options_test={product.size} productSelect={product} setOptionChange={setOptionChange} optionChange={optionChange} optionsize={optionsize} setOptionSize={setOptionSize} />
                             </div>
-                            {quantitySize ? <div><p3 className='quantity_size'>Còn lại: <span>{quantitySize}</span></p3></div> : ''}
+                            {optionsize ? <div><p3 className='quantity_size'>Còn lại: <span>{optionsize.quantity}</span></p3></div> : ''}
                         </div>
                         <div className="expected_delivery">
                             <div className="expected_delivery_address">
@@ -100,16 +114,21 @@ function Product() {
                         <div class=" girdslider-button d-flex flex-row ">
                             <div class="d-flex flex-row r4 align-items-center">
                                 {/* <QuantitySelect/> */}
-                                <div class="girdslider-menu-item ml-4 " onClick={handlerSubmittoCart}><a href="#">Thêm vào giỏ</a></div>
+                                <div className="container_add_cart">
+
+                                    <QuantitySelector quantity={quantity} setQuantity={setQuantity} />
+
+                                    <div class="girdslider-menu-item ml-4 " onClick={handlerSubmittoCart}><a href="#">Thêm vào giỏ</a></div>
+                                </div>
                                 <div class="girdslider-menu-item" onClick={() => {
-                                    setIsShowBuy(true)
-                                }}><a href="#">Đặt mua ngay</a></div>
+                                    if (optionChange) {
+                                        setIsShowBuy(true)
+                                    }
+                                }}><a>Đặt mua ngay</a></div>
 
                             </div>
                         </div>
-                        <BuyProduct product={product} size={optionChange} isShow={isShowBuy} setIsShowBuy={setIsShowBuy}>
-
-                        </BuyProduct>
+                        <BuyProduct product={product} size={optionChange} optionsize={optionsize} isShow={isShowBuy} setIsShowBuy={setIsShowBuy} />
                     </div>
                 </div >
                 <Listdiscount Author_name={product.author} />
@@ -119,7 +138,7 @@ function Product() {
 }
 
 
-const Options = ({ options_test, productSelect, setQuantitySize, setOptionChange, optionChange }) => {
+const Options = ({ options_test, productSelect, setQuantitySize, setOptionChange, optionChange, optionsize, setOptionSize }) => {
     const options_tes = options_test ? options_test.split(',') : []
     const options = [
         { id: 1, size: '38' },
@@ -139,7 +158,7 @@ const Options = ({ options_test, productSelect, setQuantitySize, setOptionChange
             // Nếu lựa chọn đã được chọn và được nhấp lại, hủy chọn
             console.log('Selected Product ID:', productSelect.id);
             console.log('Selected Size:', option.size);
-
+            setOptionChange(null)
             setSelectedOption(null);
         } else {
             // Nếu lựa chọn chưa được chọn hoặc được chọn khác, chọn lại
@@ -149,8 +168,10 @@ const Options = ({ options_test, productSelect, setQuantitySize, setOptionChange
             setSelectedOption(option.id);
         }
     };
-    let quantity = GetQuatity(productSelect, optionChange)
-    setQuantitySize(quantity)
+    let value = GetQuatity(productSelect, optionChange)
+    // console.log(value);
+    // setQuantitySize(value.quantity)
+    setOptionSize(value)
     return (
         <>
             {options.map((option, index) => (
@@ -167,12 +188,13 @@ const Options = ({ options_test, productSelect, setQuantitySize, setOptionChange
 };
 
 function GetQuatity(productSelect, optionChange) {
-    const [value, setValue] = useState(null)
+    const [value, setValue] = useState()
     const getQuatity = async () => {
         try {
             const response = await axios.get(`https://ttcs-duongxuannhan2002s-projects.vercel.app/api/v1/get-quantity?id=${productSelect.id}&size=${parseInt(optionChange)}`);
-            console.log(response.data.data[0].quantity);
-            setValue(response.data.data[0].quantity)
+            // console.log(response.data.data[0].quantity);
+            console.log(response.data.data[0]);
+            setValue(response.data.data[0])
         } catch (error) {
             console.error(error);
         }

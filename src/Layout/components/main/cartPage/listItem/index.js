@@ -19,6 +19,7 @@ export default function ListProduct({ user, setListProduct }) {
       const response = await axios.get(
         `https://ttcs-duongxuannhan2002s-projects.vercel.app/api/v1/get-cart?token=${token}`
       );
+      console.log(response.data);
       setCartItems(function format() {
         return response.data.data.map((item, index) => ({
           ...item,
@@ -30,12 +31,27 @@ export default function ListProduct({ user, setListProduct }) {
       console.error(error);
     }
   };
+
+  useEffect(() => {
+    // Tạo một mảng mới để lưu trữ số lượng tương ứng với từng sản phẩm
+    const updatedQuantities = cartItems.map((item) => {
+      // Tìm số lượng hiện tại của sản phẩm trong mảng quantities
+      const currentQuantity = item.quantity;
+      return currentQuantity || 1; // Nếu không tìm thấy số lượng, mặc định là 1
+    });
+
+    // Cập nhật mảng quantities với số lượng đã được cập nhật
+    setQuantities(updatedQuantities);
+  }, [cartItems]);
+
   useEffect(() => {
     fetchData();
   }, [token]);
 
   const handleItemClick = (itemId) => {
     // console.log(itemId);
+    console.log(cartItems);
+
 
     const selectedItem = cartItems.find((item) => item.id === itemId);
     if (selectedItem) {
@@ -76,20 +92,22 @@ export default function ListProduct({ user, setListProduct }) {
         return selectedItems.some((selectedItem) => selectedItem.id === item.id);
       })
       .map((item, index) => {
+        console.log(item);
         return {
           id_product: item.id_product,
           name: item.name,
           price: item.price,
           quantity: quantities[item.id - 1] || 0,
           size: item.size // Thêm thông tin về kích thước,
-          ,discount : item.discount
+          , discount: item.discount,
+          id_size: item.id_size
           // ,discount: item.discount
         };
       });
 
     setListProduct(selectedItemsInfo)
 
-    // console.log(selectedItemsInfo);
+    console.log(selectedItemsInfo);
   };
   async function handleRemove(item) {
     try {
@@ -98,6 +116,7 @@ export default function ListProduct({ user, setListProduct }) {
         id_user: user.id,
         id_product: item.id_product,
         size: item.size,
+        id_size: item.id_size
       };
       console.log(itemRemove);
       await removeDataInCart(itemRemove);
@@ -106,17 +125,6 @@ export default function ListProduct({ user, setListProduct }) {
       console.error(error);
     }
   }
-  // function handleRemove(item) {
-  //   console.log(item);
-  //   let itemRemove = {
-  //     'id_user': user.id,
-  //     'id_product': item.id_product,
-  //     'size': item.size,
-  //   }
-  //   console.log(itemRemove);
-  //   removeDataInCart(itemRemove)
-  //   fetchData()
-  // }
 
   return (
     <div className="cart">
@@ -201,7 +209,7 @@ export default function ListProduct({ user, setListProduct }) {
                 </div>
               </div>
               <div className="col price_close">
-                <span className="price">{item.price * quantities[index]} <span>VNĐ</span></span>
+                <span className="price">{Math.round(item.price * quantities[index] * (1 - item.discount / 100))} <span>VNĐ</span></span>
                 <span
                   className="close"
                   key={item.id}

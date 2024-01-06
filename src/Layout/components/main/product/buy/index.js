@@ -3,12 +3,13 @@ import './buy.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Paymend_cart from '../../cartPage/select_option';
 import { faClose } from '@fortawesome/free-solid-svg-icons';
-import { cityDistricts, getToken , postData} from '../../../../../assect/workToken/WorkToken';
+import { cityDistricts, getToken, postData } from '../../../../../assect/workToken/WorkToken';
 import { FaGratipay } from 'react-icons/fa';
 import axios from 'axios';
 
-export default function BuyProduct({ product, size, isShow, setIsShowBuy }) {
-    // console.log(size);
+export default function BuyProduct({ product, size, optionsize, isShow, setIsShowBuy }) {
+    // console.log(size, '\n', optionsize);
+    console.log('show: ', isShow);
     const [quantity, setQuantity] = useState(1);
     const [selectedLocation, setSelectedLocation] = useState('');
     const [selectedDistrict, setSelectedDistrict] = useState('');
@@ -91,7 +92,7 @@ export default function BuyProduct({ product, size, isShow, setIsShowBuy }) {
         setQuantity(quantity + 1);
     };
     function hideForm() {
-        isShow = isShow
+        // isShow = isShow
         setIsShowBuy(false)
     }
     function stopPropagation(event) {
@@ -113,91 +114,105 @@ export default function BuyProduct({ product, size, isShow, setIsShowBuy }) {
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        console.log('token', getToken());
+        // console.log('token', getToken());
         let address = `${addRess}/${selectedCommunes}/${selectedDistrict}/${selectedLocation}`
-        console.log('Số lượng:', quantity);
-        console.log('Hình thức thanh toán:', selectedPayment);
+        // console.log('Số lượng:', quantity);
+        // console.log('Hình thức thanh toán:', selectedPayment);
 
-        let Data = ItemProduct({ product, size, getTime, address, phoneNumber, selectedPayment });
-        console.log(Data);
-        // console.log(Data);
-        postData(Data)
+        let Data = ItemProduct({ product, optionsize, getTime, address, phoneNumber, selectedPayment });
+        if (
+            !Data.token ||
+            !Data.address ||
+            !Data.phoneNumber ||
+            // !Data.totalPrice ||
+            !Data.payment
+            // Data.products.length === 0
+        ) {
 
 
+            alert("Hãy nhập đầy đủ thông tin giùm!!");
 
-
-        // Tiếp tục xử lý logic của bạn sau khi submit
-    };
+        } else {
+            // console.log("ị");
+            console.log(Data);
+            postData(Data)
+            // removeData(listProduct)
+        }
+    }
 
     return (
         <>
-            {/* form */}
-            {isShow && (<div className='wrapper_buy' onClick={hideForm}>
-                <div className='content_buy' onClick={stopPropagation}>
-                    <div className="header_edit_item">
-                        <i className="icon_close" onClick={hideForm}><FontAwesomeIcon icon={faClose} /></i>
-                    </div>
-                    {/* form */}
+           
+            {isShow && <div className='wrapper_buy' onClick={hideForm}>
+                    <div className='content_buy' onClick={stopPropagation}>
+                        <div className="header_edit_item">
+                            <i className="icon_close" onClick={hideForm}><FontAwesomeIcon icon={faClose} /></i>
+                        </div>
+                        {/* form */}
 
-                    <div className='body'>
-                        <form onSubmit={handleSubmit}>
-                            <SelectAddress
-                                selectedLocation={selectedLocation}
-                                selectedDistrict={selectedDistrict}
-                                selectedCommunes={selectedCommunes}
-                                districts={districts}
-                                communes={communes}
-                                handleLocationChange={handleLocationChange}
-                                handleDistrictChange={handleDistrictChange}
-                                handleCommunesChange={handleCommunesChange}
-                                phoneNumber={phoneNumber}
-                                addRess={addRess}
-                                handleInputChangeAddress={handleInputChangeAddress}
-                                isValid={isValid}
-                                isTouched={isTouched}
-                                handleInputChange={handleInputChange}
-                                handleInputblur={handleInputBlur}
-                            />
-                            <div>
-                                <span>Chọn số lượng bạn muốn</span>
-                                <div className='decreaseAndincrease'>
-                                    <a href="#" className="minus" onClick={decreaseQuantity}>
-                                        -
-                                    </a>
-                                    <a href="#" className="border">
-                                        {quantity}
-                                    </a>
-                                    <a href="#" className="plus" onClick={increaseQuantity}>
-                                        +
-                                    </a>
+                        <div className='body'>
+                            <form onSubmit={handleSubmit}>
+                                <SelectAddress
+                                    selectedLocation={selectedLocation}
+                                    selectedDistrict={selectedDistrict}
+                                    selectedCommunes={selectedCommunes}
+                                    districts={districts}
+                                    communes={communes}
+                                    handleLocationChange={handleLocationChange}
+                                    handleDistrictChange={handleDistrictChange}
+                                    handleCommunesChange={handleCommunesChange}
+                                    phoneNumber={phoneNumber}
+                                    addRess={addRess}
+                                    handleInputChangeAddress={handleInputChangeAddress}
+                                    isValid={isValid}
+                                    isTouched={isTouched}
+                                    handleInputChange={handleInputChange}
+                                    handleInputblur={handleInputBlur}
+                                />
+                                <div>
+                                    <span>Chọn số lượng bạn muốn</span>
+                                    <div className='decreaseAndincrease'>
+                                        <a href="#" className="minus" onClick={decreaseQuantity}>
+                                            -
+                                        </a>
+                                        <a href="#" className="border">
+                                            {quantity}
+                                        </a>
+                                        <a href="#" className="plus" onClick={increaseQuantity}>
+                                            +
+                                        </a>
+                                    </div>
                                 </div>
-                            </div>
-                            <div>
-                                <label htmlFor="payment">Chọn hình thức thanh toán:</label>
-                                <select className='custom_default' id="payment" value={selectedPayment} onChange={handlePaymentChange}>
-                                    <option value="">-- Chọn hình thức --</option>
-                                    <option value="credit_card">Thanh toán khi nhận hàng</option>
-                                    <option value="bank_transfer">Chuyển khoản ngân hàng</option>
-                                </select>
-                            </div>
+                                <div>
+                                    <label htmlFor="payment">Chọn hình thức thanh toán:</label>
+                                    <select className='custom_default' id="payment" value={selectedPayment} onChange={handlePaymentChange}>
+                                        <option value="">-- Chọn hình thức --</option>
+                                        <option value="credit_card">Thanh toán khi nhận hàng</option>
+                                        <option value="bank_transfer">Chuyển khoản ngân hàng</option>
+                                    </select>
+                                </div>
 
-                            <div>
-                                <button type="submit" >
-                                    Mua hàng
-                                </button>
-                            </div>
-                        </form>
+                                <div>
+                                    <button type="submit" >
+                                        Mua hàng
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+
+
+
                     </div>
-
-
                 </div>
-            </div>)}
+
+            }
         </>
 
     )
 }
 
-function ItemProduct({ product, size, getTime, address, phoneNumber, selectedPayment }) {
+
+function ItemProduct({ product, optionsize, getTime, address, phoneNumber, selectedPayment }) {
 
     return {
         "token": getToken(),
@@ -207,7 +222,7 @@ function ItemProduct({ product, size, getTime, address, phoneNumber, selectedPay
         "totalPrice": product.price,
         "payment": selectedPayment,
         "status": "Đã đặt hàng",
-        "products": [{ "id_product": product.id, "id_size": size, "quantity": 1 }]
+        "products": [{ "id_product": product.id, "id_size": optionsize.id_size, "size": optionsize.size, "quantity": 1 }]
     }
 }
 
@@ -282,8 +297,3 @@ function SelectAddress({
     )
 }
 
-
-
-// id giay, so luong, size, tong gia, dia chi, sdt, hinh thuc thanh toan(bank, cod), thoi gian, id user
-
-// form

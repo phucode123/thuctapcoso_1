@@ -78,11 +78,11 @@ function SignUp() {
     <div className='d-flex justify-content-center align-items-center'>
       <div className='mt-5 wrapper_form card p-5'>
         <form onSubmit={handleSignUp}>
-          <h3>Sign Up</h3>
+          <h3>Đăng ký</h3>
           <div className='row mb-2 text-start'>
             <div className='col '>
               <label htmlFor='lname' className='text-start'>
-                Last Name
+                Tên của bạn
               </label>
               <input
                 type='text'
@@ -125,7 +125,7 @@ function SignUp() {
             {phoneError && <p className='error_message'>{phoneError}</p>}
           </div>
           <div className='  mb-2 text-start'>
-            <label htmlFor='password'>Password</label>
+            <label htmlFor='password'>Mật khẩu</label>
             <input
               type='password'
               name='pass'
@@ -138,7 +138,7 @@ function SignUp() {
 
           <div className='d-flex'>
             <button type='submit' className='btn btn-primary'>
-              Sign Up
+              Đăng ký
             </button>
             <p className='text-end mt-2'>
               <span>Bạn đã có tài khoản ư?</span>{' '}

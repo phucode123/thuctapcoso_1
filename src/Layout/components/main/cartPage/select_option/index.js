@@ -7,6 +7,8 @@ import axios from "axios";
 import { getToken, postData, removeDataInCart } from "../../../../../assect/workToken/WorkToken";
 export default function Paymend_cart({ user, listProduct }) {
     // console.log(user);
+
+    listProduct = listProduct? listProduct: []
     const [selectedLocation, setSelectedLocation] = useState('');
     const [selectedDistrict, setSelectedDistrict] = useState('');
     const [selectedCommunes, setSelectedCommunes] = useState('')
@@ -80,21 +82,22 @@ export default function Paymend_cart({ user, listProduct }) {
     };
 
     const removeData = (listProduct) => {
-        listProduct.map((item) => {
+        listProduct.filter((item) => {
             handleRemove(item)
         })
     }
 
     async function handleRemove(item) {
         try {
-            console.log(item);
+            // console.log(item);
             let itemRemove = {
                 id_user: user.id,
                 id_product: item.id_product,
                 size: item.size,
+                id_size: item.id_size
             };
-            console.log(itemRemove);
-            await removeDataInCart(itemRemove);
+            // console.log(itemRemove);
+            removeDataInCart(itemRemove);
             // await fetchData();
         } catch (error) {
             console.error(error);
@@ -113,17 +116,34 @@ export default function Paymend_cart({ user, listProduct }) {
             const newList =
                 listProduct ? listProduct.map((item) => {
                     // console.log('halo');
-                    return { "id_product": item.id_product, "id_size": item.size, "quantity": item.quantity }
+                    // [{"id_product": 20, "id_size": 1, "size": 38,"allQuantity": 24, "quantity": 1}]
+                    return { "id_product": item.id_product,"id_size": 1, "size": item.size, "quantity": item.quantity }
 
                 }) : null
 
 
             // const totalPrice = listProduct.reduce((sum, item) => sum + item.price, 0);
             let Data = ItemProduct({ newList, totalPrice, getTime, address, phoneNumber, selectedPayment });
-            console.log(Data);
-            postData(Data)
-            removeData(listProduct)
-            window.location.reload();
+            if (
+                !Data.token ||
+                !Data.address ||
+                !Data.phoneNumber ||
+                // !Data.totalPrice ||
+                !Data.payment 
+                // Data.products.length === 0
+            ) {
+
+
+                alert("Hãy nhập đầy đủ thông tin giùm!!");
+
+            } else {
+                // console.log("ị");
+                console.log(Data);
+                postData(Data)
+                // removeData(listProduct)
+            }
+            // window.location.reload('/');
+
 
         }
 
@@ -175,12 +195,24 @@ export default function Paymend_cart({ user, listProduct }) {
 }
 
 function ItemProduct({ newList, totalPrice, getTime, address, phoneNumber, selectedPayment }) {
+
+    // {
+    //     "token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzgsImlhdCI6MTcwMzM0NTYzNX0.vwwSitt1EoyS8Y6mdwbg9D730yXeDyBWAoqjievcoiw",
+    //     "order_date":"24/12/2002",
+    //     "address":"vinh-na",
+    //     "phoneNumber": "0000",
+    //     "totalPrice":10000, 
+    //     "payment":"cod",
+    //     "status":"ddh",
+    //     "products": [{"id_product": 20, "id_size": 1, "size": 38,, "quantity": 1}, {"id_product": 19, "id_size": 4, "size": 41, , "quantity": 1}]
+    //     }
+
     return {
-        "id_user": getToken(),
+        "token": getToken(),
         "order_date": getTime(),
         "address": address,
         "phoneNumber": phoneNumber,
-        "totalPrice": totalPrice,
+        "totalPrice": Math.round(totalPrice),
         "payment": selectedPayment,
         "status": "Đã đặt hàng",
         "products": newList
@@ -260,26 +292,33 @@ function SelectAddress({
 
 
 function Price_show({ listProduct, setTotalPrice }) {
-    console.log(listProduct);
+    // console.log(listProduct);
     let totalAmount = 0;
     let totalDiscount = 0;
+    let originalPrice = 0;
 
     if (listProduct) {
         listProduct.forEach((product) => {
             const discountedPrice = product.price * (1 - product.discount / 100);
-            totalAmount += product.price;
-            totalDiscount += product.price - discountedPrice;
+            const productTotalPrice = discountedPrice * product.quantity;
+            const productTotalDiscount = (product.price - discountedPrice) * product.quantity;
+
+            totalAmount += productTotalPrice;
+            totalDiscount += productTotalDiscount;
+            originalPrice += product.price * product.quantity;
         });
-        setTotalPrice(totalAmount - totalDiscount)
+        setTotalPrice(totalAmount - totalDiscount);
     }
+
     totalAmount = Math.round(totalAmount);
     totalDiscount = Math.round(totalDiscount);
+    originalPrice = Math.round(originalPrice);
 
     return (
         <div className="price_show text-start">
             <div class="row boder_bot" >
                 <div class="col">Giá trị gốc</div>
-                <div class="col text-end"><span>{listProduct ? totalAmount : 0} vnđ</span></div>
+                <div class="col text-end"><span>{listProduct ? originalPrice : 0} vnđ</span></div>
             </div>
             <div class="row boder_bot" >
                 <div class="col">Tổng giảm giá</div>
@@ -287,7 +326,7 @@ function Price_show({ listProduct, setTotalPrice }) {
             </div>
             <div class="row " >
                 <div class="col">Cái giá phải trả</div>
-                <div class="col text-end"><span>{listProduct ? (totalAmount - totalDiscount) : 0} vnđ</span></div>
+                <div class="col text-end"><span>{listProduct ? totalAmount : 0} vnđ</span></div>
             </div>
         </div>
     )

@@ -133,17 +133,19 @@
     margin: 8px 0;
 
 }
-.select_size{
+
+.select_size {
     font-size: 16px;
     font-weight: 500;
     font-family: 'Times New Roman', Times, serif;
 }
-.quantity_size
-{
+
+.quantity_size {
     font-size: 13px;
     color: #514e4e;
     color: #C92127;
 }
+
 .rate_score {
     width: 80%;
     /* height: 46px; */
@@ -151,7 +153,7 @@
     flex-direction: row;
     flex-wrap: wrap;
     /* justify-content: space-between; */
-    margin: 8px 0 0 0 ;
+    margin: 8px 0 0 0;
     padding-right: 0 !important;
     /* background: transparent linear-gradient(180deg, #FF6D6D 0%, #FF5247 100%) 0% 0% no-repeat padding-box; */
 }
@@ -159,7 +161,7 @@
 .option-item.disabled {
     opacity: 0.5;
     cursor: not-allowed;
-    pointer-events: none; 
+    pointer-events: none;
 }
 
 .option-item {
@@ -233,6 +235,53 @@
     position: absolute;
 }
 
+.container_add_cart {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    /* margin: 10px 5px 5px;
+    padding: 8px 15px; */
+
+}
+
+.selectQuan {
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.selectQuan a {
+    /* height: 12px !important;
+     */
+    /* flex: 1; */
+    height: 21px !important;
+    width: 20px !important;
+    margin: 0 !important;
+
+}
+
+.Quan {
+    height: 41px;
+    width: 40px;
+    border: 1px solid rgba(0, 0, 0, 0.2) !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    
+}
+.Quan>input{
+
+    /* margin: ; */
+    /* padding: 5px; */
+    width: 100%;
+    text-align: center;
+    border: none;
+    outline: none !important;
+}
+
 .girdslider-menu-item:hover {
     border: 1px solid #F7931E !important;
     border-radius: 5px;
@@ -242,11 +291,18 @@
 
 }
 
+.container_add_cart>.girdslider-menu-item {
+    /* margin: 0;
+    padding: 0; */
+
+
+}
+
 .girdslider-menu-item {
     border: 1px solid #FF6D6D !important;
 
     border-radius: 5px;
-    margin: 10px 5px 5px;
+    margin: 5px 5px 5px;
     width: 150px;
     padding: 8px 15px;
     font-size: 16px;
