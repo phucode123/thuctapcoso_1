@@ -14,17 +14,18 @@ import ProfileUser from './profileUser';
 import { mainContext } from '../../DefaultLayout';
 import SignUp from './SignUp';
 import Login from './Login';
+import Show from './product/testGetPayment';
 const cx = classNames.bind(styles);
 {/* <BasicSlider /> */ }
 function Main() {
-  
+
 
 
    return (
       <div className={cx("wrapper")}>
 
          <ScrollToTop />
-         
+
          <Routes>
 
 
@@ -35,7 +36,7 @@ function Main() {
             <Route path='/signup' element={<SignUp />}> </Route>
             <Route path='/CartPage' element={<CartPage />}> </Route>
             <Route path='/profile/*' element={<ProfileUser />}> </Route>
-
+            <Route path='/query-payment' element={<Show />}></Route>
 
          </Routes>
          {

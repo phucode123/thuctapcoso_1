@@ -23,6 +23,10 @@ export default function BuyProduct({ product, size, optionsize, isShow, setIsSho
     const [isTouched, setIsTouched] = useState(false);
     const [currentTime, setCurrentTime] = useState(new Date());
 
+
+    const [paymened, setPaymend] = useState('cod')
+
+
     function getTime() {
         setCurrentTime(new Date());
         const formattedDate = `${currentTime.getDate()}/${currentTime.getMonth() + 1}/${currentTime.getFullYear()}`;
@@ -72,7 +76,7 @@ export default function BuyProduct({ product, size, optionsize, isShow, setIsSho
         const paymentMethod = event.target.value;
         setSelectedPayment(paymentMethod);
         // Show or hide buttons based on selected payment method
-        if (paymentMethod === 'credit_card') {
+        if (paymentMethod === 'cash') {
             // setShowPlaceOrderButton(true);
             // setShowPayButton(false);
         } else if (paymentMethod === 'bank_transfer') {
@@ -119,91 +123,107 @@ export default function BuyProduct({ product, size, optionsize, isShow, setIsSho
         // console.log('Số lượng:', quantity);
         // console.log('Hình thức thanh toán:', selectedPayment);
 
-        let Data = ItemProduct({ product, optionsize, getTime, address, phoneNumber, selectedPayment });
+        let Data = ItemProduct({ product, optionsize, quantity, getTime, address, phoneNumber, selectedPayment });
         if (
             !Data.token ||
             !Data.address ||
             !Data.phoneNumber ||
-            // !Data.totalPrice ||
             !Data.payment
-            // Data.products.length === 0
+
         ) {
-
-
             alert("Hãy nhập đầy đủ thông tin giùm!!");
-
         } else {
+            if (selectedPayment == 'bank_transfer') {
+                const Bank = async () => {
+                    try {
+                        const response =
+                            await axios.get(`https://ttcs-delta.vercel.app/api/v1/payment?amount=${Data.totalPrice}`);
+                        console.log('thanh toan online');
+                        console.log(response.data.data.vnpUrl); // In ra dữ liệu phản hồi từ server nếu thành công
+                        window.localStorage.setItem('backto', `/san-pham/${product.id}`)
+                        window.localStorage.setItem('data',Data)
+                        window.location.href = response.data.data.vnpUrl
+                        // postData(Data)
+                    } catch (error) {
+                        alert('that bai roi');
+                        console.error(error);
+                    }
+                }
+                Bank()
+                console.log(Data);
+            }
+            else {
+                console.log(Data);
+            }
             // console.log("ị");
-            console.log(Data);
-            postData(Data)
             // removeData(listProduct)
         }
     }
 
     return (
         <>
-           
+
             {isShow && <div className='wrapper_buy' onClick={hideForm}>
-                    <div className='content_buy' onClick={stopPropagation}>
-                        <div className="header_edit_item">
-                            <i className="icon_close" onClick={hideForm}><FontAwesomeIcon icon={faClose} /></i>
-                        </div>
-                        {/* form */}
-
-                        <div className='body'>
-                            <form onSubmit={handleSubmit}>
-                                <SelectAddress
-                                    selectedLocation={selectedLocation}
-                                    selectedDistrict={selectedDistrict}
-                                    selectedCommunes={selectedCommunes}
-                                    districts={districts}
-                                    communes={communes}
-                                    handleLocationChange={handleLocationChange}
-                                    handleDistrictChange={handleDistrictChange}
-                                    handleCommunesChange={handleCommunesChange}
-                                    phoneNumber={phoneNumber}
-                                    addRess={addRess}
-                                    handleInputChangeAddress={handleInputChangeAddress}
-                                    isValid={isValid}
-                                    isTouched={isTouched}
-                                    handleInputChange={handleInputChange}
-                                    handleInputblur={handleInputBlur}
-                                />
-                                <div>
-                                    <span>Chọn số lượng bạn muốn</span>
-                                    <div className='decreaseAndincrease'>
-                                        <a href="#" className="minus" onClick={decreaseQuantity}>
-                                            -
-                                        </a>
-                                        <a href="#" className="border">
-                                            {quantity}
-                                        </a>
-                                        <a href="#" className="plus" onClick={increaseQuantity}>
-                                            +
-                                        </a>
-                                    </div>
-                                </div>
-                                <div>
-                                    <label htmlFor="payment">Chọn hình thức thanh toán:</label>
-                                    <select className='custom_default' id="payment" value={selectedPayment} onChange={handlePaymentChange}>
-                                        <option value="">-- Chọn hình thức --</option>
-                                        <option value="credit_card">Thanh toán khi nhận hàng</option>
-                                        <option value="bank_transfer">Chuyển khoản ngân hàng</option>
-                                    </select>
-                                </div>
-
-                                <div>
-                                    <button type="submit" >
-                                        Mua hàng
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
-
-
-
+                <div className='content_buy' onClick={stopPropagation}>
+                    <div className="header_edit_item">
+                        <i className="icon_close" onClick={hideForm}><FontAwesomeIcon icon={faClose} /></i>
                     </div>
+                    {/* form */}
+
+                    <div className='body'>
+                        <form onSubmit={handleSubmit}>
+                            <SelectAddress
+                                selectedLocation={selectedLocation}
+                                selectedDistrict={selectedDistrict}
+                                selectedCommunes={selectedCommunes}
+                                districts={districts}
+                                communes={communes}
+                                handleLocationChange={handleLocationChange}
+                                handleDistrictChange={handleDistrictChange}
+                                handleCommunesChange={handleCommunesChange}
+                                phoneNumber={phoneNumber}
+                                addRess={addRess}
+                                handleInputChangeAddress={handleInputChangeAddress}
+                                isValid={isValid}
+                                isTouched={isTouched}
+                                handleInputChange={handleInputChange}
+                                handleInputblur={handleInputBlur}
+                            />
+                            <div>
+                                <span>Chọn số lượng bạn muốn</span>
+                                <div className='decreaseAndincrease'>
+                                    <a href="#" className="minus" onClick={decreaseQuantity}>
+                                        -
+                                    </a>
+                                    <a href="#" className="border">
+                                        {quantity}
+                                    </a>
+                                    <a href="#" className="plus" onClick={increaseQuantity}>
+                                        +
+                                    </a>
+                                </div>
+                            </div>
+                            <div>
+                                <label htmlFor="payment">Chọn hình thức thanh toán:</label>
+                                <select className='custom_default' id="payment" value={selectedPayment} onChange={handlePaymentChange}>
+                                    <option value="">-- Chọn hình thức --</option>
+                                    <option value="cash">Thanh toán khi nhận hàng</option>
+                                    <option value="bank_transfer">Chuyển khoản ngân hàng</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <button type="submit" >
+                                    Mua hàng
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+
+
                 </div>
+            </div>
 
             }
         </>
@@ -212,17 +232,17 @@ export default function BuyProduct({ product, size, optionsize, isShow, setIsSho
 }
 
 
-function ItemProduct({ product, optionsize, getTime, address, phoneNumber, selectedPayment }) {
+function ItemProduct({ product, optionsize, quantity, getTime, address, phoneNumber, selectedPayment }) {
 
     return {
         "token": getToken(),
         "order_date": getTime(),
         "address": address,
         "phoneNumber": phoneNumber,
-        "totalPrice": product.price,
+        "totalPrice": product.price * quantity,
         "payment": selectedPayment,
         "status": "Đã đặt hàng",
-        "products": [{ "id_product": product.id, "id_size": optionsize.id_size, "size": optionsize.size, "quantity": 1 }]
+        "products": [{ "id_product": product.id, "id_size": optionsize.id_size, "size": optionsize.size, "quantity": quantity }]
     }
 }
 

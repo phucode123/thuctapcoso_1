@@ -32,9 +32,7 @@ function Header() {
     localStorage.removeItem('user');
     localStorage.removeItem('token');
     // setToken(null)
-    window.location.href = '/';
-
-
+    window.location.href = '/'
     checkToken()
   };
 

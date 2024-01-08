@@ -6,10 +6,11 @@ import './cart.css'
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { getToken } from '../../../../assect/workToken/WorkToken';
+import { login } from '../../../../assect/image/icon';
 // import classNames from 'classnames/bind';
 
 
-function Cart_item({  }) {
+function Cart_item({ }) {
     const [CartItems, setCartItem] = useState([])
     const [open, setOpen] = useState(false)
 
@@ -20,12 +21,15 @@ function Cart_item({  }) {
                 // console.log('token: ', token);
                 const response = await axios.get(`https://ttcs-duongxuannhan2002s-projects.vercel.app/api/v1/get-cart?token=${token}`);
                 // console.log(response.data.data);
+                console.log(response);
                 setCartItem(response.data.data)
             } catch (error) {
                 console.error(error);
             }
         };
-        fetchData();
+        open ? fetchData() : (() => {
+            console.log('dong rui');
+        })()
     }, [open]);
 
     // console.log(open);

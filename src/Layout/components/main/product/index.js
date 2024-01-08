@@ -25,6 +25,7 @@ function Product() {
     const [title, setTitle] = useState('')
     const [messenger, setMessenger] = useState('')
 
+
     const [quantity, setQuantity] = useState(1);
 
     const fetchProduct = async () => {
