@@ -47,7 +47,7 @@ function Login() {
         // event.preventDefault();
         // console.log(user)
         event.preventDefault();
-        const postAPI = 'https://ttcs-delta.vercel.app/api/v1/post-to-login';
+        const postAPI = 'http://localhost:3001/api/v1/post-to-login';
         axios
             .post(postAPI, user)
             .then((response) => {

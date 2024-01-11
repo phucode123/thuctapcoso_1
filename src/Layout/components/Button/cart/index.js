@@ -19,7 +19,7 @@ function Cart_item({ }) {
             try {
                 let token = getToken()
                 // console.log('token: ', token);
-                const response = await axios.get(`https://ttcs-duongxuannhan2002s-projects.vercel.app/api/v1/get-cart?token=${token}`);
+                const response = await axios.get(`http://localhost:3001/api/v1/get-cart?token=${token}`);
                 // console.log(response.data.data);
                 console.log(response);
                 setCartItem(response.data.data)

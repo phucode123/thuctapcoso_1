@@ -119,20 +119,36 @@
 //     outline: 1px solid blue !important;
 // }
 
-.btn-search {
+.wrapper button {
     // line-height: 1.5;
     // height: 38px; 
     // font-size: 1.6rem;
-
-    padding: 10px 18px;
+    font-size: 14px;
+    padding: 10px 9px;
     background-color: var(--white-color);
     cursor: pointer;
 
     &:hover {
-        background-color: #FCDAB0;
+        // background-color: #FCDAB0;
+        opacity: .8;
+    }
+
+    &:hover::before {
+        content: attr(title);
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background-color: #000;
+        color: #fff;
+        padding: 5px;
+        border-radius: 4px;
+        white-space: nowrap;
     }
 
     // border: 1px black solid;
-
     border: none !important;
 }
+.add_imageIcon{
+    // font-size: 16px !important;
+}
+

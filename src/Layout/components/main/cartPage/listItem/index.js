@@ -16,7 +16,7 @@ export default function ListProduct({ user, setListProduct }) {
   const fetchData = async () => {
     try {
       const response = await axios.get(
-        `https://ttcs-duongxuannhan2002s-projects.vercel.app/api/v1/get-cart?token=${token}`
+        `http://localhost:3001/api/v1/get-cart?token=${token}`
       );
       console.log(response.data);
       setCartItems(function format() {

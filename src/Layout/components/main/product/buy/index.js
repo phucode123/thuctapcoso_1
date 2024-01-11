@@ -128,20 +128,25 @@ export default function BuyProduct({ product, size, optionsize, isShow, setIsSho
             !Data.token ||
             !Data.address ||
             !Data.phoneNumber ||
-            !Data.payment
+            !Data.payment||
+            !Data.totalPrice
 
         ) {
+            // if(!Data.totalPrice){
+            //     alert('totalPrice bị bằng 0 roi')
+            // }
             alert("Hãy nhập đầy đủ thông tin giùm!!");
         } else {
+            console.log(selectedPayment);
             if (selectedPayment == 'bank_transfer') {
                 const Bank = async () => {
                     try {
                         const response =
-                            await axios.get(`https://ttcs-delta.vercel.app/api/v1/payment?amount=${Data.totalPrice}`);
+                            await axios.get(`http://localhost:3001/api/v1/payment?amount=${Data.totalPrice}`);
                         console.log('thanh toan online');
                         console.log(response.data.data.vnpUrl); // In ra dữ liệu phản hồi từ server nếu thành công
                         window.localStorage.setItem('backto', `/san-pham/${product.id}`)
-                        window.localStorage.setItem('data',Data)
+                        window.localStorage.setItem('data',JSON.stringify(Data))
                         window.location.href = response.data.data.vnpUrl
                         // postData(Data)
                     } catch (error) {

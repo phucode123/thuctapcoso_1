@@ -17,7 +17,7 @@ export default function Table_user() {
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        axios.get('https://ttcs-delta.vercel.app/api/v1/get-user')
+        axios.get('http://localhost:3001/api/v1/get-user')
             .then((response) => {
                 const data = response.data;
                 setUserData(data.data);

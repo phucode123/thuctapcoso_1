@@ -17,7 +17,8 @@ export default function Bill() {
         try {
             const testUser = JSON.parse(window.localStorage.getItem('user'));
             console.log(testUser.id);
-            const response = await axios.get(`https://ttcs-delta.vercel.app/api/v1/get-all-order?id_user=${testUser.id}`);
+            console.log(testUser);
+            const response = await axios.get(`http://localhost:3001/api/v1/get-all-order?id_user=${testUser.id}`);
             setOrders(response.data.data);
         } catch (error) {
             console.error('Error fetching data:', error);
@@ -32,7 +33,7 @@ export default function Bill() {
         // console.log(orders);
         try {
             console.log('order id:',order.id);
-            const response = await axios.get(`https://ttcs-delta.vercel.app/api/v1/get-detail-order?id_order=${order.id}`);
+            const response = await axios.get(`http://localhost:3001/api/v1/get-detail-order?id_order=${order.id}`);
             setOrderDetails(response.data.data);
             console.log(response.data);
         } catch (error) {

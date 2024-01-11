@@ -54,7 +54,7 @@ function SignUp() {
   const handleSignUp = (event) => {
     event.preventDefault();
     console.log(user);
-    const postAPI = 'https://ttcs-delta.vercel.app/api/v1/post-user';
+    const postAPI = 'http://localhost:3001/api/v1/post-user';
     axios
       .post(postAPI, user)
       .then((response) => {

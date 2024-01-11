@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import classNames from 'classnames/bind';
 import styles from './Search.module.scss'
-import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
+import { faCamera, faCameraAlt, faCameraRotate, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axios from 'axios';
 import SuggestedProduct from './suggestedProducts';
@@ -18,7 +18,7 @@ function Search({ className }) {
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        axios.get('https://ttcs-duongxuannhan2002s-projects.vercel.app/api/v1/get-shoes')
+        axios.get('http://localhost:3001/api/v1/get-shoes')
             .then((response) => {
                 const data = response.data;
                 setShoesData(data.data);
@@ -51,6 +51,11 @@ function Search({ className }) {
         // Handle search icon click event if needed
     };
 
+
+    const OnclickSearchImage =() =>{
+        //xử lí tìm kiếm hình ảnh ở đây nha Nhân
+    }
+
     return (
         <div>
             <div className={cx('wrapper', className)}>
@@ -63,17 +68,23 @@ function Search({ className }) {
                     autoFocus
                     required
                 />
-
-                <button onClick={handleIconClick} className={cx('btn-search')}>
+                <button onClick={handleIconClick}  title={'Tìm kiếm'} className={cx('btn-search')}>
                     <i>
                         <FontAwesomeIcon icon={faMagnifyingGlass} />
                     </i>
                 </button>
+                <button onClick={OnclickSearchImage} title={'Tìm kiếm bằng hình ảnh'} className={cx('btn-search_byimage ')}>
+                    <i className='add_imageIcon'>
+                        <FontAwesomeIcon icon={faCamera} />
+                    </i>
+                </button>
             </div>
+
+            
             {isShow && (
                 <SuggestedProduct items={items}>
                     <div className="hide_form">
-                        <button onClick={()=>{
+                        <button onClick={() => {
                             setIsShow(false)
                         }} className="hide_form_button">
                             Ẩn
@@ -83,6 +94,12 @@ function Search({ className }) {
             )}
         </div>
     );
+}
+
+function Title() {
+    return (<>
+
+    </>)
 }
 
 export default Search;

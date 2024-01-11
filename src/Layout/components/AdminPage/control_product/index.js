@@ -15,7 +15,7 @@ export default function Table_product() {
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        axios.get('https://ttcs-duongxuannhan2002s-projects.vercel.app/api/v1/get-shoes')
+        axios.get('http://localhost:3001/api/v1/get-shoes')
             .then((response) => {
                 const data = response.data;
                 setShoesData(data.data);
