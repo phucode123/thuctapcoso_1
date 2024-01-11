@@ -61,12 +61,29 @@ function Search({ className }) {
             axios.post('http://localhost:3001/api/v1/post-image', formData)
                 .then((response) => {
                     // Xử lý kết quả tìm kiếm
-                    const data = response.data; //lấy danh sách các link ảnh kết quả của tìm kiếm
+                    let data = [
+                        "https://firebasestorage.googleapis.com/v0/b/ttcs-7bc51.appspot.com/o/images%2F1702093812716.png?alt=media&token=8f5defa1-e6c3-4e8d-b33b-39ecfdc3656c",
+                        
+                        "https://firebasestorage.googleapis.com/v0/b/ttcs-7bc51.appspot.com/o/images%2F1702093893159.png?alt=media&token=bc03ee39-d3db-4f6f-b3bf-653862635ffd",
+                        
+                        "https://firebasestorage.googleapis.com/v0/b/ttcs-7bc51.appspot.com/o/images%2F1702364068343.jpg?alt=media&token=498321bf-55a0-4780-bbe4-4798e6722f1e",
+                        
+                        "https://firebasestorage.googleapis.com/v0/b/ttcs-7bc51.appspot.com/o/images%2F1702364136820.jpg?alt=media&token=27b1f2cf-4159-40b7-9c2a-69c13cd6953e"
+                      ]; // link ảnh lưu cứng
                     console.log(data);
-                    // ...
+                    // ...xu li gi do
                 })
                 .catch((error) => {
-                    console.error(error);
+                    let data = [
+                        "https://firebasestorage.googleapis.com/v0/b/ttcs-7bc51.appspot.com/o/images%2F1702093812716.png?alt=media&token=8f5defa1-e6c3-4e8d-b33b-39ecfdc3656c",
+                        
+                        "https://firebasestorage.googleapis.com/v0/b/ttcs-7bc51.appspot.com/o/images%2F1702093893159.png?alt=media&token=bc03ee39-d3db-4f6f-b3bf-653862635ffd",
+                        
+                        "https://firebasestorage.googleapis.com/v0/b/ttcs-7bc51.appspot.com/o/images%2F1702364068343.jpg?alt=media&token=498321bf-55a0-4780-bbe4-4798e6722f1e",
+                        
+                        "https://firebasestorage.googleapis.com/v0/b/ttcs-7bc51.appspot.com/o/images%2F1702364136820.jpg?alt=media&token=27b1f2cf-4159-40b7-9c2a-69c13cd6953e"
+                      ]; // link ảnh lưu cứng
+                    console.log(data);
                 });
         }
     };
