@@ -9,12 +9,15 @@ import SuggestedProduct from './suggestedProducts';
 const cx = classNames.bind(styles);
 
 function Search({ className }) {
+  // <<<<<<< HEAD
   const [searchTerm, setSearchTerm] = useState('');
   const [items, setItems] = useState([]);
   const [isShow, setIsShow] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [listImage, setListImage] = useState()
+
+
 
   // Gọi API
   const [shoesData, setShoesData] = useState([]);
@@ -29,6 +32,7 @@ function Search({ className }) {
         console.error(error);
       });
   }, []);
+  // >>>>>>> 83f10aa4a6140024fcfc86a79dabd8a2d87cd39f
 
   useEffect(() => {
     if (searchTerm) {
@@ -43,6 +47,7 @@ function Search({ className }) {
     }
   }, [searchTerm, shoesData]);
 
+  // <<<<<<< HEAD
   const handleChange = (event) => {
     setSearchTerm(event.target.value);
   };
@@ -92,18 +97,17 @@ function Search({ className }) {
         });
     }
 
-    setItems(shoesData.filter((item) => {
-      if (listImage.includes(item.image)) {
-        return item
-      }
+    if (listImage) {
+      setItems(shoesData.filter((item) => {
+        if (listImage.includes(item.image)) {
+          return item
+        }
 
-    }))
+      }))
+    }
     if (items.length > 0) {
       setIsShow(true)
     }
-
-
-
 
   };
 
@@ -158,6 +162,9 @@ function Search({ className }) {
 
 function Title() {
   return <></>;
+
 }
+
+
 
 export default Search;
