@@ -12,10 +12,10 @@ export default function AdminPage() {
       <div className="row">
         <nav className="navigation col-md-2 text-start" role="navigation">
           <ul className="main">
-            <Link><li className="dashboard">Đơn hàng</li></Link>
+          <Link to="/admin/quanlydonhang"><li className="dashboard">Đơn hàng</li></Link>
             <Link to="/admin/quanlysanpham"><li className="product">Quản lý hàng</li></Link>
             <Link to="/admin/quanlynguoidung"><li className="user">Quản lý người dùng</li></Link>
-            <Link><li className="comments">Doanh thu</li></Link>
+            <Link to="/admin/quanlydoanhthu"><li className="comments">Doanh thu</li></Link>
             <Link><li className="logout">Đăng xuất</li></Link>
           </ul>
         </nav>

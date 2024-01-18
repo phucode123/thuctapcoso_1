@@ -8,11 +8,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Wrapper_edit_item from "../Wrapper_item_edit";
 import axios from "axios";
 import Loading from "../../../library/Loading";
+import AddProduct from "./addProduct";
 
 export default function Table_product() {
     // gọi api
     const [shoesData, setShoesData] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [isShow, setIsshow] = useState(false)
 
     useEffect(() => {
         axios.get('http://localhost:3001/api/v1/get-shoes')
@@ -28,13 +30,14 @@ export default function Table_product() {
             });
     }, []);
 
- 
+
     const rowsPerPage = 5;
     const [currentPage, setCurrentPage] = useState(0);
     const displayData = shoesData.slice(
         currentPage * rowsPerPage,
         (currentPage + 1) * rowsPerPage
     );
+    console.log(shoesData);
     const handlePageChange = (selected) => {
         setCurrentPage(selected.selected);
     };
@@ -47,14 +50,23 @@ export default function Table_product() {
         setProduct(product)
         setEditFormVisible(true);
     };
-
-    // console.log('Sản phẩm được chọn:', Product)
-
+    const HandlerAddProduct = () => {
+        setIsshow(true)
+    }
+    console.log('Sản phẩm được chọn:', Product)
+    function removeForm() {
+        setIsshow(false);
+    }
+    function stopPropagation(event) {
+        event.stopPropagation();
+    }
 
 
     // hết hiển thị form và đóng form
     return (
         <div className="test_manin">
+
+            <button onClick={HandlerAddProduct}>Thêm sản phẩm</button>
             <table id="mytable" className="table  mb-0 bg-white">
                 <thead className="bg-light">
                     <tr className="header-row">
@@ -118,6 +130,15 @@ export default function Table_product() {
                         </tbody >
                 }
                 <Wrapper_edit_item isEditFormVisible={isEditFormVisible} setEditFormVisible={setEditFormVisible} product={Product} />
+                {
+
+                    isShow && <div className="wrapper_edit_itemForm" onClick={removeForm}>
+                        <div className="edit_item" onClick={stopPropagation}>
+                            <AddProduct />
+                        </div>
+                    </div>
+                }
+
 
             </table >
             <div className="nav_map">
