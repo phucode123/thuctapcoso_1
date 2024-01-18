@@ -16,7 +16,7 @@ function App() {
         <Routes>
           <Route path='/*' element={<Layout />}> </Route>
           <Route path='/admin/*' element={<AdminPage />}> </Route>
-          <Route path='/chart' element={<Doanhthu/>}></Route>
+          {/* <Route path='/chart' element={<Doanhthu/>}></Route> */}
         </Routes>
 
       </Router>

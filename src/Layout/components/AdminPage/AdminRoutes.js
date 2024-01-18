@@ -9,8 +9,8 @@ export default function AdminRoutes() {
     <Routes>
       <Route path="/quanlysanpham" element={<Table_product />} />
       <Route path="/quanlynguoidung" element={<Table_user />} />
-      <Route path="/quanlydonhang" element={< Doanhthu/>} />
-      <Route path="/quanlydoanhthu" element={< Odercontrol/>} />
+      <Route path="/quanlydoanhthu" element={< Doanhthu/>} />
+      <Route path="/quanlydonhang" element={< Odercontrol/>} />
       {/* Các routes con khác */}
     </Routes>
   );
