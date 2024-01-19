@@ -43,7 +43,7 @@ const postData = async (data) => {
         const response =
             await axios.post('http://localhost:3001/api/v1/post-order', data);
         console.log(response); // In ra dữ liệu phản hồi từ server nếu thành công
-        alert('mua ok r');
+        alert('mua hàng thành công');
         // setProduct(response.data.data[0])
     } catch (error) {
         alert('k ổn r');

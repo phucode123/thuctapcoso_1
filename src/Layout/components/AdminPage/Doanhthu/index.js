@@ -1,311 +1,73 @@
-import  { useState, useEffect } from 'react';
-// import { Chart as ChartJS, BarController, Tooltip, Legend, CategoryScale } from 'chart.js';
-// import { Bar } from 'react-chartjs-2';
-// // import { CategoryScale } from 'chart.js';
+
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-// import { linearProgressClasses } from '@mui/material';
-// // import LinearProgress from '@material-ui/core/LinearProgress';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+import { parse, format } from 'date-fns';
+import Select from 'react-select'
 
-// // ChartJS.register(BarController, Tooltip, Legend, CategoryScale,linearProgressClasses);
-
-// const Doanhthu = () => {
-//   const [chartData, setChartData] = useState(null);
-//   const [availableYears, setAvailableYears] = useState([]);
-//   const [selectedYear, setSelectedYear] = useState(null);
-
-//   useEffect(() => {
-//     // Gọi API để lấy dữ liệu
-//     axios
-//       .get('http://localhost:3001/api/v1/get-all-order')
-//       .then((response) => {
-//         const data = response.data.data;
-
-//         // Tạo một đối tượng Map để nhóm dữ liệu theo năm và tháng và tính tổng giá trị đơn hàng
-//         const monthlyData = new Map();
-//         const yearsSet = new Set();
-
-//         data.forEach((item) => {
-//           const year = item.order_date.split('/')[2]; // Lấy năm từ order_date
-//           const monthYear = `${item.order_date.split('/')[1]}/${year}`; // Lấy tháng và năm từ order_date
-//           const totalPrice = parseFloat(item.total_price); // Chuyển đổi total_price thành số
-
-//           if (!selectedYear || year === selectedYear) {
-//             if (!monthlyData.has(monthYear)) {
-//               monthlyData.set(monthYear, totalPrice);
-//             } else {
-//               monthlyData.set(monthYear, monthlyData.get(monthYear) + totalPrice);
-//             }
-//           }
-
-//           yearsSet.add(year);
-//         });
-
-//         // Chuyển đổi dữ liệu từ Map sang mảng
-//         const chartData = {
-//           labels: Array.from(monthlyData.keys()),
-//           datasets: [
-//             {
-//               label: 'Doanh số',
-//               data: Array.from(monthlyData.values()),
-//               backgroundColor: 'rgba(75, 192, 192, 0.6)',
-//               borderColor: 'rgba(75, 192, 192, 1)',
-//               borderWidth: 1,
-//             },
-//           ],
-//         };
-
-//         setChartData(chartData);
-//         setAvailableYears(Array.from(yearsSet));
-//       })
-//       .catch((error) => {
-//         console.log(error);
-//       });
-//   }, [selectedYear]);
-
-//   const chartOptions = {
-//     scales: {
-//       x: {
-//         type: 'category', // Sử dụng scale "category" cho trục x
-//       },
-//       y: {
-//         ticks: {
-//           beginAtZero: true,
-//         },
-//         scaleLabel: {
-//           display: true,
-//           labelString: 'Doanh số',
-//         },
-//       },
-//     },
-//     tooltips: {
-//       callbacks: {
-//         label: function (tooltipItem, data) {
-//           const label = data.labels[tooltipItem.index];
-//           const value = data.datasets[0].data[tooltipItem.index];
-//           return `${label}: ${value} - ${formatDate(label)}`;
-//         },
-//       },
-//     },
-//   };
-
-//   const formatDate = (monthYearString) => {
-//     return `Tháng/Năm ${monthYearString}`;
-//   };
-
-//   const handleYearChange = (event) => {
-//     setSelectedYear(event.target.value);
-//   };
-
-//   if (!chartData) {
-//     return <div>Loading...</div>;
-//   }
-
-//   return (
-//     <div>
-//       <Bar data={chartData} options={chartOptions} />
-//     </div>
-//   );
-// };
-
-// export default Doanhthu;
-
-import React from "react";
-import {
-  ResponsiveContainer,
-  LineChart,
-  XAxis,
-  YAxis,
-  Tooltip,
-  Legend,
-  Line,
-  Text,
-  CartesianGrid
-} from "recharts";
-
-import { CustomTooltip, RenderLegend } from "./utils";
-
-const Doanhthu = () => {
-
-  // 
-  const [chartData, setChartData] = useState(null);
-  const [availableYears, setAvailableYears] = useState([]);
+const ChartComponent = () => {
+  const [chartData, setChartData] = useState([]);
   const [selectedYear, setSelectedYear] = useState(null);
+  const [years, setYears] = useState([]);
 
   useEffect(() => {
-    // Gọi API để lấy dữ liệu
-    axios
-      .get('http://localhost:3001/api/v1/get-all-order')
-      .then((response) => {
+    // Gọi API và nhận dữ liệu
+    axios.get('http://localhost:3001/api/v1/get-all-order') // Thay thế bằng URL thực tế của API
+      .then(response => {
         const data = response.data.data;
 
-        // Tạo một đối tượng Map để nhóm dữ liệu theo năm và tháng và tính tổng giá trị đơn hàng
-        const monthlyData = new Map();
-        const yearsSet = new Set();
+        // Lấy danh sách các năm từ dữ liệu
+        const uniqueYears = [...new Set(data.map(entry => parse(entry.order_date, 'dd/MM/yyyy', new Date()).getFullYear()))];
+        setYears(uniqueYears);
 
-        data.forEach((item) => {
-          const year = item.order_date.split('/')[2]; // Lấy năm từ order_date
-          const monthYear = `${item.order_date.split('/')[1]}/${year}`; // Lấy tháng và năm từ order_date
-          const totalPrice = parseFloat(item.total_price); // Chuyển đổi total_price thành số
+        // Lọc dữ liệu theo năm được chọn
+        const filteredData = selectedYear ? data.filter(entry => parse(entry.order_date, 'dd/MM/yyyy', new Date()).getFullYear() === selectedYear.value) : data;
 
-          if (!selectedYear || year === selectedYear) {
-            if (!monthlyData.has(monthYear)) {
-              monthlyData.set(monthYear, totalPrice);
-            } else {
-              monthlyData.set(monthYear, monthlyData.get(monthYear) + totalPrice);
-            }
+        // Chuyển đổi ngày thành tháng và tính tổng doanh thu cho mỗi tháng
+        const monthlyData = filteredData.reduce((acc, entry) => {
+          const month = parse(entry.order_date, 'dd/MM/yyyy', new Date()); // Chuyển đổi ngày tháng
+          const formattedMonth = format(month, 'MM/yyyy'); // Lấy tháng/năm
+          
+          if (!acc[formattedMonth]) {
+            acc[formattedMonth] = { order_date: formattedMonth, 'tổng doanh thu': 0 }; // Thay đổi chữ 'total price' thành 'tổng doanh thu'
           }
+          acc[formattedMonth]['tổng doanh thu'] += entry.total_price;
+          return acc;
+        }, {});
 
-          yearsSet.add(year);
-        });
+        // Chuyển đổi dữ liệu thành mảng
+        const formattedData = Object.values(monthlyData);
 
-        // Chuyển đổi dữ liệu từ Map sang mảng
-        const chartData = {
-          labels: Array.from(monthlyData.keys()),
-          datasets: [
-            {
-              label: 'Doanh số',
-              data: Array.from(monthlyData.values()),
-              backgroundColor: 'rgba(75, 192, 192, 0.6)',
-              borderColor: 'rgba(75, 192, 192, 1)',
-              borderWidth: 1,
-            },
-          ],
-        };
-
-        setChartData(chartData);
-        setAvailableYears(Array.from(yearsSet));
+        // Cập nhật state để vẽ biểu đồ
+        setChartData(formattedData);
       })
-      .catch((error) => {
-        console.log(error);
+      .catch(error => {
+        console.error('Error fetching data:', error);
       });
-  }, [selectedYear]);
+  }, [selectedYear]); // Thêm selectedYear vào dependency để gọi lại useEffect khi selectedYear thay đổi
 
-  const chartOptions = {
-    scales: {
-      x: {
-        type: 'category', // Sử dụng scale "category" cho trục x
-      },
-      y: {
-        ticks: {
-          beginAtZero: true,
-        },
-        scaleLabel: {
-          display: true,
-          labelString: 'Doanh số',
-        },
-      },
-    },
-    tooltips: {
-      callbacks: {
-        label: function (tooltipItem, data) {
-          const label = data.labels[tooltipItem.index];
-          const value = data.datasets[0].data[tooltipItem.index];
-          return `${label}: ${value} - ${formatDate(label)}`;
-        },
-      },
-    },
-  };
-
-  const formatDate = (monthYearString) => {
-    return `Tháng/Năm ${monthYearString}`;
-  };
-
-  const handleYearChange = (event) => {
-    setSelectedYear(event.target.value);
-  };
-console.log(chartData);
-  if (!chartData) {
-    return <div>Loading...</div>;
-  }
-
-  // 
-  const data = [
-    {
-      name: "Page A",
-      uv: 4000,
-      pv: 2400,
-      amt: 2400
-    },
-    {
-      name: "Page B",
-      uv: 3000,
-      pv: 1398,
-      amt: 2210
-    },
-    {
-      name: "Page C",
-      uv: 2000,
-      pv: 9800,
-      amt: 2290
-    },
-    {
-      name: "Page D",
-      uv: 2780,
-      pv: 3908,
-      amt: 2000
-    },
-    {
-      name: "Page E",
-      uv: 1890,
-      pv: 4800,
-      amt: 2181
-    },
-    {
-      name: "Page F",
-      uv: 2390,
-      pv: 3800,
-      amt: 2500
-    },
-    {
-      name: "Page G",
-      uv: 3490,
-      pv: 4300,
-      amt: 2100
-    }
-  ];
-
-  const customTick = (tickObject) => {
-    const {
-      payload: { value }
-    } = tickObject;
-    tickObject["fill"] = value === 0 ? "red" : "#666";
-    return <Text {...tickObject}>{value}</Text>;
-  };
+  const yearOptions = years.map(year => ({ value: year, label: year }));
 
   return (
-    <div style={{ height: "20rem" }}>
-      <ResponsiveContainer>
-        <LineChart
-          width={500}
-          height={300}
-          data={data}
-          margin={{
-            top: 20,
-            right: 30,
-            left: 20,
-            bottom: 5
-          }}
-        >
-          <CartesianGrid strokeDasharray="4 1 " />
-
-          <XAxis dataKey="name"></XAxis>
-
-          <YAxis tick={(tickObject) => customTick(tickObject)}></YAxis>
-
-          <Line dataKey="uv" type="monotone" stroke="#0000FF"></Line>
-          <Line dataKey="pv" type="monotone" stroke="#ff223f"></Line>
-
-          {/* Tooltip Implementation */}
-          <Tooltip
-            content={<CustomTooltip active={false} payload={[]} label={""} />}
-          />
-
-          {/* Legend Implementation */}
-          <Legend content={<RenderLegend />} verticalAlign="top" />
-        </LineChart>
-      </ResponsiveContainer>
+    <div>
+      <h2>Doanh số bán hàng theo năm</h2>
+      <Select
+        options={yearOptions}
+        isClearable
+        placeholder="Chọn năm"
+        value={selectedYear}
+        onChange={value => setSelectedYear(value)}
+      />
+      <LineChart width={800} height={400} data={chartData} margin={{ top: 20, right: 30, left: 20, bottom: 10 }}>
+        <CartesianGrid strokeDasharray="3 3" />
+        <XAxis dataKey="order_date" />
+        <YAxis />
+        <Tooltip />
+        <Legend />
+        <Line type="monotone" dataKey="tổng doanh thu" stroke="#8884d8" /> {/* Thay đổi chữ 'total price' thành 'tổng doanh thu' */}
+      </LineChart>
     </div>
   );
 };
 
-export default Doanhthu;
+export default ChartComponent;

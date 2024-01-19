@@ -13,8 +13,8 @@ function User_item({ User, onLogout }) {
     const [open, setOpen] = useState(false)
 
 
-    
-    function HanderLogout(){
+
+    function HanderLogout() {
         onLogout()
     }
 
@@ -36,19 +36,35 @@ function User_item({ User, onLogout }) {
             </>
                 :
                 <div>
-                    <i style={{ cursor: 'pointer' }} className={cx("btn_icon")} onClick={() => { setOpen(!open) }} >
-                        {/* <img className={cx("test")} src={User.avatar}></img> */}
-                        {<FontAwesomeIcon icon={faFaceSmile} />}
+                    <div style={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                        flexWrap: 'nowrap',
+                        width: 'max-content',
+                        alignItems: 'center',
+                        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                        borderRadius: '5px',
+                        cursor: 'pointer',
+                        padding: '0 10px'
+                    }}
+                        onClick={() => { setOpen(!open) }}>
+                        <i style={{ cursor: 'pointer' }} className={cx("btn_icon")}  >
+                            {/* <img className={cx("test")} src={User.avatar}></img> */}
+                            {<FontAwesomeIcon icon={faFaceSmile} />}
 
-                    </i>
+                        </i>
+                        <p style={{ margin: '0 0 0 4px', fontSize: '14px' }}>{User.name}</p>
+                    </div>
+
 
                     <div className={cx("dropdown-menu", open ? 'active' : 'none')} >
 
                         <h3 >{User.name}</h3>
                         <ul className={cx("list_selector")}>
-                            <Link to={'/profile/*'}><DropdownItem img={user.logo} text={"My profile"} /></Link>
-                            <DropdownItem img={question.logo} text={"Any question?"} />
-                            <DropdownItem function={HanderLogout} img={logout.logo} text={"Log out"} />
+                            <Link to={'/profile/*'}><DropdownItem img={user.logo} text={"Tài khoản"} /></Link>
+                            <DropdownItem img={question.logo} text={"Có câu hỏi?"} />
+                            <DropdownItem function={HanderLogout} img={logout.logo} text={"Đăng xuất"} />
                         </ul>
                     </div>
                 </div>

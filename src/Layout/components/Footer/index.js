@@ -3,7 +3,7 @@
 export default function Footer() {
     return (
 
-        <div class="container">
+        <div style={{borderRadius : '10px'}} class="container">
             <footer class="row row-cols-5 py-5 my-5 border-top">
                 <div class="col">
                     <a href="/" class="d-flex align-items-center mb-3 link-dark text-decoration-none">

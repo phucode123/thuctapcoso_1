@@ -69,7 +69,7 @@ function Product() {
                 setIsshow(true)
                 // setIsshow(true)
                 setTitle('Thành công')
-                setMessenger(response.data.massege)
+                setMessenger("Thêm vào giỏ thành công")
             } catch (error) {
                 // setStatus(false)
                 // // setIsshow(true)

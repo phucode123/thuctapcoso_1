@@ -49,26 +49,26 @@ export default function Bill() {
 
     return (
         <div className="container_bill">
-            <h2>Orders Table</h2>
+            <h2>Lịch sử mua hàng</h2>
             <table className="orders-table">
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>User ID</th>
-                        <th>Order Date</th>
-                        <th>Address</th>
-                        <th>Phone Number</th>
-                        <th>Total Price</th>
-                        <th>Payment</th>
-                        <th>Status</th>
-                        <th>Actions</th>
+                        {/* <th>ID</th> */}
+                        {/* <th>ID người dùng</th> */}
+                        <th>Ngày mua</th>
+                        <th>Địa chỉ nhận</th>
+                        <th>Số điện thoại</th>
+                        <th>Giá trị đơn</th>
+                        <th>Hình thức thanh toán</th>
+                        <th>Trạng thái</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     {orders.map(order => (
                         <tr key={order.id}>
-                            <td>{order.id}</td>
-                            <td>{order.id_user}</td>
+                            {/* <td>{order.id}</td> */}
+                            {/* <td>{order.id_user}</td> */}
                             <td>{order.order_date}</td>
                             <td>{order.address}</td>
                             <td>{order.phone_number}</td>
@@ -76,7 +76,7 @@ export default function Bill() {
                             <td>{order.payment}</td>
                             <td>{order.status}</td>
                             <td>
-                                <button onClick={() => handleViewDetails(order)}>View Details</button>
+                                <button className="view_detail" onClick={() => handleViewDetails(order)}>Xem</button>
                             </td>
                         </tr>
                     ))}
@@ -107,8 +107,8 @@ function WrapperBill({ selectedOrder, orderDetails, handleCloseDetails }) {
                     <div className="order-details">
                         <h3>Order Details</h3>
                         <p>ID: {selectedOrder.id}</p>
-                        <p>User ID: {selectedOrder.id_user}</p>
-                        <p>Order Date: {selectedOrder.order_date}</p>
+                        <p>ID người dùng : {selectedOrder.id_user}</p>
+                        <p>Ngày tạo hóa đơn: {selectedOrder.order_date}</p>
                         {/* Hiển thị danh sách sản phẩm */}
                         <div className="product-list">
                             {orderDetails.map((product, index) => (
