@@ -142,7 +142,7 @@ const Show = () => {
 
                         <p className='title_lable'>Thanh toán khi nhận hàng</p>
                         <button className='ok_button' onClick={changePayment}>Xác nhận</button>
-                        <button className='close' onClick={removeForm}>Huỷ</button>
+                        <button className='close_payment' onClick={removeForm}>Huỷ</button>
 
                     </div>
                 </div>

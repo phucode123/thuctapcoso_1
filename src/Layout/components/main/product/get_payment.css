@@ -166,12 +166,12 @@ tr.price {
   background-color: #45a049;
 }
 
-.close {
+.close_payment {
   background-color: #f44336;
   border: none;
   color: #fff;
 }
 
-.close:hover {
+.close_payment:hover {
   background-color: #d32f2f;
 }

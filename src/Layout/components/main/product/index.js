@@ -80,7 +80,7 @@ function Product() {
             }
         }
     };
-    console.log(optionChange);
+    // console.log(optionChange);
 
     // handlerSubmittoCart();
 
@@ -156,10 +156,10 @@ function Product() {
 
                         {/* </div> */}
                         <MyComponent title={title} messenger={messenger} status={status} setIsshow={setIsshow} isShow={isShow}/>
-                        <BuyProduct product={product} size={optionChange}  optionsize={optionsize} isShow={isShowBuy} setIsShowBuy={setIsShowBuy} />
+                        <BuyProduct product={product} size={optionChange} quan={quantity} optionsize={optionsize} isShow={isShowBuy} setIsShowBuy={setIsShowBuy} />
                     </div>
                 </div >
-                <Listdiscount Author_name={product.author} />
+                {/* <Listdiscount Author_name={product.author} /> */}
             </div >
         </>
     )

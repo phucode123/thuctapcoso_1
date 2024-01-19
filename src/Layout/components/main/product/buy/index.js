@@ -7,10 +7,10 @@ import { cityDistricts, getToken, postData } from '../../../../../assect/workTok
 import { FaGratipay } from 'react-icons/fa';
 import axios from 'axios';
 
-export default function BuyProduct({ product, size, optionsize, isShow, setIsShowBuy }) {
+export default function BuyProduct({ product, size, quan, optionsize, isShow, setIsShowBuy }) {
     // console.log(size, '\n', optionsize);
     console.log('show: ', isShow);
-    const [quantity, setQuantity] = useState(1);
+    // const [quantity, setQuantity] = useState(quan);
     const [selectedLocation, setSelectedLocation] = useState('');
     const [selectedDistrict, setSelectedDistrict] = useState('');
     const [selectedCommunes, setSelectedCommunes] = useState('')
@@ -87,14 +87,14 @@ export default function BuyProduct({ product, size, optionsize, isShow, setIsSho
             // setShowPayButton(false);
         }
     };
-    const decreaseQuantity = () => {
-        if (quantity > 1) {
-            setQuantity(quantity - 1);
-        }
-    };
-    const increaseQuantity = () => {
-        setQuantity(quantity + 1);
-    };
+    // const decreaseQuantity = () => {
+    //     if (quantity > 1) {
+    //         setQuantity(quantity - 1);
+    //     }
+    // };
+    // const increaseQuantity = () => {
+    //     setQuantity(quantity + 1);
+    // };
     function hideForm() {
         // isShow = isShow
         setIsShowBuy(false)
@@ -123,12 +123,12 @@ export default function BuyProduct({ product, size, optionsize, isShow, setIsSho
         // console.log('Số lượng:', quantity);
         // console.log('Hình thức thanh toán:', selectedPayment);
 
-        let Data = ItemProduct({ product, optionsize, quantity, getTime, address, phoneNumber, selectedPayment });
+        let Data = ItemProduct({ product, optionsize, quan, getTime, address, phoneNumber, selectedPayment });
         if (
             !Data.token ||
             !Data.address ||
             !Data.phoneNumber ||
-            !Data.payment||
+            !Data.payment ||
             !Data.totalPrice
 
         ) {
@@ -146,7 +146,7 @@ export default function BuyProduct({ product, size, optionsize, isShow, setIsSho
                         console.log('thanh toan online');
                         console.log(response.data.data.vnpUrl); // In ra dữ liệu phản hồi từ server nếu thành công
                         window.localStorage.setItem('backto', `/san-pham/${product.id}`)
-                        window.localStorage.setItem('data',JSON.stringify(Data))
+                        window.localStorage.setItem('data', JSON.stringify(Data))
                         window.location.href = response.data.data.vnpUrl
                         // postData(Data)
                     } catch (error) {
@@ -176,7 +176,7 @@ export default function BuyProduct({ product, size, optionsize, isShow, setIsSho
                     {/* form */}
 
                     <div className='body'>
-                        <form onSubmit={handleSubmit}>
+                        <form onSubmit={handleSubmit} className="form-container">
                             <SelectAddress
                                 selectedLocation={selectedLocation}
                                 selectedDistrict={selectedDistrict}
@@ -194,21 +194,24 @@ export default function BuyProduct({ product, size, optionsize, isShow, setIsSho
                                 handleInputChange={handleInputChange}
                                 handleInputblur={handleInputBlur}
                             />
-                            <div>
-                                <span>Chọn số lượng bạn muốn</span>
-                                <div className='decreaseAndincrease'>
-                                    <a href="#" className="minus" onClick={decreaseQuantity}>
-                                        -
-                                    </a>
+
+                            <div className='QuanAndPrice'>
+                                <div className='Quan_container'>
+                                    <span>Số lượng bạn muốn</span>
                                     <a href="#" className="border">
-                                        {quantity}
-                                    </a>
-                                    <a href="#" className="plus" onClick={increaseQuantity}>
-                                        +
+                                        {quan}
                                     </a>
                                 </div>
+                                <div className='Price_container'>
+                                    <span>Cái giá phải trả</span>
+                                    <div href="#">
+                                        <span className='product-old-price'>{(product.price * quan).toLocaleString()}</span>
+                                        <span className='product-price'>{Math.round(product.price * quan*(1-product.discount/100)).toLocaleString()} vnđ</span>
+                                    </div>
+                                </div>
                             </div>
-                            <div>
+
+                            <div className='payment-container'>
                                 <label htmlFor="payment">Chọn hình thức thanh toán:</label>
                                 <select className='custom_default' id="payment" value={selectedPayment} onChange={handlePaymentChange}>
                                     <option value="">-- Chọn hình thức --</option>
@@ -217,8 +220,8 @@ export default function BuyProduct({ product, size, optionsize, isShow, setIsSho
                                 </select>
                             </div>
 
-                            <div>
-                                <button type="submit" >
+                            <div className="button-container">
+                                <button type="submit" className="submit-button">
                                     Mua hàng
                                 </button>
                             </div>
@@ -298,8 +301,8 @@ function SelectAddress({
                 <div className="location_phone">
                     <div className="location_focus">
                         <p>Điền số nhà/ngõ/...</p>
-                        <input className="input_cartPage custom_default"
-                            type='text'
+                        <input className="input_BuyClass custom_default"
+                            // type='text'
                             placeholder="Điền thêm thông tin địa chỉ cụ thể.."
                             value={addRess}
                             onChange={handleInputChangeAddress} />
@@ -307,7 +310,7 @@ function SelectAddress({
                     <div className={`phone_number_input ${!isValid && isTouched ? 'error' : ''}`}>
                         <p>Điền số điện thoại nhận hàng</p>
                         <input
-                            id="phone" className="input_cartPage custom_default"
+                            id="phone" className="input_BuyClass custom_default"
                             placeholder="Enter phone number.."
                             value={phoneNumber}
                             onChange={handleInputChange}
