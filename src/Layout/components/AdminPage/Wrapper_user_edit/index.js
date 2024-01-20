@@ -5,13 +5,31 @@ import './Wrapper_edit_edit.css'
 import { faPen, faClose } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Loading from "../../../library/Loading";
-
+import axios from "axios";
 
 export default function Wrapper_edit_user({ isEditFormVisible, setEditFormVisible, user }) {
 
     const [isEditing, setIsEditing] = useState(false);
-    const [editedUser, setEditedUser] = useState(user);
+    const [editedUser, setEditedUser] = useState({});
+    const [orders, setOrders] = useState([]);
 
+    const fetchData = async () => {
+
+        try {
+            // const testUser = JSON.parse(window.localStorage.getItem('user'));
+            // console.log(testUser.id);
+            // console.log(testUser);
+            // await setEditedUser(user)
+            console.log(editedUser.id, editedUser.name);
+            const response = await axios.get(`http://localhost:3001/api/v1/get-all-order?id_user=${user.id}`);
+            setOrders(response.data.data);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
+    useEffect(() => {
+        fetchData();
+    }, [isEditFormVisible]);
     // console.log(editedUser)
     function removeForm() {
         setEditFormVisible(false);
@@ -127,30 +145,30 @@ export default function Wrapper_edit_user({ isEditFormVisible, setEditFormVisibl
                                 </div>
                                 <div className="form_edit_input_right">
                                     <h3 className='header_text_table'><span>Sản phẩm đã mua</span></h3>
-                                    <div style={{height: '100%', width: '100%', backgroundImage : `url('https://www.jnland.com.my/wp-content/uploads/2020/05/coming-soon-projects.png')`}}></div>
-                                    {/* <div className='body_text_table'>
+                                    {/* <div style={{ height: '100%', width: '100%', backgroundImage: `url('https://www.jnland.com.my/wp-content/uploads/2020/05/coming-soon-projects.png')` }}></div> */}
+                                    <div className='body_text_table'>
                                         <table>
                                             <thead>
                                                 <tr>
                                                     <th>ID</th>
-                                                    <th>Name</th>
+                                                    <th>Ngày mua</th>
                                                     <th>Price</th>
+                                                    <th>Trạng thái</th>
                                                 </tr>
                                             </thead>
-                                            <tbody style={{position : 'relative'}}>
-                                               
-                                                
-                                                
-                                                {user.purchased.map((product) => (
+                                            <tbody style={{ position: 'relative' }}>
+
+                                                {orders.map((product) => (
                                                     <tr key={product.id}>
                                                         <td className='table_text'>{product.id}</td>
-                                                        <td className='table_text' >{product.name}</td>
-                                                        <td className='table_text' >{product.price}</td>
+                                                        <td className='table_text' >{product.order_date}</td>
+                                                        <td className='table_text' >{product.total_price}</td>
+                                                        <td className='table_text' >{product.status}</td>
                                                     </tr>
                                                 ))}
                                             </tbody>
                                         </table>
-                                    </div> */}
+                                    </div>
                                 </div>
 
 

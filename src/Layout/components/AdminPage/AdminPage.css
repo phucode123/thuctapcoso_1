@@ -62,19 +62,19 @@ nav[role="navigation"] li {
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-nav[role="navigation"] li  {
+nav[role="navigation"] li {
 
-      /* color: #ddd; */
-      text-decoration: none;
-      /* display: block; */
-      padding: 0.7em;
+  /* color: #ddd; */
+  text-decoration: none;
+  /* display: block; */
+  padding: 0.7em;
 }
 
-nav[role="navigation"]  li:hover {
+nav[role="navigation"] li:hover {
   background-color: rgba(222, 136, 74, 0.1);
 }
 
-nav[role="navigation"]  li:before {
+nav[role="navigation"] li:before {
   content: "\f248";
   font-family: FontAwesome;
   padding-right: 0.6em;
@@ -159,11 +159,63 @@ nav[role="navigation"] .users:before {
   text-decoration: none;
 } */
 /* hết phân trang */
-.main
-{
+.main {
   /* height: 140px */
 }
 
-.nav_map{
+.nav_map {}
 
+.Header_container_main {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: #f0f0f0;
+}
+
+.title_container {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.header_actions {
+  display: flex;
+  align-items: center;
+}
+
+.search_product {
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
+}
+
+.search_product span {
+  margin-right: 5px;
+}
+
+.search_product input[type="text"] {
+  padding: 5px;
+  border: none;
+  border-radius: 4px;
+}
+
+.header_actions>button {
+  padding: 10px 20px;
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.header_actions>button:hover {
+  background-color: #45a049;
+}
+
+.Header_container_main {
+  height: 100px;
+}
+
+.container_form_table {
+  width: 80%;
 }

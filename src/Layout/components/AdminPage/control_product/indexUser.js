@@ -60,6 +60,16 @@ export default function Table_user() {
     // hết hiển thị form và đóng form
     return (
         <div className="test_manin">
+            <div className="Header_container_main">
+                <h2 className="title_container">Quản lý người dùng</h2>
+                <div className="header_actions">
+                    <div className="search_product">
+                        {/* <span>Tìm kiếm</span>
+                        <input  type="text" /> */}
+                    </div>
+                    {/* <button onClick={HandlerAddProduct}>Thêm sản phẩm</button> */}
+                </div>
+            </div>
             <div className="table-wrapper">
                 <table id="mytable" className="table  mb-0 bg-white">
                     <thead className="bg-light">

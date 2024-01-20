@@ -1,38 +1,103 @@
 .form-container {
-    max-width: 500px;
-    margin: 0 auto;
-  }
-  .full-height{height: 100%;}
-  .form-group {
-    margin-bottom: 10px;
-    width: 50%;
-  }
-  .container_input{
-    display: inline-flex;
-    flex-wrap: wrap;
-  }
-  label {
-    display: block;
-    font-weight: bold;
-  }
-  
-  input[type="text"],
-  input[type="file"] {
-    width: 100%;
-    padding: 5px;
-    /* border: 1px solid #ccc; */
-    border-radius: 4px;
-  }
-  
-  /* button[type="submit"] {
-    background-color: #4caf50;
-    color: white;
-    padding: 5px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  } */
-  
-  /* button[type="submit"]:hover {
-    background-color: #45a049;
-  } */
+  /* margin-bottom: 20px; */
+  border-radius: 10px;
+  border: 2px solid rgba(255, 102, 0, 0.499);
+}
+
+.form-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-bottom: 10px;
+}
+
+.form-column {
+  flex: 1;
+  /* margin-right: 10px; */
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  flex: 1;
+  margin: 0 10px;
+}
+
+.form-input,
+.form-textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin: 0 5px;
+}
+
+.size-checkboxes {
+  display: flex;
+    align-items: center;
+    margin: 0 15px;
+}
+
+.submit-button {
+  padding: 10px 20px;
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+.submit-button:hover {
+  background-color: #45a049;
+}
+
+/* .input_checkBox_size{}
+ */
+
+.container_size_quan {
+
+  width: 90px;
+  display: flex;
+  flex-direction: row;
+}
+
+.input_checkBox_size {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 18px;
+  height: 18px;
+  border: 2px solid #ccc;
+  border-radius: 50%;
+  outline: none;
+  cursor: pointer;
+  position: relative;
+}
+
+.input_checkBox_size:checked {
+  background-color: #4caf50;
+  border-color: #4caf50;
+}
+
+.input_checkBox_size::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 10px;
+  height: 10px;
+  background-color: #fff;
+  border-radius: 50%;
+  display: none;
+}
+
+.input_checkBox_size:checked::before {
+  display: block;
+}
+
+/*  */
+.input_quan_size {
+  width: 50px;
+  margin: 0 5px;
+}

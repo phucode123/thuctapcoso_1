@@ -11,62 +11,84 @@ import Loading from "../../../library/Loading";
 import AddProduct from "./addProduct";
 
 export default function Table_product() {
-    // gọi api
-    const [shoesData, setShoesData] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
-    const [isShow, setIsshow] = useState(false)
+// gọi api
+const [shoesData, setShoesData] = useState([]);
+const [isLoading, setIsLoading] = useState(true);
+const [isShow, setIsshow] = useState(false)
+const [originalShoesData, setOriginalShoesData] = useState([]);
 
-    useEffect(() => {
-        axios.get('http://localhost:3001/api/v1/get-shoes')
-            .then((response) => {
-                const data = response.data;
-                setShoesData(data.data);
-                setIsLoading(false);
-                // console.log(data);
-            })
-            .catch((error) => {
-                console.error(error);
-                setIsLoading(false);
-            });
-    }, []);
-
-
-    const rowsPerPage = 5;
-    const [currentPage, setCurrentPage] = useState(0);
-    const displayData = shoesData.slice(
-        currentPage * rowsPerPage,
-        (currentPage + 1) * rowsPerPage
-    );
-    console.log(shoesData);
-    const handlePageChange = (selected) => {
-        setCurrentPage(selected.selected);
-    };
-    const [isEditFormVisible, setEditFormVisible] = useState(false);
-    const [Product, setProduct] = useState({});
+useEffect(() => {
+    axios.get('http://localhost:3001/api/v1/get-shoes')
+        .then((response) => {
+            const data = response.data;
+            setShoesData(data.data);
+            setOriginalShoesData(data.data);
+            setIsLoading(false);
+        })
+        .catch((error) => {
+            console.error(error);
+            setIsLoading(false);
+        });
+}, []);
 
 
-    // hiển thị form và đóng form
-    const handleEditButtonClick = (product) => {
-        setProduct(product)
-        setEditFormVisible(true);
-    };
-    const HandlerAddProduct = () => {
-        setIsshow(true)
+const rowsPerPage = 5;
+const [currentPage, setCurrentPage] = useState(0);
+const displayData = shoesData.slice(
+    currentPage * rowsPerPage,
+    (currentPage + 1) * rowsPerPage
+);
+console.log(shoesData);
+const handlePageChange = (selected) => {
+    setCurrentPage(selected.selected);
+};
+const [isEditFormVisible, setEditFormVisible] = useState(false);
+const [Product, setProduct] = useState({});
+
+
+// hiển thị form và đóng form
+const handleEditButtonClick = (product) => {
+    setProduct(product)
+    setEditFormVisible(true);
+};
+const HandlerAddProduct = () => {
+    setIsshow(true)
+}
+console.log('Sản phẩm được chọn:', Product)
+function removeForm() {
+    setIsshow(false);
+}
+function stopPropagation(event) {
+    event.stopPropagation();
+}
+
+
+function HandlerSearch(e) {
+    const value_search = e.target.value.trim();
+    if (value_search === '') {
+        setShoesData(originalShoesData);
+    } else {
+        const filteredData = originalShoesData.filter((item) =>
+            (item.name).toLowerCase().includes(value_search.toLowerCase())
+        );
+        setShoesData(filteredData);
     }
-    console.log('Sản phẩm được chọn:', Product)
-    function removeForm() {
-        setIsshow(false);
-    }
-    function stopPropagation(event) {
-        event.stopPropagation();
-    }
+}
+// hết hiển thị form và đóng form
+return (
+    <div className="test_manin">
+        <div className="Header_container_main">
+            <h2 className="title_container">Quản lý sản phẩm</h2>
+            <div className="header_actions">
+                <div className="search_product">
+                    <span>Tìm kiếm</span>
+                    <input onChange={HandlerSearch} type="text" />
+                </div>
+                <button onClick={HandlerAddProduct}>Thêm sản phẩm</button>
+            </div>
+        </div>
 
-
-    // hết hiển thị form và đóng form
-    return (
-        <div className="test_manin">
-
-            <button onClick={HandlerAddProduct}>Thêm sản phẩm</button>
+        <div className="container_form_table">
             <table id="mytable" className="table  mb-0 bg-white">
                 <thead className="bg-light">
                     <tr className="header-row">
@@ -156,6 +178,9 @@ export default function Table_product() {
                     />
                 </nav>
             </div>
-        </div >
-    )
+        </div>
+
+
+    </div >
+)
 }

@@ -56,15 +56,18 @@ function Search({ className }) {
     // Xử lý sự kiện nhấp vào biểu tượng tìm kiếm nếu cần thiết
   };
 
-  const handleImageSearch = () => {
+  const handleImageSearch = async () => {
     if (selectedImage) {
       const formData = new FormData();
       formData.append('image', selectedImage);
       setIsLoading(true);
-      axios.post('http://localhost:3001/api/v1/post-image', formData)
+      setIsShow(true)
+      await axios.post('http://localhost:3001/api/v1/post-image', formData)
         .then((response) => {
           const data = response.data.data;
           setListImage(data);
+          console.log(isShow);
+          // console.log(isLoading);
         })
         .catch((error) => {
           console.log(error);
@@ -72,6 +75,8 @@ function Search({ className }) {
         .finally(() => {
           // Khi xử lý hoàn tất, đặt isLoading thành false
           setIsLoading(false);
+          console.log('finallllll');
+          // setIsShow(false)
         });
     }
   };
@@ -120,25 +125,25 @@ function Search({ className }) {
           </button>
         </div>
 
-        {isLoading && <p>Vui lòng chờ...</p>}
+        {/* {isLoading && <p>Vui lòng chờ...</p>} */}
       </div>
 
-      {isShow && !isLoading && (
-        <SuggestedProduct items={items}>
-          <div className="hide_form">
-            <button onClick={() => setIsShow(false)} className="hide_form_button">
-              Ẩn
-            </button>
-          </div>
-        </SuggestedProduct>
+      {isShow && (
+        <SuggestedProduct items={items} textLoad = {'Vui lòng chờ...'} isLoading = {isLoading} >
+        <div className="hide_form">
+          <button onClick={() => setIsShow(false)} className="hide_form_button">
+            Ẩn
+          </button>
+        </div>
+      </SuggestedProduct>
       )}
-      {isShow && isLoading && (
+      {/* {isShow && isLoading && (
         <SuggestedProduct items={[]}>
           <div className="loading-placeholder">
             <p>Vui lòng chờ...</p>
           </div>
         </SuggestedProduct>
-      )}
+      )} */}
     </div>
   );
 }

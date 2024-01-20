@@ -1,3 +1,6 @@
+
+
+
 import React, { useState } from 'react';
 import axios from 'axios';
 import './addProduct.css'
@@ -11,6 +14,7 @@ const AddProduct = () => {
         sizes: ['38', '39', '40', '41', '42', '43'],
         quantities: {},
         image: null,
+        describe: '', // New field for product description
     });
 
     const handleInputChange = (e) => {
@@ -51,19 +55,22 @@ const AddProduct = () => {
 
     const renderSizeCheckboxes = () => {
         return formData.sizes.map((size) => (
-            <div key={size}>
+            <div className='container_size_quan' key={size}>
                 <label>
                     <input
+                        className='input_checkBox_size'
                         type="checkbox"
                         name="sizes"
                         value={size}
                         checked={formData.quantities[size] !== undefined}
                         onChange={handleInputChange}
                     />
-                    {` Size ${size}`}
+                    {` ${size}`}
                 </label>
                 {formData.quantities[size] !== undefined && (
                     <input
+                        // style={{ width: '100%' }}
+                        className='input_quan_size'
                         type="number"
                         name={`quantity_${size}`}
                         value={formData.quantities[size]}
@@ -81,12 +88,10 @@ const AddProduct = () => {
             return;
         }
 
-        const sizesArray = formData.sizes
-            .filter((size) => formData.quantities[size] !== undefined)
-            .map((size, index) => ({
-                id_size: index + 1,
-                quantity: parseInt(formData.quantities[size]) || 0,
-            }));
+        const sizesArray = formData.sizes.map((size, index) => ({
+            id_size: index + 1,
+            quantity: parseInt(formData.quantities[size]) || 0,
+        }));
 
         const price = parseFloat(formData.price);
         const discount = parseFloat(formData.discount);
@@ -102,6 +107,7 @@ const AddProduct = () => {
             brand: formData.brand,
             discount: discount,
             sizes: sizesArray,
+            describe: formData.describe, // Include the description
         };
 
         const formDataToSend = new FormData();
@@ -111,6 +117,7 @@ const AddProduct = () => {
         formDataToSend.append('discount', postData.discount);
         formDataToSend.append('sizes', JSON.stringify(postData.sizes));
         formDataToSend.append('image', formData.image);
+        formDataToSend.append('describe', postData.describe); // Append the description
 
         axios.post('http://localhost:3001/api/v1/create-shoes', formDataToSend)
             .then((response) => {
@@ -123,44 +130,59 @@ const AddProduct = () => {
             });
     };
 
-
-
     return (
-        <div className="form-container">
-            <form onSubmit={(e) => { e.preventDefault(); prepareDataForSubmit(); }} encType="multipart/form-data" className='full-height'>
-                <div className='container_input'>
-                    <div className="form-group">
-                        <label htmlFor="name">Tên:</label>
-                        <input type="text" id="name" name="name" value={formData.name} onChange={handleInputChange} />
-                    </div>
+        <div class="form-container">
+            <form onSubmit={(e) => { e.preventDefault(); prepareDataForSubmit(); }} encType="multipart/form-data">
+                <div class="form-row">
+                    <label class="form-label">
+                        Tên:
+                        <input type="text" name="name" value={formData.name} onChange={handleInputChange} class="form-input" />
+                    </label>
 
-                    <div className="form-group">
-                        <label htmlFor="price">Giá:</label>
-                        <input type="text" id="price" name="price" value={formData.price} onChange={handleInputChange} />
-                    </div>
-
-                    <div className="form-group">
-                        <label htmlFor="brand">Thương hiệu:</label>
-                        <input type="text" id="brand" name="brand" value={formData.brand} onChange={handleInputChange} />
-                    </div>
-
-                    <div className="form-group">
-                        <label htmlFor="discount">Giảm giá:</label>
-                        <input type="text" id="discount" name="discount" value={formData.discount} onChange={handleInputChange} />
-                    </div>
+                    <label class="form-label">
+                        Giá:
+                        <input type="text" name="price" value={formData.price} onChange={handleInputChange} class="form-input" />
+                    </label>
                 </div>
 
-                <div className="form-group">
-                    <label>Size:</label>
-                    {renderSizeCheckboxes()}
+                <div class="form-row">
+                    <label class="form-label">
+                        Thương hiệu:
+                        <input type="text" name="brand" value={formData.brand} onChange={handleInputChange} class="form-input" />
+                    </label>
+
+                    <label class="form-label">
+                        Giảm giá:
+                        <input type="text" name="discount" value={formData.discount} onChange={handleInputChange} class="form-input" />
+                    </label>
                 </div>
 
-                <div className="form-group">
-                    <label htmlFor="image">Ảnh:</label>
-                    <input type="file" id="image" name="image" accept="image/*" onChange={handleInputChange} />
+
+                <div class="form-column">
+                    <label class="form-label">Size:</label>
+                    <div class="size-checkboxes">
+                        {renderSizeCheckboxes()}
+                    </div>
+                </div>
+                <div class="form-column">
+                    <label class="form-label">
+                        Mô tả sản phẩm:
+                        <textarea name="describe" value={formData.describe} onChange={handleInputChange} class="form-textarea"></textarea>
+                    </label>
                 </div>
 
-                <button type="submit">Gửi</button>
+
+
+                <div class="form-row">
+                    <label class="form-label">
+                        Ảnh:
+                        <input type="file" name="image" accept="image/*" onChange={handleInputChange} class="form-input" />
+                    </label>
+                </div>
+
+                <div class="form-row">
+                    <button type="submit" class="submit-button">Gửi</button>
+                </div>
             </form>
         </div>
     );
