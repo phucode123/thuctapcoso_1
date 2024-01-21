@@ -132,9 +132,7 @@ export default function BuyProduct({ product, size, quan, optionsize, isShow, se
             !Data.totalPrice
 
         ) {
-            // if(!Data.totalPrice){
-            //     alert('totalPrice bị bằng 0 roi')
-            // }
+            console.log(Data);
             alert("Hãy nhập đầy đủ thông tin giùm!!");
         } else {
             console.log(selectedPayment);
@@ -159,6 +157,7 @@ export default function BuyProduct({ product, size, quan, optionsize, isShow, se
             }
             else {
                 console.log(Data);
+                postData(Data)
             }
             // console.log("ị");
             // removeData(listProduct)
@@ -176,7 +175,7 @@ export default function BuyProduct({ product, size, quan, optionsize, isShow, se
                     {/* form */}
 
                     <div className='body'>
-                        <form onSubmit={handleSubmit} className="form-container">
+                        <form onSubmit={handleSubmit} className="form-container_buy">
                             <SelectAddress
                                 selectedLocation={selectedLocation}
                                 selectedDistrict={selectedDistrict}
@@ -240,17 +239,17 @@ export default function BuyProduct({ product, size, quan, optionsize, isShow, se
 }
 
 
-function ItemProduct({ product, optionsize, quantity, getTime, address, phoneNumber, selectedPayment }) {
+function ItemProduct({ product, optionsize, quan, getTime, address, phoneNumber, selectedPayment }) {
 
     return {
         "token": getToken(),
         "order_date": getTime(),
         "address": address,
         "phoneNumber": phoneNumber,
-        "totalPrice": product.price * quantity,
+        "totalPrice": product.price * quan,
         "payment": selectedPayment,
         "status": "Đã đặt hàng",
-        "products": [{ "id_product": product.id, "id_size": optionsize.id_size, "size": optionsize.size, "quantity": quantity }]
+        "products": [{ "id_product": product.id, "id_size": optionsize.id_size, "size": optionsize.size, "quantity": quan }]
     }
 }
 

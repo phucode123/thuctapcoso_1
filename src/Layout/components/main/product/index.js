@@ -32,6 +32,7 @@ function Product() {
         try {
             const response = await axios.get(`http://localhost:3001/api/v1/get-1-product?id=${productId}`);
             setProduct(response.data.data[0])
+            console.log(product);
         } catch (error) {
             console.error(error);
         }
@@ -148,6 +149,9 @@ function Product() {
                                     if (optionChange) {
                                         setIsShowBuy(true)
                                     }
+                                    else{
+                                        alert('vui lòng chọn size và số lượng')
+                                    }
                                 }}><a>Đặt mua ngay</a></div>
 
 
@@ -155,11 +159,48 @@ function Product() {
                         </div>
 
                         {/* </div> */}
-                        <MyComponent title={title} messenger={messenger} status={status} setIsshow={setIsshow} isShow={isShow}/>
+                        <MyComponent title={title} messenger={messenger} status={status} setIsshow={setIsshow} isShow={isShow} />
                         <BuyProduct product={product} size={optionChange} quan={quantity} optionsize={optionsize} isShow={isShowBuy} setIsShowBuy={setIsShowBuy} />
                     </div>
                 </div >
                 {/* <Listdiscount Author_name={product.author} /> */}
+                <div className="Product_Description">
+
+                    <p className="Text_description">
+                        <span>
+                            Giày adidas Run 80S là mẫu giày sneaker có thiết kế cổ điển của thập
+                            niên 80 nhưng rất đẹp và không bao giờ lỗi mốt.
+                            adidas Run 80S có thể sử dụng trong mọi hoạt động hàng ngày.
+
+                            Về thiết kế của adidas Run 80S với upper được làm từ chất liệu
+                            da lộn cao cấp kết hợp vải mesh thoáng khí, đế giữa chất liệu êm ái
+                            và đế ngoài bằng cao su bền bỉ chịu mài mòn tốt.
+                        </span>
+                        <span>
+                            Giày adidas Run 80S là mẫu giày sneaker có thiết kế cổ điển của thập
+                            niên 80 nhưng rất đẹp và không bao giờ lỗi mốt.
+                            adidas Run 80S có thể sử dụng trong mọi hoạt động hàng ngày.
+
+                            Về thiết kế của adidas Run 80S với upper được làm từ chất liệu
+                            da lộn cao cấp kết hợp vải mesh thoáng khí, đế giữa chất liệu êm ái
+                            và đế ngoài bằng cao su bền bỉ chịu mài mòn.
+                        </span>
+                        <span className="chunghieng">
+                            
+                            Giày adidas Run 80S là mẫu giày sneaker có thiết kế cổ điển của thập
+                            niên 80 nhưng rất đẹp và không bao giờ lỗi mốt.
+                            adidas Run 80S có thể sử dụng trong mọi hoạt động hàng ngày.
+
+                            Về thiết kế của adidas Run 80S với upper được làm từ chất liệu
+                            da lộn cao cấp kết hợp vải mesh thoáng khí, đế giữa chất liệu êm ái
+                            và đế ngoài bằng cao su bền bỉ chịu mài mòn tốt.
+                        </span>
+                    </p>
+                    <div className="Image_description">
+                        <img src={product.image}></img>
+                    </div>
+                </div>
+                {/* <p>{product.dictionary}</p> */}
             </div >
         </>
     )
