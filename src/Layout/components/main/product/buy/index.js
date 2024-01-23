@@ -86,15 +86,7 @@ export default function BuyProduct({ product, size, quan, optionsize, isShow, se
             // setShowPlaceOrderButton(false);
             // setShowPayButton(false);
         }
-    };
-    // const decreaseQuantity = () => {
-    //     if (quantity > 1) {
-    //         setQuantity(quantity - 1);
-    //     }
-    // };
-    // const increaseQuantity = () => {
-    //     setQuantity(quantity + 1);
-    // };
+    }; 
     function hideForm() {
         // isShow = isShow
         setIsShowBuy(false)
@@ -102,19 +94,6 @@ export default function BuyProduct({ product, size, quan, optionsize, isShow, se
     function stopPropagation(event) {
         event.stopPropagation();
     }
-    // const postData = async (data) => {
-    //     try {
-    //         const response =
-    //             await axios.post('https://ttcs-duongxuannhan2002s-projects.vercel.app/api/v1/post-order', data);
-    //         console.log(response); // In ra dữ liệu phản hồi từ server nếu thành công
-    //         // setProduct(response.data.data[0])
-    //     } catch (error) {
-    //         console.error(error);
-    //     }
-
-    // }
-
-
     const handleSubmit = (event) => {
         event.preventDefault();
 

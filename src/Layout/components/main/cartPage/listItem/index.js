@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./ListproductCart.css";
 import axios from "axios";
 import { getToken, removeDataInCart } from "../../../../../assect/workToken/WorkToken";
+import MyComponent from "../../../../library/checkSuccess";
 export default function ListProduct({ user, setListProduct }) {
   const [cartItems, setCartItems] = useState([]);
   const [selectedItems, setSelectedItems] = useState([]);
@@ -82,9 +83,6 @@ export default function ListProduct({ user, setListProduct }) {
   };
 
   const handleCheckout = () => {
-    // console.log();
-    // console.log(cartItems);
-
     const selectedItemsInfo = cartItems
       .filter((item) => {
         // console.log(item.size);
@@ -97,17 +95,18 @@ export default function ListProduct({ user, setListProduct }) {
           name: item.name,
           price: item.price,
           quantity: quantities[item.id - 1] || 0,
-          size: item.size // Thêm thông tin về kích thước,
+          size: item.size
           , discount: item.discount,
           id_size: item.id_size
-          // ,discount: item.discount
+
         };
       });
 
     setListProduct(selectedItemsInfo)
 
-    console.log(selectedItemsInfo);
+    // console.log(selectedItemsInfo);
   };
+
   async function handleRemove(item) {
     try {
       console.log(item);
@@ -134,95 +133,106 @@ export default function ListProduct({ user, setListProduct }) {
       </div>
 
       <div className="container_product_item row border-top border-bottom ">
-        {cartItems.map((item, index) => {
-          const isSelected = selectedItems.some(
-            (selectedItem) => selectedItem.id === item.id
-          );
-
-          return (
-            <div
-              key={item.id}
-              className={`main_item_product align-items-center ${isSelected ? "selected" : ""
-                }`}
-              style={{ cursor: "pointer" }}
-              onClick={() => handleItemClick(item.id)}
-            >
-              <div className="">
-                <input className="checkbox_none" type="checkbox" />
-              </div>
-              <div className="col-2">
-                <img className="img_product" src={item.image} alt="Product" />
-              </div>
-              <div className="col">
-                <div className="row name_item_cart">{item.name}</div>
-              </div>
-              <div
-                className="col minus_plus"
-                onClick={(e) => {
-                  e.stopPropagation();
-                }}
-              >
-                <a
-                  href="#"
-                  className="minus"
-                  onClick={() => decreaseQuantity(index)}
-                >
-                  -
-                </a>
-                <a href="#" className="border">
-                  {quantities[index] || 0}
-                </a>
-                <a
-                  onClick={() => increaseQuantity(index)}
-                  className="plus"
-                  href="#"
-                >
-                  +
-                </a>
-              </div>
-              <div
-                className="col"
-                style={{
-                  display: "flex",
-                  height: "20px",
-                  width: "40px",
-                  flexDirection: 'row'
-                  , justifyContent: 'center',
-                  alignItems: 'center',
-                  border: '1px',
-                  color: 'grey'
-                }}
-              >
-                <p style={{
-                  margin: '0'
-                }}>Size</p>
-                <div
-                  style={{
-                    padding: "0",
-                    width: "50px",
-                  }}
-                  value={item.size}
-                  onChange={(event) => handleNumberChange(item.id, event)}
-                >
-                  <div value="">{item.size}</div>
-                </div>
-              </div>
-              <div className="col price_close">
-                <span className="price">{Math.round(item.price * quantities[index] * (1 - item.discount / 100))} <span>VNĐ</span></span>
-                <span
-                  className="close"
-                  key={item.id}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleRemove(item);
-                  }}
-                >
-                  &#10005;
-                </span>
-              </div>
+        {
+          cartItems.length < 1 ?
+            <div className='form_image'>
+              <img className='product_image' src='https://logos.flamingtext.com/Word-Logos/nothing-design-sketch-name.png' alt='Nothinggggggg :((' />
             </div>
-          );
-        })}
+            :
+            <>
+              {
+                cartItems.map((item, index) => {
+                  const isSelected = selectedItems.some(
+                    (selectedItem) => selectedItem.id === item.id
+                  );
+
+                  return (
+                    <div
+                      key={item.id}
+                      className={`main_item_product align-items-center ${isSelected ? "selected" : ""
+                        }`}
+                      style={{ cursor: "pointer" }}
+                      onClick={() => handleItemClick(item.id)}
+                    >
+                      <div className="">
+                        <input className="checkbox_none" type="checkbox" />
+                      </div>
+                      <div className="col-2">
+                        <img className="img_product" src={item.image} alt="Product" />
+                      </div>
+                      <div className="col">
+                        <div className="row name_item_cart">{item.name}</div>
+                      </div>
+                      <div
+                        className="col minus_plus"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                        }}
+                      >
+                        <a
+                          href="#"
+                          className="minus"
+                          onClick={() => decreaseQuantity(index)}
+                        >
+                          -
+                        </a>
+                        <a href="#" className="border">
+                          {quantities[index] || 0}
+                        </a>
+                        <a
+                          onClick={() => increaseQuantity(index)}
+                          className="plus"
+                          href="#"
+                        >
+                          +
+                        </a>
+                      </div>
+                      <div
+                        className="col"
+                        style={{
+                          display: "flex",
+                          height: "20px",
+                          width: "40px",
+                          flexDirection: 'row'
+                          , justifyContent: 'center',
+                          alignItems: 'center',
+                          border: '1px',
+                          color: 'grey'
+                        }}
+                      >
+                        <p style={{
+                          margin: '0'
+                        }}>Size</p>
+                        <div
+                          style={{
+                            padding: "0",
+                            width: "50px",
+                          }}
+                          value={item.size}
+                          onChange={(event) => handleNumberChange(item.id, event)}
+                        >
+                          <div value="">{item.size}</div>
+                        </div>
+                      </div>
+                      <div className="col price_close">
+                        <span className="price">{Math.round(item.price * quantities[index] * (1 - item.discount / 100))} <span>VNĐ</span></span>
+                        <span
+                          className="close"
+                          key={item.id}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleRemove(item);
+                          }}
+                        >
+                          &#10005;
+                        </span>
+                      </div>
+                    </div>
+                  );
+                })
+              }
+            </>
+        }
       </div>
 
       <button style={{ marginLeft: "auto" }} onClick={handleCheckout}>

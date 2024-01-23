@@ -8,7 +8,7 @@ import { getToken, postData, removeDataInCart } from "../../../../../assect/work
 export default function Paymend_cart({ user, listProduct }) {
     // console.log(user);
 
-    listProduct = listProduct? listProduct: []
+    listProduct = listProduct ? listProduct : []
     const [selectedLocation, setSelectedLocation] = useState('');
     const [selectedDistrict, setSelectedDistrict] = useState('');
     const [selectedCommunes, setSelectedCommunes] = useState('')
@@ -117,7 +117,7 @@ export default function Paymend_cart({ user, listProduct }) {
                 listProduct ? listProduct.map((item) => {
                     // console.log('halo');
                     // [{"id_product": 20, "id_size": 1, "size": 38,"allQuantity": 24, "quantity": 1}]
-                    return { "id_product": item.id_product,"id_size": 1, "size": item.size, "quantity": item.quantity }
+                    return { "id_product": item.id_product, "id_size": 1, "size": item.size, "quantity": item.quantity }
 
                 }) : null
 
@@ -128,21 +128,37 @@ export default function Paymend_cart({ user, listProduct }) {
                 !Data.token ||
                 !Data.address ||
                 !Data.phoneNumber ||
-                // !Data.totalPrice ||
-                !Data.payment 
+                !Data.totalPrice ||
+                !Data.payment
                 // Data.products.length === 0
             ) {
-
-
                 alert("Hãy nhập đầy đủ thông tin giùm!!");
-
             } else {
-                // console.log("ị");
-                console.log(Data);
-                postData(Data)
-                // removeData(listProduct)
+                console.log(selectedPayment);
+                if (selectedPayment == 'bank_transfer') {
+                    const Bank = async () => {
+                        try {
+                            const response =
+                                await axios.get(`http://localhost:3001/api/v1/payment?amount=${Data.totalPrice}`);
+                            console.log('thanh toan online');
+                            console.log(response.data.data.vnpUrl); // In ra dữ liệu phản hồi từ server nếu thành công
+                           
+                            window.localStorage.setItem('data', JSON.stringify(Data))
+                            window.location.href = response.data.data.vnpUrl
+                            // postData(Data)
+                        } catch (error) {
+                            alert('that bai roi');
+                            console.error(error);
+                        }
+                    }
+                    Bank()
+                    console.log(Data);
+                }
+                else {
+                    console.log(Data);
+                    postData(Data)
+                }
             }
-            // window.location.reload('/');
 
 
         }
@@ -196,16 +212,6 @@ export default function Paymend_cart({ user, listProduct }) {
 
 function ItemProduct({ newList, totalPrice, getTime, address, phoneNumber, selectedPayment }) {
 
-    // {
-    //     "token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzgsImlhdCI6MTcwMzM0NTYzNX0.vwwSitt1EoyS8Y6mdwbg9D730yXeDyBWAoqjievcoiw",
-    //     "order_date":"24/12/2002",
-    //     "address":"vinh-na",
-    //     "phoneNumber": "0000",
-    //     "totalPrice":10000, 
-    //     "payment":"cod",
-    //     "status":"ddh",
-    //     "products": [{"id_product": 20, "id_size": 1, "size": 38,, "quantity": 1}, {"id_product": 19, "id_size": 4, "size": 41, , "quantity": 1}]
-    //     }
 
     return {
         "token": getToken(),

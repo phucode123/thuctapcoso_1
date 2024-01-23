@@ -4,8 +4,15 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import './addProduct.css'
-
+import MyComponent from '../../../../library/checkSuccess';
+import { is } from '@react-spring/shared';
+//title, messenger, status, isShow, setIsshow
 const AddProduct = () => {
+    const [isShow, setIsShow] = useState('')
+    const [title, setTitle] = useState('')
+    const [messenger, setMessenger] = useState('')
+    const [status, setStatus] = useState('')
+
     const [formData, setFormData] = useState({
         name: '',
         price: '',
@@ -85,6 +92,10 @@ const AddProduct = () => {
     const prepareDataForSubmit = () => {
         if (!formData.image) {
             console.error('Vui lòng chọn ảnh.');
+            setTitle('Không thêm được')
+            setStatus(false)
+            setIsShow(true)
+            setMessenger('Bạn phải chọn ảnh!!')
             return;
         }
 
@@ -98,6 +109,10 @@ const AddProduct = () => {
 
         if (isNaN(price) || isNaN(discount)) {
             console.error('Giá và giảm giá phải là số.');
+            setTitle('Không thêm được')
+            setStatus(false)
+            setIsShow(true)
+            setMessenger('Vui lòng nhập đúng định dạng giá và giảm giá')
             return;
         }
 
@@ -122,9 +137,17 @@ const AddProduct = () => {
         axios.post('http://localhost:3001/api/v1/create-shoes', formDataToSend)
             .then((response) => {
                 console.log('Phản hồi từ máy chủ:', response.data);
+                setTitle('Thêm Thành Công')
+                setStatus(true)
+                setIsShow(true)
+                setMessenger('Đã thêm được hàng vào giỏ')
                 // Xử lý phản hồi thành công nếu cần
             })
             .catch((error) => {
+                setTitle('Không thêm được')
+                setStatus(false)
+                setIsShow(true)
+                setMessenger('Có vấn đề khi thêm hàng vào giỏ')
                 console.error('Lỗi:', error);
                 // Xử lý phản hồi lỗi nếu cần
             });
@@ -184,6 +207,7 @@ const AddProduct = () => {
                     <button type="submit" class="submit-button">Gửi</button>
                 </div>
             </form>
+            <MyComponent title={title} messenger={messenger} status = {status} isShow={isShow} setIsshow={setIsShow}/>
         </div>
     );
 };
