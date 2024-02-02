@@ -16,7 +16,7 @@ export default function AdminPage() {
             <Link to="/admin/quanlysanpham"><li className="product">Quản lý hàng</li></Link>
             <Link to="/admin/quanlynguoidung"><li className="user">Quản lý người dùng</li></Link>
             <Link to="/admin/quanlydoanhthu"><li className="comments">Doanh thu</li></Link>
-            <Link><li className="logout">Đăng xuất</li></Link>
+            {/* <Link><li className="logout">Đăng xuất</li></Link> */}
           </ul>
         </nav>
 

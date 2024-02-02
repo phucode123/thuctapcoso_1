@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import { cityDistricts } from "../../../../../assect/workToken/WorkToken";
 import axios from "axios";
 import { getToken, postData, removeDataInCart } from "../../../../../assect/workToken/WorkToken";
+import MyComponent from "../../../../library/checkSuccess";
 export default function Paymend_cart({ user, listProduct }) {
     // console.log(user);
 
@@ -21,6 +22,11 @@ export default function Paymend_cart({ user, listProduct }) {
     const [isTouched, setIsTouched] = useState(false);
     const [currentTime, setCurrentTime] = useState(new Date());
     const [totalPrice, setTotalPrice] = useState(0)
+
+    const [status, setStatus] = useState()
+    const [isShow, setIsshow] = useState(false)
+    const [title, setTitle] = useState('')
+    const [messenger, setMessenger] = useState('')
     function getTime() {
         setCurrentTime(new Date());
         const formattedDate = `${currentTime.getDate()}/${currentTime.getMonth() + 1}/${currentTime.getFullYear()}`;
@@ -89,15 +95,26 @@ export default function Paymend_cart({ user, listProduct }) {
 
     async function handleRemove(item) {
         try {
-            // console.log(item);
-            let itemRemove = {
+            console.log({
                 id_user: user.id,
                 id_product: item.id_product,
                 size: item.size,
                 id_size: item.id_size
-            };
+            });
+            // console.log(item);
+            // let itemRemove = {
+            //     id_user: user.id,
+            //     id_product: item.id_product,
+            //     size: item.size,
+            //     id_size: item.id_size
+            // };
             // console.log(itemRemove);
-            removeDataInCart(itemRemove);
+            removeDataInCart({
+                id_user: user.id,
+                id_product: item.id_product,
+                size: item.size,
+                id_size: item.id_size
+            });
             // await fetchData();
         } catch (error) {
             console.error(error);
@@ -142,7 +159,7 @@ export default function Paymend_cart({ user, listProduct }) {
                                 await axios.get(`http://localhost:3001/api/v1/payment?amount=${Data.totalPrice}`);
                             console.log('thanh toan online');
                             console.log(response.data.data.vnpUrl); // In ra dữ liệu phản hồi từ server nếu thành công
-                           
+
                             window.localStorage.setItem('data', JSON.stringify(Data))
                             window.location.href = response.data.data.vnpUrl
                             // postData(Data)
@@ -157,6 +174,14 @@ export default function Paymend_cart({ user, listProduct }) {
                 else {
                     console.log(Data);
                     postData(Data)
+                    setStatus(true)
+                    setIsshow(true)
+                    // setIsshow(true)
+                    setTitle('Thành công')
+                    setMessenger("Mua hàng thành công")
+                    setTimeout(() => {
+                        removeData(listProduct);
+                    }, 3000);
                 }
             }
 
@@ -204,6 +229,7 @@ export default function Paymend_cart({ user, listProduct }) {
                 <button type='submit' class="button_submit">Đặt hàng</button>
             </form >
             <Link to={'/'} class="back-to-shop" href="#"> <div ><FontAwesomeIcon icon={faArrowLeftLong} /><span class="">Back to shop</span></div></Link>
+            <MyComponent title={title} messenger={messenger} status={status} setIsshow={setIsshow} isShow={isShow} />
 
         </div >
     )

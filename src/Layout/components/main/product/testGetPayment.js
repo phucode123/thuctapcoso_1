@@ -16,9 +16,10 @@ const Show = () => {
     const [user, setUser] = useState(null)
 
     let exampleValue
-    let data = JSON.parse(window.localStorage.getItem('data'));
-    console.log(data);
+    let data =JSON.parse(window.localStorage.getItem('data'));
     useEffect(() => {
+        // data= 
+        console.log(data);
         // Lấy query parameters từ URL
         const params = new URLSearchParams(location.search);
         exampleValue = parseInt(params.get('vnp_ResponseCode'))
@@ -35,7 +36,9 @@ const Show = () => {
         exampleValue
             ? console.log('khong post duoc')
             : (() => {
+                console.log(exampleValue);
                 if (data) {
+                    console.log(data);
                     window.localStorage.removeItem('data')
                     // console.log(data);
                     postData(data);
@@ -86,19 +89,19 @@ const Show = () => {
 
     return (
         <div>
-            <MyComponent title={exampleValue != 0 ? 'Thanh toan khong thanh cong' : 'Thanh toan thanh cong'}
-                messenger={exampleValue != 0 ? 'Vui long chọn phuong thuc khac' : 'ok'}
-                status={exampleValue != 0 ? false : true}
+            <MyComponent title={exampleValue == 0 ? 'Thanh toan khong thanh cong' : 'Thanh toan thanh cong'}
+                messenger={exampleValue == 0 ? 'Vui long chọn phuong thuc khac' : 'Thanh toán online thành công'}
+                status={exampleValue == 0 ? false : true}
                 setIsshow={setIsshow} isShow={isShow} />
 
 
             <div className='container_get_bill'>
                 <div className='header_get_bill'>
                     <div className='text_header'>
-                        <span className={`header_title ${exampleValue != 0 ? 'text-danger' : ''}`}>{exampleValue != 0 ? 'Thanh toán online thất bại' : 'Thanh toán hoàn tất'} </span>
+                        <span className={`header_title ${exampleValue == 0 ? 'text-danger' : ''}`}>{exampleValue == 0 ? 'Thanh toán online thất bại' : 'Thanh toán hoàn tất'} </span>
                     </div>
-                    <div className={`icon_header ${exampleValue != 0 ? 'text-danger' : ''}`}>
-                        {exampleValue != 0 ? <i><FontAwesomeIcon icon={faWarning} /></i> : <i><FontAwesomeIcon icon={faCheckCircle} /></i>}
+                    <div className={`icon_header ${exampleValue == 0 ? 'text-danger' : ''}`}>
+                        {exampleValue == 0 ? <i><FontAwesomeIcon icon={faWarning} /></i> : <i><FontAwesomeIcon icon={faCheckCircle} /></i>}
                     </div>
                 </div>
                 <div className='body_get_bill'>

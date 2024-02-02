@@ -141,7 +141,20 @@ return (
 
                                         >
                                             {/* <i className="me-1 action-icon bi bi-file-earmark-richtext text-primary"></i> */}
-                                            <span style={{ paddingRight: '4px' }}>Preview Form</span> <FontAwesomeIcon icon={faPen} />
+                                            <span style={{ paddingRight: '4px' }}>Xem chi tiết</span>
+                                             {/* <FontAwesomeIcon icon={faPen} /> */}
+                                            <div>
+                                            </div>
+                                        </div>
+                                        <div
+                                            type="button"
+                                            className="button_edit_element btn btn-link btn-sm btn-rounded text-primary"
+                                            onClick={() => handleEditButtonClick(product)}
+                                       
+
+                                        >
+                                        
+                                             <FontAwesomeIcon icon={faPen} />
                                             <div>
                                             </div>
                                         </div>

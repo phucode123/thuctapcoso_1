@@ -38,11 +38,11 @@ function ListByAuthor({ Author_name }) {
     const Author = [
         {
             id: 0,
-            title: 'adidas'
+            title: 'Adidas'
         },
         {
             id: 1,
-            title: 'nike'
+            title: 'Nike'
         },{
             id: 2,
             title: 'Vans'

@@ -124,6 +124,7 @@ export default function BuyProduct({ product, size, quan, optionsize, isShow, se
                         console.log(response.data.data.vnpUrl); // In ra dữ liệu phản hồi từ server nếu thành công
                         window.localStorage.setItem('backto', `/san-pham/${product.id}`)
                         window.localStorage.setItem('data', JSON.stringify(Data))
+                        console.log(Data);
                         window.location.href = response.data.data.vnpUrl
                         // postData(Data)
                     } catch (error) {

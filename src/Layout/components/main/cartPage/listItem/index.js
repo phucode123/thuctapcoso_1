@@ -44,9 +44,12 @@ export default function ListProduct({ user, setListProduct }) {
     setQuantities(updatedQuantities);
   }, [cartItems]);
 
+  // if (token) {
   useEffect(() => {
+
     fetchData();
   }, [token]);
+  // }
 
   const handleItemClick = (itemId) => {
     // console.log(itemId);
@@ -128,7 +131,7 @@ export default function ListProduct({ user, setListProduct }) {
     <div className="cart">
       <div className="title">
         <div className="header_cart_title">
-          <h4 className="Heading_title_cart">Shopping Cart</h4>
+          <h4 className="Heading_title_cart">Giỏ hàng của bạn</h4>
         </div>
       </div>
 

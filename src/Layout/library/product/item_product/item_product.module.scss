@@ -138,3 +138,51 @@
 .image-flip {
     transform: scaleX(-1);
 }
+
+.product-item__sale-off {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    right: 10px;
+    top: 0;
+    width: 40px;
+    height: 46px;
+    background-color: red;
+    text-align: center;
+    font-weight: 500;
+    padding: 4px 2px 3px;
+
+    z-index: 999;
+    /* border-top-right-radius: 2px; */
+
+
+}
+
+.product-item__sale-off::after {
+    content: "";
+    width: 0;
+    height: 0;
+    left: 0;
+    bottom: -4px;
+    position: absolute;
+    /* trên dưới transparent , trái phải là rgba */
+    border-color: transparent red;
+    border-style: solid;
+    /* trên, ngang, dưới */
+    border-width: 0px 20px 4px;
+}
+
+.product-item__sale-off__percent {
+
+    color: white;
+    font-size: 13px;
+    line-height: 18px;
+
+}
+
+.product-item__sale-off__label {
+    font-size: 13px;
+    line-height: 13px;
+    color: white;
+
+}

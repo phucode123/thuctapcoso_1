@@ -53,6 +53,7 @@
     /* padding: 5px 20px; */
     width: 33%;
     /* line-height: 100%; */
+    font-weight: 500;
     display: flex;
     align-items: center;
 }
@@ -83,4 +84,23 @@
 
 .table{
     height: 400px;
+}
+
+.form_edit_save_cancel {
+    /* margin: 20px; */
+    padding: 10px;
+    background-color: #f2f2f2;
+    border-radius: 5px;
+}
+
+.form_edit_save_cancel h3 {
+    color: #333;
+    font-size: 17px;
+    margin-bottom: 10px;
+}
+
+.form_edit_save_cancel p {
+    color: #666;
+    font-size: 14px;
+    line-height: 1.5;
 }

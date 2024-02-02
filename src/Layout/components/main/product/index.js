@@ -52,33 +52,39 @@ function Product() {
         }
         else {
             const tokenCurren = getToken();
+            if (!tokenCurren) {
+                alert('Hãy đăng nhập để thực hiện chức năng này')
+            }
             // console.log(tokenCurren, 'id giay:', product.id, 'size:', optionChange);
-            let data = {
-                token: tokenCurren,
-                id_product: product.id,
-                size: optionsize.size,
-                id_size: optionsize.id_size,
-                quantity: quantity
-            }
-            console.log(data);
-            try {
-                const response =
-                    await axios.post('http://localhost:3001/api/v1/post-product-to-cart', data);
-                console.log(response); // In ra dữ liệu phản hồi từ server nếu thành công 
+            else {
+                let data = {
+                    token: tokenCurren,
+                    id_product: product.id,
+                    size: optionsize.size,
+                    id_size: optionsize.id_size,
+                    quantity: quantity
+                }
+                console.log(data);
+                try {
+                    const response =
+                        await axios.post('http://localhost:3001/api/v1/post-product-to-cart', data);
+                    console.log(response); // In ra dữ liệu phản hồi từ server nếu thành công 
 
-                setStatus(true)
-                setIsshow(true)
-                // setIsshow(true)
-                setTitle('Thành công')
-                setMessenger("Thêm vào giỏ thành công")
-            } catch (error) {
-                // setStatus(false)
-                // // setIsshow(true)
-                // setIsshow(true)
-                // setTitle('Không thành công')
-                // setMessenger(error)
-                console.error(error);
+                    setStatus(true)
+                    setIsshow(true)
+                    // setIsshow(true)
+                    setTitle('Thành công')
+                    setMessenger("Thêm vào giỏ thành công")
+                } catch (error) {
+                    // setStatus(false)
+                    // // setIsshow(true)
+                    // setIsshow(true)
+                    // setTitle('Không thành công')
+                    // setMessenger(error)
+                    console.error(error);
+                }
             }
+
         }
     };
     // console.log(optionChange);
@@ -149,7 +155,7 @@ function Product() {
                                     if (optionChange) {
                                         setIsShowBuy(true)
                                     }
-                                    else{
+                                    else {
                                         alert('vui lòng chọn size và số lượng')
                                     }
                                 }}><a>Đặt mua ngay</a></div>

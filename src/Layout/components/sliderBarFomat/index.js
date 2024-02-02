@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styles from './sliderBar.module.scss';
 import classNames from 'classnames/bind';
-
+import { Link } from 'react-router-dom';
 import Item_product from '../../library/product/item_product';
 
 const cx = classNames.bind(styles);
@@ -72,7 +72,7 @@ function SlideContainer({ selectedId, tabs }) {
 
                 </div>
                 <li className={cx("girdslider-menu-item", "center")} >
-                    <a >XEM THÊM</a>
+                    <Link >XEM THÊM</Link>
                 </li>
 
 

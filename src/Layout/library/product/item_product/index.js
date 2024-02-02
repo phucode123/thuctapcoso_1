@@ -43,6 +43,14 @@ function Item_product({ product, limit }) {
                         <h4 className={cx('product-old-price')}>{product.price.toLocaleString()}đ</h4>
                     </div>
                 </div>
+                <div className={cx("product-item__sale-off")}>
+                      <span className={cx("product-item__sale-off__percent")}>
+                        {product.discount}%
+                      </span>
+                      <span className={cx("product-item__sale-off__label")}>
+                        Giảm
+                      </span>
+                    </div>
             </Link>
         </div>
     );
